@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #f4f0e6;
+  --foreground: #1c1915;
+  --card: #fffdf8;
+  --card-foreground: #1c1915;
+  --muted: #ebe4d6;
+  --muted-foreground: #5e584e;
+  --border: #ddd4c3;
+  --primary: #0f6e56;
+  --primary-foreground: #f3fff8;
+  --secondary: #efe8da;
+  --secondary-foreground: #1c1915;
+  --accent: #e5f4ee;
+  --accent-foreground: #0f6e56;
+  --ring: #0f6e56;
+  --danger: #9f1239;
+  --warning: #b45309;
+  --ok: #047857;
+}
+
+.dark {
+  --background: #10140f;
+  --foreground: #e8eee4;
+  --card: #181d17;
+  --card-foreground: #e8eee4;
+  --muted: #242a22;
+  --muted-foreground: #a7b2a3;
+  --border: #31382e;
+  --primary: #3ddc97;
+  --primary-foreground: #052117;
+  --secondary: #242a22;
+  --secondary-foreground: #e8eee4;
+  --accent: #1a2e24;
+  --accent-foreground: #8ef0c0;
+  --ring: #3ddc97;
+  --danger: #fb7185;
+  --warning: #fbbf24;
+  --ok: #34d399;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-ring: var(--ring);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-ok: var(--ok);
+  --font-sans: var(--font-outfit);
+  --font-mono: var(--font-plex);
+  --radius-sm: 0.4rem;
+  --radius-md: 0.7rem;
+  --radius-lg: 1rem;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(1200px 500px at 10% -10%, color-mix(in oklab, var(--primary) 16%, transparent), transparent 60%),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-outfit), sans-serif;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--primary) 35%, white);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
