@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DISCLAIMER } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "What PHP Security Checker does, and what it refuses to do.",
+  description:
+    "What PHP Security Checker does and refuses to do, its data sources, privacy, and the full disclaimer for version-based checks.",
 };
 
 export default function AboutPage() {
@@ -53,6 +55,18 @@ export default function AboutPage() {
           </CardContent>
         </Card>
       </div>
+      <Card id="disclaimer" className="mt-4 scroll-mt-24">
+        <CardHeader>
+          <CardTitle>Disclaimer</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3 text-sm leading-6 text-muted-foreground">
+          <p>{DISCLAIMER}</p>
+          <p>
+            Data comes from NIST NVD, php.net release and support pages, the PHP ChangeLog, and GitHub Security
+            Advisories for php/php-src. Nothing here scans your server or runs the version you type.
+          </p>
+        </CardContent>
+      </Card>
     </main>
   );
 }
