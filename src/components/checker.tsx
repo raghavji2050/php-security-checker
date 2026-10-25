@@ -2,7 +2,7 @@
 
 import { Loader2, Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { ResultsDashboard } from "@/components/results-dashboard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -25,9 +25,49 @@ function readHistory(): string[] {
   }
 }
 
+const historyListeners = new Set<() => void>();
+const EMPTY_HISTORY: string[] = [];
+let cachedRaw: string | null = null;
+let cachedHistory: string[] = EMPTY_HISTORY;
+
+function subscribeHistory(listener: () => void) {
+  historyListeners.add(listener);
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === null || event.key === HISTORY_KEY) listener();
+  };
+  window.addEventListener("storage", onStorage);
+  return () => {
+    historyListeners.delete(listener);
+    window.removeEventListener("storage", onStorage);
+  };
+}
+
+function getHistorySnapshot(): string[] {
+  let raw: string | null = null;
+  try {
+    raw = window.localStorage.getItem(HISTORY_KEY);
+  } catch {
+    raw = null;
+  }
+  if (raw !== cachedRaw) {
+    cachedRaw = raw;
+    cachedHistory = readHistory();
+  }
+  return cachedHistory;
+}
+
+function getServerHistorySnapshot(): string[] {
+  return EMPTY_HISTORY;
+}
+
 function writeHistory(version: string) {
   const next = [version, ...readHistory().filter((item) => item !== version)].slice(0, 8);
-  window.localStorage.setItem(HISTORY_KEY, JSON.stringify(next));
+  try {
+    window.localStorage.setItem(HISTORY_KEY, JSON.stringify(next));
+  } catch {
+    // Storage may be unavailable (private mode, quota); history is optional.
+  }
+  historyListeners.forEach((listener) => listener());
 }
 
 export function Checker() {
@@ -39,11 +79,7 @@ export function Checker() {
   const [result, setResult] = useState<CheckResult | null>(null);
   const [failure, setFailure] = useState<{ version: string; message: string } | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
-  const [history, setHistory] = useState<string[]>([]);
-
-  useEffect(() => {
-    setHistory(readHistory());
-  }, []);
+  const history = useSyncExternalStore(subscribeHistory, getHistorySnapshot, getServerHistorySnapshot);
 
   if (requested !== trackedRequest) {
     setTrackedRequest(requested);
@@ -69,7 +105,6 @@ export function Checker() {
         if (!response.ok) throw new Error(body.error || "The check could not be completed.");
         setResult(body);
         writeHistory(version);
-        setHistory(readHistory());
       })
       .catch((reason: unknown) => {
         if (reason instanceof DOMException && reason.name === "AbortError") return;

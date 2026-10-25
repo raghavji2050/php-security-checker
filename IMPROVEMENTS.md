@@ -10,3 +10,7 @@ One small improvement per day. Each entry lists the area so topics rotate and no
 
 - CI linting: GitHub Actions for lint, typecheck, test, build (the current push token lacks the `workflow` scope, so this needs Raghav to add the file or grant the scope).
 - Error handling and timeouts, caching, UI/accessibility, SEO/meta, README, composer.lock/package.json advisory feature.
+
+## 2026-10-25 — Fix CI lint (react-hooks/set-state-in-effect)
+- Recent-history list in `checker.tsx` now reads localStorage via `useSyncExternalStore` (server snapshot = empty list, so no hydration mismatch; syncs across tabs via `storage` events) instead of `setState` inside `useEffect`.
+- `npm ci`, lint, tests and build pass locally; GitHub Actions CI green on the PR.
