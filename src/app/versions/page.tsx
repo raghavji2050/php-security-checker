@@ -3,7 +3,7 @@ import { VersionsBoard } from "@/components/versions-board";
 
 export const metadata: Metadata = {
   title: "PHP Versions",
-  description: "Official PHP branch support windows and the latest patch on each branch.",
+  description: "Official PHP branch support windows from php.net: active support, security-only, end of life, and the latest patch release on each branch.",
 };
 
 export default function VersionsPage() {
