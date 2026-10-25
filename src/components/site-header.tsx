@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 const LINKS = [
   { href: "/", label: "Home" },
   { href: "/vulnerabilities", label: "Vulnerabilities" },
+  { href: "/how-it-works", label: "How it works" },
   { href: "/versions", label: "PHP Versions" },
   { href: "/about", label: "About" },
 ];
@@ -64,7 +65,7 @@ export function SiteHeader() {
               key={link.href}
               href={link.href}
               className={cn(
-                "rounded-full border border-border px-3 py-1 text-sm text-muted-foreground",
+                "shrink-0 whitespace-nowrap rounded-full border border-border px-3 py-1 text-sm text-muted-foreground",
                 active && "border-primary bg-accent text-accent-foreground",
               )}
               aria-current={active ? "page" : undefined}

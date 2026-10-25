@@ -1,11 +1,12 @@
 "use client";
 
-import { Check, ChevronDown, Copy, ExternalLink, Share2 } from "lucide-react";
+import { Check, ChevronDown, Copy, Download, ExternalLink, Link2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { formatStampWithZone } from "@/lib/format";
 import type { CheckResult, Finding, SecurityStatus } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -90,10 +91,26 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
   }
 
   async function share() {
-    const url = new URL(window.location.href);
-    url.searchParams.set("version", result.version);
-    await navigator.clipboard.writeText(url.toString());
-    setCopied("link");
+    const url = new URL("/", window.location.origin);
+    url.searchParams.set("v", result.version);
+    try {
+      await navigator.clipboard.writeText(url.toString());
+      setCopied("link");
+    } catch {
+      window.prompt("Copy this link", url.toString());
+    }
+  }
+
+  function downloadJson() {
+    const blob = new Blob([JSON.stringify(result, null, 2)], { type: "application/json" });
+    const href = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = href;
+    anchor.download = `php-${result.version}-security-check.json`;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    URL.revokeObjectURL(href);
   }
 
   return (
@@ -110,10 +127,18 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
           Copy results
         </Button>
         <Button type="button" variant="outline" onClick={() => void share()}>
-          {copied === "link" ? <Check /> : <Share2 />}
-          Copy share link
+          {copied === "link" ? <Check /> : <Link2 />}
+          Copy link
+        </Button>
+        <Button type="button" variant="outline" onClick={downloadJson}>
+          <Download />
+          Download JSON
         </Button>
       </div>
+      <p className="-mt-2 text-sm text-muted-foreground">
+        Data last updated: {formatStampWithZone(result.lastDataUpdate)}
+        {result.stale ? " · cached copy, the live source was unavailable, so this result may be incomplete" : ""}
+      </p>
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label="Current version" value={result.version} mono />
@@ -258,7 +283,7 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
           <div className="space-y-3 md:hidden">
             {rows.length === 0 && <p className="text-sm text-muted-foreground">No rows match these filters.</p>}
             {rows.map((finding) => (
-              <article key={finding.id} className="rounded-md border border-border p-3 text-sm">
+              <article key={finding.id} className="rounded-md border border-border min-w-0 p-3 text-sm [overflow-wrap:anywhere]">
                 <div className="flex items-start justify-between gap-2">
                   <p className="font-mono font-medium">{finding.cveId ?? finding.id}</p>
                   <Badge variant={severityVariant(finding.severity)}>{finding.severity ?? "Not provided"}</Badge>
@@ -306,7 +331,6 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
               </span>
             </p>
           ))}
-          <p className="text-muted-foreground">{result.disclaimer}</p>
         </CardContent>
       </Card>
     </section>
@@ -367,7 +391,7 @@ function FindingRows({ finding, open, onToggle }: { finding: Finding; open: bool
 
 function FindingDetails({ finding }: { finding: Finding }) {
   return (
-    <div className="space-y-2 py-1 text-sm leading-6">
+    <div className="min-w-0 space-y-2 py-1 text-sm leading-6 [overflow-wrap:anywhere]">
       <p>{finding.description || "No description was published."}</p>
       <p className="text-muted-foreground">{finding.fixedVersionNote}</p>
       {finding.prerequisites.length > 0 && <p>Prerequisites: {finding.prerequisites.join("; ")}</p>}
