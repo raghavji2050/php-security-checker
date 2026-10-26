@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const metadata: Metadata = {
   title: "How it works",
   description:
     "How PHP Security Checker matches a PHP version to NVD, php.net and GitHub records, which sources it trusts, and what happens when a source is down.",
 };
+
+const SECTIONS = [
+  { id: "matching", label: "Matching" },
+  { id: "rce", label: "RCE and shell risk" },
+  { id: "status", label: "Status colors" },
+] as const;
 
 export default function HowItWorksPage() {
   return (
@@ -20,13 +25,24 @@ export default function HowItWorksPage() {
         browse the <Link className="text-primary underline-offset-2 hover:underline" href="/vulnerabilities">vulnerability list</Link>.
       </p>
 
-      <Tabs defaultValue="matching" className="mt-8">
-        <TabsList>
-          <TabsTrigger value="matching">Matching</TabsTrigger>
-          <TabsTrigger value="rce">RCE and shell risk</TabsTrigger>
-          <TabsTrigger value="status">Status colors</TabsTrigger>
-        </TabsList>
-        <TabsContent value="matching">
+      <nav aria-label="On this page" className="mt-8">
+        <ul className="inline-flex flex-wrap items-center gap-1 rounded-md bg-muted p-1">
+          {SECTIONS.map((section) => (
+            <li key={section.id}>
+              <a
+                href={`#${section.id}`}
+                className="inline-flex items-center justify-center rounded-sm px-3 py-1.5 text-sm font-medium text-muted-foreground hover:bg-card hover:text-foreground"
+              >
+                {section.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div className="mt-6 space-y-8">
+        <section id="matching" aria-labelledby="matching-heading" className="scroll-mt-20">
+          <h2 id="matching-heading" className="mb-3 text-xl font-semibold tracking-tight">Matching</h2>
           <Card>
             <CardContent className="space-y-3 p-5 text-sm leading-6 text-muted-foreground">
               <p>The version must be MAJOR.MINOR.PATCH. A missing patch is rejected instead of being guessed.</p>
@@ -42,8 +58,9 @@ export default function HowItWorksPage() {
               <p>Fixed releases come from those ranges and must also appear in the php.net release index. Otherwise the fix is &quot;Not verified&quot;.</p>
             </CardContent>
           </Card>
-        </TabsContent>
-        <TabsContent value="rce">
+        </section>
+        <section id="rce" aria-labelledby="rce-heading" className="scroll-mt-20">
+          <h2 id="rce-heading" className="mb-3 text-xl font-semibold tracking-tight">RCE and shell risk</h2>
           <Card>
             <CardContent className="space-y-3 p-5 text-sm leading-6 text-muted-foreground">
               <p>
@@ -57,8 +74,9 @@ export default function HowItWorksPage() {
               </p>
             </CardContent>
           </Card>
-        </TabsContent>
-        <TabsContent value="status">
+        </section>
+        <section id="status" aria-labelledby="status-heading" className="scroll-mt-20">
+          <h2 id="status-heading" className="mb-3 text-xl font-semibold tracking-tight">Status colors</h2>
           <div className="grid gap-3 md:grid-cols-3">
             <Card>
               <CardContent className="p-5 text-sm leading-6">
@@ -79,8 +97,8 @@ export default function HowItWorksPage() {
               </CardContent>
             </Card>
           </div>
-        </TabsContent>
-      </Tabs>
+        </section>
+      </div>
 
       <div className="mt-8 space-y-3">
         <details open className="group rounded-lg border border-border bg-card p-5">
