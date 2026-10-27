@@ -114,8 +114,8 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
   }
 
   return (
-    <section aria-live="polite" className="mt-8 flex flex-col gap-5">
-      <div className={cn("rounded-lg p-5 shadow-sm", STATUS_CLASS[result.securityStatus])}>
+    <section aria-live="polite" className="mt-8 flex min-w-0 flex-col gap-5">
+      <div className={cn("min-w-0 break-words rounded-lg p-5 shadow-sm [overflow-wrap:anywhere]", STATUS_CLASS[result.securityStatus])}>
         <p className="text-xs font-medium uppercase tracking-[0.16em] opacity-80">Security status</p>
         <h2 className="mt-1 text-2xl font-semibold tracking-tight">{result.securityStatusLabel}</h2>
         <p className="mt-2 max-w-3xl text-sm leading-6 opacity-95">{result.statusExplanation}</p>
@@ -155,32 +155,34 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
         />
       </div>
 
-      <Card>
+      <Card className="min-w-0 overflow-hidden">
         <CardHeader>
           <CardTitle>Upgrade recommendation</CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-4 text-sm leading-6">
-          <div>
+        <CardContent className="grid min-w-0 gap-4 text-sm leading-6">
+          <div className="min-w-0">
             <p className="font-medium">Minimum security fix on PHP {result.support.branch}</p>
-            <p className="text-muted-foreground">{result.minimumFixedNote}</p>
+            <p className="break-words text-muted-foreground [overflow-wrap:anywhere]">{result.minimumFixedNote}</p>
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="font-medium">Recommended long-term release</p>
-            <p className="text-muted-foreground">{result.recommendedNote}</p>
+            <p className="break-words text-muted-foreground [overflow-wrap:anywhere]">{result.recommendedNote}</p>
           </div>
-          <ul className="list-disc space-y-2 pl-5 text-muted-foreground">
+          <ul className="min-w-0 list-disc space-y-2 break-words pl-4 text-muted-foreground [overflow-wrap:anywhere]">
             {result.compatibilityNotes.map((note) => (
-              <li key={note}>{note}</li>
+              <li key={note} className="min-w-0 break-words [overflow-wrap:anywhere]">
+                {note}
+              </li>
             ))}
           </ul>
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="min-w-0 overflow-hidden">
         <CardHeader>
           <CardTitle>Support timeline</CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-4">
+        <CardContent className="grid min-w-0 gap-3 text-sm sm:grid-cols-2 lg:grid-cols-4">
           <Fact label="Initial release" value={formatDay(result.support.initialReleaseDate)} />
           <Fact label="Active support end" value={formatDay(result.support.activeSupportEnd)} />
           <Fact label="Security support end" value={formatDay(result.support.securitySupportEnd)} />
@@ -188,12 +190,12 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="min-w-0 overflow-hidden">
         <CardHeader>
-          <CardTitle>Remote Code Execution & Shell Execution Risk</CardTitle>
+          <CardTitle className="break-words [overflow-wrap:anywhere]">Remote Code Execution & Shell Execution Risk</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4 text-sm leading-6">
-          <p className="text-muted-foreground">
+        <CardContent className="min-w-0 space-y-4 text-sm leading-6">
+          <p className="break-words text-muted-foreground [overflow-wrap:anywhere]">
             This section lists matched records whose CWE or description indicates remote code execution, command
             injection, shell execution, CGI argument injection, code execution, or unsafe runtime behavior. The
             basis is shown for each one. A matching version does not prove the bug is exploitable: the SAPI,
@@ -202,9 +204,9 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
           {result.rceVulnerabilities.length === 0 ? (
             <p>No RCE-classified records matched this version in the current data.</p>
           ) : (
-            <ul className="space-y-3">
+            <ul className="min-w-0 space-y-3">
               {result.rceVulnerabilities.map((finding) => (
-                <li key={finding.id} className="rounded-md border border-border p-3">
+                <li key={finding.id} className="min-w-0 break-words rounded-md border border-border p-3 [overflow-wrap:anywhere]">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="font-mono font-medium">{finding.cveId ?? finding.ghsaId ?? finding.id}</span>
                     <Badge variant={finding.verdict === "confirmed" ? "danger" : "warning"}>{finding.verdictLabel}</Badge>
@@ -230,11 +232,11 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="min-w-0 overflow-hidden">
         <CardHeader>
           <CardTitle>Vulnerability table</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="min-w-0 space-y-4">
           <div className="flex flex-wrap gap-2" role="group" aria-label="Filter severity">
             {["all", "CRITICAL", "HIGH", "MEDIUM", "LOW", "unknown"].map((item) => (
               <Button
@@ -299,11 +301,11 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
       </Card>
 
       {(result.warnings.length > 0 || result.notes.length > 0) && (
-        <Card>
+        <Card className="min-w-0 overflow-hidden">
           <CardHeader>
             <CardTitle>Data notes</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2 text-sm text-muted-foreground">
+          <CardContent className="min-w-0 space-y-2 break-words text-sm text-muted-foreground [overflow-wrap:anywhere]">
             {result.warnings.map((warning) => (
               <p key={warning}>{warning}</p>
             ))}
@@ -314,11 +316,11 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
         </Card>
       )}
 
-      <Card>
+      <Card className="min-w-0 overflow-hidden">
         <CardHeader>
           <CardTitle>Sources</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-2 text-sm">
+        <CardContent className="min-w-0 space-y-2 break-words text-sm [overflow-wrap:anywhere]">
           {result.sources.map((source) => (
             <p key={source.name}>
               <a className="underline-offset-2 hover:underline" href={source.url} target="_blank" rel="noreferrer">
@@ -339,11 +341,11 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
 
 function Stat({ label, value, detail, mono = false }: { label: string; value: string; detail?: string; mono?: boolean }) {
   return (
-    <Card>
-      <CardContent className="p-4">
+    <Card className="min-w-0 overflow-hidden">
+      <CardContent className="min-w-0 p-4">
         <p className="text-xs uppercase tracking-wide text-muted-foreground">{label}</p>
-        <p className={cn("mt-1 text-lg font-semibold", mono && "font-mono")}>{value}</p>
-        {detail && <p className="text-xs text-muted-foreground">{detail}</p>}
+        <p className={cn("mt-1 break-words text-lg font-semibold [overflow-wrap:anywhere]", mono && "font-mono")}>{value}</p>
+        {detail && <p className="break-words text-xs text-muted-foreground [overflow-wrap:anywhere]">{detail}</p>}
       </CardContent>
     </Card>
   );

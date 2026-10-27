@@ -16,7 +16,7 @@ const SECTIONS = [
 
 export default function HowItWorksPage() {
   return (
-    <main className="mx-auto w-full max-w-6xl px-4 py-10">
+    <main className="mx-auto w-full min-w-0 max-w-6xl px-4 py-10">
       <p className="text-sm font-medium uppercase tracking-[0.18em] text-primary">Detection</p>
       <h1 className="mt-2 text-4xl font-semibold tracking-tight">How it works</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
