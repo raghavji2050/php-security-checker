@@ -140,7 +140,7 @@ export function Checker() {
 
   return (
     <div>
-      <section className="mx-auto max-w-6xl px-4 pb-4 pt-10 md:pt-16">
+      <section className="mx-auto min-w-0 max-w-6xl px-4 pb-4 pt-10 md:pt-16">
         <p className="text-sm font-medium uppercase tracking-[0.18em] text-primary">Runtime advisory desk</p>
         <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl">
           Check your PHP version for known vulnerabilities

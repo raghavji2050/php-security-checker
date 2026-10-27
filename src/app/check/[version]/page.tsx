@@ -63,7 +63,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default function CheckVersionPage({ params }: Params) {
   return (
-    <Suspense fallback={<main className="mx-auto w-full max-w-6xl px-4 py-10"><Skeleton className="h-64 w-full" /></main>}>
+    <Suspense fallback={<main className="mx-auto w-full min-w-0 max-w-6xl px-4 py-10"><Skeleton className="h-64 w-full" /></main>}>
       <Report params={params} />
     </Suspense>
   );
@@ -75,7 +75,7 @@ async function Report({ params }: Params) {
   const loaded = await load(version.raw);
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-4 py-10">
+    <main className="mx-auto w-full min-w-0 max-w-6xl px-4 py-10">
       <p className="text-sm font-medium uppercase tracking-[0.18em] text-primary">Version report</p>
       <h1 className="mt-2 text-4xl font-semibold tracking-tight">PHP {version.raw} security check</h1>
       {loaded.ok ? (
