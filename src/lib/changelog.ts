@@ -44,7 +44,7 @@ export async function fetchChangelogIndex(): Promise<ChangelogIndex> {
   const failures: string[] = [];
   for (const url of CHANGELOGS) {
     try {
-      const html = await fetchText(url, {}, { timeoutMs: 60_000, retries: 2 });
+      const html = await fetchText(url, {}, { timeoutMs: 60_000, retries: 2, deadlineMs: 75_000 });
       parts.push(parseChangelogHtml(html));
     } catch {
       failures.push(new URL(url).pathname);
