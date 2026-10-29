@@ -41,7 +41,7 @@ export async function fetchPhpRuntimeCves(): Promise<NormalizedCve[]> {
     url.searchParams.set("noRejected", "");
     const headers: Record<string, string> = {};
     if (process.env.NVD_API_KEY) headers.apiKey = process.env.NVD_API_KEY;
-    const page = await fetchJson<NvdPage>(url.toString(), { headers }, { timeoutMs: 60_000, retries: 3 });
+    const page = await fetchJson<NvdPage>(url.toString(), { headers }, { timeoutMs: 60_000, retries: 3, deadlineMs: 90_000 });
     const batch = page.vulnerabilities ?? [];
     for (const item of batch) {
       const parsed = parseNvdCve(item);

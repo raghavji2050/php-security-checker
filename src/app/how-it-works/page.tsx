@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
+import { FAQ, faqJsonLd, jsonLdString } from "@/lib/faq";
 
 export const metadata: Metadata = {
   title: "How it works",
@@ -12,11 +13,13 @@ const SECTIONS = [
   { id: "matching", label: "Matching" },
   { id: "rce", label: "RCE and shell risk" },
   { id: "status", label: "Status colors" },
+  { id: "faq", label: "Quick answers" },
 ] as const;
 
 export default function HowItWorksPage() {
   return (
     <main className="mx-auto w-full min-w-0 max-w-6xl px-4 py-10">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(faqJsonLd()) }} />
       <p className="text-sm font-medium uppercase tracking-[0.18em] text-primary">Detection</p>
       <h1 className="mt-2 text-4xl font-semibold tracking-tight">How it works</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
@@ -137,6 +140,18 @@ export default function HowItWorksPage() {
           </div>
         </details>
       </div>
+
+      <section id="faq" aria-labelledby="faq-heading" className="mt-8 scroll-mt-20">
+        <h2 id="faq-heading" className="mb-3 text-xl font-semibold tracking-tight">Quick answers</h2>
+        <div className="space-y-3">
+          {FAQ.map((item) => (
+            <div key={item.question} className="rounded-lg border border-border bg-card p-5">
+              <h3 className="text-sm font-medium">{item.question}</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.answer}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
