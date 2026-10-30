@@ -33,7 +33,13 @@ async function load(raw: string): Promise<Loaded> {
 }
 
 function parseParam(value: string) {
-  const decoded = decodeURIComponent(value);
+  let decoded: string;
+  try {
+    decoded = decodeURIComponent(value);
+  } catch {
+    // Malformed percent-encoding (e.g. /check/%E0) is a bad version, not a server error.
+    return null;
+  }
   if (decoded.length > 32) return null;
   return parsePhpVersion(decoded);
 }

@@ -16,8 +16,9 @@ One small improvement per day. Each entry lists the area so topics rotate and no
 | --- | --- | --- | --- |
 | 1 | 2026-10-28 | Public JSON API `GET /api/check?v=X.Y.Z` (legacy `?version=` still works): strict MAJOR.MINOR.PATCH validation, JSON errors with `code` (`missing_version`, `invalid_version`, `rate_limited`, `data_unavailable`, `internal_error`) and matching status codes (400/429/503/500), CORS for GET plus OPTIONS preflight. OpenAPI 3.1 spec at `/openapi.json`. Route + spec tests in `src/lib/api.test.ts`. | improve/2026-10-28 |
 | 2 | 2026-10-29 | `/llms.txt` (site summary, `/check/{version}`, `/api/check`, `/openapi.json`, quick answers). "Quick answers" section on `/how-it-works` with matching FAQPage JSON-LD (shared text in `src/lib/faq.ts`). Upstream calls now have a total time budget (`deadlineMs`, default 45s; NVD 90s, ChangeLog 75s): no new attempt or Retry-After wait starts past it, so a slow php.net/NVD falls back to the cached copy instead of hanging the page. Tests in `src/lib/http.test.ts` and `src/lib/llms.test.ts`. | improve/2026-10-29 |
+| 3 | 2026-10-30 | Security hardening. Added HSTS (2 years, includeSubDomains), Cross-Origin-Opener-Policy and X-Permitted-Cross-Domain-Policies next to the existing CSP (`frame-ancestors 'none'`), nosniff, Referrer-Policy and Permissions-Policy. The in-memory sliding-window rate limiter is capped at 5000 tracked addresses with pruning, so a flood can't grow memory, and it prefers Vercel's `x-vercel-forwarded-for` client IP. `/api/check` now returns `X-RateLimit-Limit`/`-Remaining` (exposed via CORS) and 429 + Retry-After. `/check/%E0`-style malformed URLs now return not-found instead of a 500. Tests in `src/lib/rate-limit.test.ts` and `src/lib/security-headers.test.ts`. | improve/2026-10-30 |
 
-Next: Day 3 (security headers, input validation, rate limiting on /api/check).
+Next: Day 4 (unit tests for version matching/CVE logic, API route tests, page smoke test in CI).
 
 ## Ideas queue (not done yet)
 
