@@ -55,6 +55,25 @@ describe("GET /api/check", () => {
     expect(body.securityStatus).toBe("unable_to_verify");
   });
 
+  it("returns a generic 500 without leaking internal error details", async () => {
+    const spy = vi.spyOn(console, "error").mockImplementation(() => {});
+    checkVersion.mockRejectedValue(new Error("secret internal path /var/task/x"));
+    const res = await GET(req("?v=8.2.1"));
+    expect(res.status).toBe(500);
+    const body = await res.json();
+    expect(body.code).toBe("internal_error");
+    expect(JSON.stringify(body)).not.toContain("/var/task");
+    spy.mockRestore();
+  });
+
+  it("sends rate-limit headers on normal responses", async () => {
+    checkVersion.mockResolvedValue({});
+    const res = await GET(req("?v=8.2.1", "5.5.5.5"));
+    expect(res.headers.get("x-ratelimit-limit")).toBe("20");
+    expect(Number(res.headers.get("x-ratelimit-remaining"))).toBe(19);
+    expect(res.headers.get("cache-control")).toBe("no-store");
+  });
+
   it("returns 429 with Retry-After after too many requests", async () => {
     checkVersion.mockResolvedValue({});
     for (let i = 0; i < 20; i += 1) await GET(req("?v=8.2.1", "9.9.9.9"));
