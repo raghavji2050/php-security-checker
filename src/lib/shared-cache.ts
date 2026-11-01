@@ -27,7 +27,11 @@ export function setSharedStore(store: SharedStore | null | undefined) {
 function store(): SharedStore | null {
   if (override !== undefined) return override;
   if (process.env.SHARED_CACHE === "off") return null;
-  if (!process.env.RUNTIME_CACHE_ENDPOINT || !process.env.RUNTIME_CACHE_HEADERS) return null;
+  // On Vercel the Runtime Cache client comes from the per-request context (not env vars),
+  // so detect the platform itself; the endpoint env vars cover builds and other hosts.
+  const onVercel = process.env.VERCEL === "1";
+  const hasEndpoint = Boolean(process.env.RUNTIME_CACHE_ENDPOINT && process.env.RUNTIME_CACHE_HEADERS);
+  if (!onVercel && !hasEndpoint) return null;
   return getCache({ namespace: "psc" });
 }
 
