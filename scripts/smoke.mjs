@@ -18,6 +18,7 @@ const checks = [
   { path: "/sitemap.xml", status: 200, contains: "<urlset" },
   { path: "/api/check", status: 400, json: (b) => b.code === "missing_version" },
   { path: "/api/check?v=8.1", status: 400, json: (b) => b.code === "invalid_version" },
+  { path: "/api/health", status: 200, json: (b) => (b.status === "ok" || b.status === "degraded") && Array.isArray(b.sources) },
   { path: "/this-page-does-not-exist", status: 404 },
 ];
 

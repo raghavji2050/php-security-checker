@@ -26,6 +26,7 @@ export function buildLlmsTxt(): string {
     "## API",
     "",
     `- [GET /api/check?v={version}](${url("/api/check?v=8.1.12")}): JSON report for one version. CORS enabled for GET. Errors are JSON with \`code\` (missing_version, invalid_version, rate_limited, data_unavailable, internal_error) and a matching HTTP status.`,
+    `- [GET /api/health](${url("/api/health")}): app status and data freshness (NVD, php.net, ChangeLog, GitHub advisories).`,
     `- [OpenAPI 3.1 spec](${url("/openapi.json")}): machine-readable description of the API.`,
     "",
     "## Quick answers",

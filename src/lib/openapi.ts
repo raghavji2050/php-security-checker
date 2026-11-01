@@ -110,6 +110,18 @@ export function buildOpenApiSpec() {
           },
         },
       },
+      "/api/health": {
+        get: {
+          operationId: "health",
+          summary: "App status and data freshness (cached data only, never calls upstream sources)",
+          responses: {
+            "200": {
+              description: "status is ok when NVD data is cached and fresh, otherwise degraded.",
+              content: { "application/json": { schema: { type: "object" } } },
+            },
+          },
+        },
+      },
     },
   };
 }

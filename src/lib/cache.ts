@@ -1,6 +1,7 @@
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
+import { readShared, writeShared } from "@/lib/shared-cache";
 
 export type CacheEnvelope<T> = {
   storedAt: string;
@@ -101,15 +102,26 @@ async function loadThroughCache<T>(options: {
   load: () => Promise<T>;
   allowStale: boolean;
 }): Promise<{ data: T; storedAt: string; stale: boolean }> {
-  const cached = await readCache<T>(options.key);
+  let cached = await readCache<T>(options.key);
   if (cached && isFresh(cached)) {
     return { data: cached.data, storedAt: cached.storedAt, stale: false };
+  }
+
+  // Cold or stale instance: another instance may already have fresh data in the shared tier.
+  const shared = await readShared<T>(options.key);
+  if (shared && (!cached || Date.parse(shared.storedAt) > Date.parse(cached.storedAt))) {
+    if (isFresh(shared)) {
+      await writeCache(options.key, shared.data, shared.ttlMs, shared.storedAt).catch(() => undefined);
+      return { data: shared.data, storedAt: shared.storedAt, stale: false };
+    }
+    cached = shared;
   }
 
   try {
     const data = await options.load();
     const storedAt = new Date().toISOString();
     await writeCache(options.key, data, options.ttlMs, storedAt);
+    await writeShared(options.key, { storedAt, ttlMs: options.ttlMs, data });
     return { data, storedAt, stale: false };
   } catch (error) {
     if (options.allowStale && cached) {
@@ -126,4 +138,17 @@ export function secondsFromEnv(name: string, fallback: number): number {
   const parsed = Number(raw);
   if (!Number.isFinite(parsed) || parsed <= 0) return fallback;
   return parsed;
+}
+
+/**
+ * Report what is cached for a key without ever calling the upstream source (used by /api/health).
+ */
+export async function peekCache(key: string): Promise<{ storedAt: string; ttlMs: number; fresh: boolean } | null> {
+  const local = await readCache<unknown>(key);
+  const shared = local && isFresh(local) ? null : await readShared<unknown>(key);
+  const best = [local, shared]
+    .filter((e): e is CacheEnvelope<unknown> => e !== null)
+    .sort((a, b) => Date.parse(b.storedAt) - Date.parse(a.storedAt))[0];
+  if (!best) return null;
+  return { storedAt: best.storedAt, ttlMs: best.ttlMs, fresh: isFresh(best) };
 }
