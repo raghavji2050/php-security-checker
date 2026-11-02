@@ -19,7 +19,8 @@ const checks = [
   { path: "/api/check", status: 400, json: (b) => b.code === "missing_version" },
   { path: "/api/check?v=8.1", status: 400, json: (b) => b.code === "invalid_version" },
   { path: "/api/health", status: 200, json: (b) => (b.status === "ok" || b.status === "degraded") && Array.isArray(b.sources) },
-  { path: "/this-page-does-not-exist", status: 404 },
+  { path: "/this-page-does-not-exist", status: 404, contains: "Page not found" },
+  { path: "/", status: 200, contains: "Skip to content" },
 ];
 
 async function waitForServer(timeoutMs = 60_000) {

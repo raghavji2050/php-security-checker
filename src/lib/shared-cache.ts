@@ -1,6 +1,7 @@
 import { gunzipSync, gzipSync } from "node:zlib";
 import { getCache } from "@vercel/functions";
 import type { CacheEnvelope } from "@/lib/cache";
+import { log } from "@/lib/log";
 
 /**
  * Second cache tier shared by every serverless instance in a region (Vercel Runtime Cache).
@@ -62,13 +63,13 @@ export async function writeShared<T>(key: string, envelope: CacheEnvelope<T>): P
   try {
     const packed = gzipSync(JSON.stringify(envelope)).toString("base64");
     if (packed.length > MAX_ITEM_BYTES) {
-      console.warn(`shared cache: ${key} too large (${packed.length} bytes), not stored`);
+      log.warn("shared_cache.too_large", { key, bytes: packed.length });
       return false;
     }
     await s.set(key, packed, { ttl: SHARED_TTL_SECONDS, name: key });
     return true;
   } catch {
-    console.warn(`shared cache: write failed for ${key}`);
+    log.warn("shared_cache.write_failed", { key });
     return false;
   }
 }

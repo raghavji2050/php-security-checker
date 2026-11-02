@@ -3,6 +3,7 @@ import { checkVersion } from "@/lib/check";
 import { DataUnavailableError } from "@/lib/dataset";
 import { clientIp, rateLimit, rateLimitHeaders } from "@/lib/rate-limit";
 import { parsePhpVersion } from "@/lib/version";
+import { log } from "@/lib/log";
 
 export const maxDuration = 300;
 
@@ -39,7 +40,7 @@ export async function GET(request: Request) {
         version: version.raw,
       });
     }
-    console.error("version check failed");
+    log.error("api.check.failed", { version: version.raw, error });
     return apiError("internal_error", "The check could not be completed.", 500, rl);
   }
 }

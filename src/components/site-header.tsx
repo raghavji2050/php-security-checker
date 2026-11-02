@@ -90,8 +90,8 @@ export function SiteHeader() {
             aria-label="Toggle color theme"
             onClick={() => setTheme(document.documentElement.classList.contains("dark") ? "light" : "dark")}
           >
-            <Sun className="hidden dark:block" />
-            <Moon className="dark:hidden" />
+            <Sun className="hidden dark:block" aria-hidden="true" />
+            <Moon className="dark:hidden" aria-hidden="true" />
           </Button>
         </div>
       </div>
