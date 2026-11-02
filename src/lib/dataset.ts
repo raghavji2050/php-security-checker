@@ -4,6 +4,7 @@ import { fetchChangelogIndex } from "@/lib/changelog";
 import { fetchPhpRuntimeCves } from "@/lib/nvd";
 import { fetchPhpBranches, type BranchSnapshot } from "@/lib/php-releases";
 import type { ChangelogIndex, NormalizedAdvisory, NormalizedCve, PhpBranch, SourceInfo } from "@/lib/types";
+import { log } from "@/lib/log";
 
 export class DataUnavailableError extends Error {
   constructor(message: string) {
@@ -115,7 +116,7 @@ export async function loadDataset(loaders: DatasetLoaders = liveLoaders): Promis
 
   if (!nvdResult.ok) {
     const reason = nvdResult.error instanceof Error ? nvdResult.error.message : "unknown error";
-    console.error("NVD load failed:", reason);
+    log.error("dataset.nvd.failed", { reason });
     throw new DataUnavailableError(
       "PHP runtime CVEs could not be loaded from NVD and no cached copy is available. The version cannot be verified right now.",
     );

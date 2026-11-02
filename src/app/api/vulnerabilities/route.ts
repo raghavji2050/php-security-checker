@@ -1,6 +1,7 @@
 import { buildCatalog } from "@/lib/catalog";
 import { DataUnavailableError, loadDataset } from "@/lib/dataset";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
+import { log } from "@/lib/log";
 
 export const maxDuration = 300;
 
@@ -29,7 +30,7 @@ export async function GET(request: Request) {
     if (error instanceof DataUnavailableError) {
       return Response.json({ error: error.message }, { status: 503, headers: { "cache-control": "no-store" } });
     }
-    console.error("vulnerability catalog failed");
+    log.error("api.vulnerabilities.failed", { error });
     return Response.json(
       { error: "The vulnerability list could not be loaded." },
       { status: 500, headers: { "cache-control": "no-store" } },

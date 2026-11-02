@@ -2,6 +2,7 @@ import { loadBranchCatalog, DataUnavailableError } from "@/lib/dataset";
 
 export const maxDuration = 120;
 import { clientIp, rateLimit } from "@/lib/rate-limit";
+import { log } from "@/lib/log";
 
 export async function GET(request: Request) {
   const limit = rateLimit(`versions:${clientIp(request)}`, 60, 5 * 60 * 1000);
@@ -40,7 +41,7 @@ export async function GET(request: Request) {
     if (error instanceof DataUnavailableError) {
       return Response.json({ error: error.message }, { status: 503, headers: { "cache-control": "no-store" } });
     }
-    console.error("php versions lookup failed");
+    log.error("api.php_versions.failed", { error });
     return Response.json(
       { error: "PHP version data could not be loaded." },
       { status: 500, headers: { "cache-control": "no-store" } },

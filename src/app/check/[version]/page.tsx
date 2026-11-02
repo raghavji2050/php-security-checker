@@ -10,6 +10,7 @@ import { DataUnavailableError } from "@/lib/dataset";
 import { SITE_URL } from "@/lib/site";
 import type { CheckResult } from "@/lib/types";
 import { parsePhpVersion } from "@/lib/version";
+import { log } from "@/lib/log";
 
 // Result pages are rendered on the server and cached for a few hours, so the full report
 // is in the HTML for search engines and no-JavaScript readers. The route blocks on the report
@@ -27,7 +28,7 @@ async function load(raw: string): Promise<Loaded> {
     return { ok: true, result: await checkVersion(raw) };
   } catch (error) {
     if (error instanceof DataUnavailableError) return { ok: false, message: error.message };
-    console.error("version page check failed");
+    log.error("check_page.failed", { version: raw, error });
     return { ok: false, message: "The check could not be completed right now." };
   }
 }
@@ -69,7 +70,16 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default function CheckVersionPage({ params }: Params) {
   return (
-    <Suspense fallback={<main className="mx-auto w-full min-w-0 max-w-6xl px-4 py-10"><Skeleton className="h-64 w-full" /></main>}>
+    <Suspense
+      fallback={
+        <main className="mx-auto w-full min-w-0 max-w-6xl px-4 py-10" aria-busy="true">
+          <p className="sr-only" role="status">Loading the version report…</p>
+          <Skeleton className="h-8 w-72" />
+          <Skeleton className="mt-4 h-5 w-full max-w-2xl" />
+          <Skeleton className="mt-8 h-64 w-full" />
+        </main>
+      }
+    >
       <Report params={params} />
     </Suspense>
   );
