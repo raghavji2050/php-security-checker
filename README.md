@@ -4,6 +4,30 @@ Check an installed PHP release (`MAJOR.MINOR.PATCH`) against known vulnerabiliti
 
 The app reads NIST NVD, php.net, and GitHub. It does not ship a database of CVEs, CVSS scores, or fixed versions. A green result means nothing in the data that was checked confirmed a match. It does not mean the installation is secure.
 
+## Architecture
+
+Next.js (App Router, TypeScript, Tailwind) with server-rendered pages and route handlers; no database.
+
+| Layer | Where | Notes |
+| --- | --- | --- |
+| Pages | `src/app` | Home checker, `/check/[version]` (server-rendered, shareable, in the sitemap), `/vulnerabilities`, `/versions`, `/how-it-works`, `/about`, branded 404 and error pages. |
+| API | `src/app/api` | Route handlers listed below, with CORS and JSON errors (`src/lib/api.ts`). |
+| Data loading | `src/lib/dataset.ts`, `nvd.ts`, `php-releases.ts`, `changelog.ts`, `advisories.ts` | Fetches NVD CVE 2.0, php.net releases/branches/ChangeLog and GitHub php/php-src advisories, with retries and a total time budget (`src/lib/http.ts`). |
+| Matching | `src/lib/version.ts`, `ranges.ts`, `evaluate.ts`, `check.ts`, `rce.ts`, `upgrade.ts`, `lifecycle.ts` | Numeric version parsing, range evaluation, source agreement, RCE classification and upgrade path. |
+| Caching | `src/lib/cache.ts`, `shared-cache.ts` | In-memory + disk cache per instance, plus a gzipped Vercel Runtime Cache tier shared across instances. Stale data is only a labelled fallback. |
+| Hardening | `src/lib/rate-limit.ts`, `next.config.ts`, `src/lib/log.ts` | Bounded sliding-window rate limiter, CSP/HSTS/COOP and other headers, structured JSON logs with secret-looking keys redacted. |
+
+### Data sources
+
+| Source | Used for |
+| --- | --- |
+| [NIST NVD CVE API 2.0](https://nvd.nist.gov/developers/vulnerabilities) | PHP runtime CVEs, CVSS, CPE ranges, CWE |
+| [php.net releases and supported versions](https://www.php.net/supported-versions.php) | Release list, branch support dates, latest patches |
+| [php.net ChangeLogs](https://www.php.net/ChangeLog-8.php) | CVE/GHSA cross-checks |
+| [GitHub Security Advisories for php/php-src](https://github.com/php/php-src/security/advisories) | Affected and patched versions |
+
+Nothing is hand-typed: no CVE, score or fixed version ships in the repo.
+
 ## Run locally
 
 ```bash
@@ -14,11 +38,17 @@ npm run dev
 
 Open http://localhost:3000 and enter a version such as `8.1.12`.
 
+## Test
+
 ```bash
-npm test
 npm run lint
+npm test          # Vitest unit and end-to-end tests with fake upstreams (no network)
 npm run build
+npm run smoke     # starts the production build and checks key pages and API responses
+SMOKE_BASE_URL=https://php-security-checker.vercel.app npm run smoke   # same checks against a live deployment
 ```
+
+GitHub Actions (`.github/workflows/ci.yml`) runs lint, test, build and smoke on every pull request and push to `master`.
 
 ## NVD API key
 
@@ -38,15 +68,25 @@ If a refresh fails and a previous sync exists, the API serves that copy and mark
 
 ## API
 
-`GET /api/check?version=8.1.12`
+Full spec: [`/openapi.json`](https://php-security-checker.vercel.app/openapi.json) (OpenAPI 3.1). All JSON routes allow cross-origin `GET` and are rate limited per IP. No login and no server credentials are needed.
 
-Returns `version`, `supportStatus`, `securityStatus`, `vulnerabilities`, `rceVulnerabilities`, `minimumFixedVersion`, `recommendedVersion`, `checkedAt`, `sources`, and `warnings`.
+| Route | What it returns |
+| --- | --- |
+| `GET /api/check?v=8.1.12` | `version`, `supportStatus`, `securityStatus`, `vulnerabilities`, `rceVulnerabilities`, `minimumFixedVersion`, `recommendedVersion`, `checkedAt`, `sources`, `warnings`. The legacy `?version=` parameter still works. |
+| `GET /api/php-versions` | Branch, initial release, active support end, security support end, end-of-life status and latest patch, from php.net. |
+| `GET /api/vulnerabilities` | The PHP runtime CVE catalog used by the CVE list page. |
+| `GET /api/health` | App uptime, shared-cache status and per-source data age. Reads the cache only and never calls upstream. `ok` when NVD data is fresh, otherwise `degraded`. |
 
-`GET /api/php-versions`
+Versions must be `MAJOR.MINOR.PATCH`; `8.1` is rejected. Errors are JSON with a `code`:
 
-Returns branch, initial release date, active support end, security support end, end-of-life status, and the latest patch from php.net.
+| Status | `code` |
+| --- | --- |
+| 400 | `missing_version`, `invalid_version` |
+| 429 | `rate_limited` (with `Retry-After`, plus `X-RateLimit-Limit` / `X-RateLimit-Remaining` on every response) |
+| 503 | `data_unavailable` (NVD has never synced and no cached copy exists) |
+| 500 | `internal_error` (no internal details are returned) |
 
-Versions must be `MAJOR.MINOR.PATCH`. `8.1` is rejected. Both routes are rate limited per IP. No login and no server credentials.
+Machine-readable site summary for AI assistants: [`/llms.txt`](https://php-security-checker.vercel.app/llms.txt).
 
 ## How a match is decided
 
