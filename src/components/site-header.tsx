@@ -12,6 +12,7 @@ const LINKS = [
   { href: "/vulnerabilities", label: "Vulnerabilities" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/versions", label: "PHP Versions" },
+  { href: "/password-hashing", label: "Password check" },
   { href: "/about", label: "About" },
 ];
 
