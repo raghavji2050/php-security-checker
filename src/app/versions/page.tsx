@@ -13,7 +13,7 @@ export default function VersionsPage() {
       <h1 className="mt-2 text-4xl font-semibold tracking-tight">PHP Versions</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
         Branch, initial release, active support, security support, end-of-life status, and the latest patch release,
-        taken from official php.net data.
+        taken from official php.net data. See the <a className="underline" href="/php-versions">support timeline chart</a> for a visual view.
       </p>
       <div className="mt-8">
         <VersionsBoard />

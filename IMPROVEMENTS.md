@@ -26,7 +26,13 @@ One small improvement per day. Each entry lists the area so topics rotate and no
 - Done: public API with OpenAPI spec and JSON errors; security headers, input validation, bounded rate limiting; unit, end-to-end and smoke tests in CI; shared cache and /api/health; 404/error pages, structured logs without secrets, accessibility basics; README, SECURITY.md, CHANGELOG.
 - Remaining gaps: the rate limiter is per instance (in memory), not global; the very first /check after a new deploy can still take about 15s while caches warm; no uptime alerting on /api/health yet; no end-to-end browser (Playwright) tests in CI.
 
-Next: Feature 1/6 (PHP versions support timeline chart at /php-versions).
+## New features (approved 31 Oct, 3 Nov and 4 Nov 2026)
+
+| Feature | Date | Change | PR |
+| --- | --- | --- | --- |
+| 1/10 | 2026-11-04 | `/php-versions` support timeline: server-rendered (cached hours) chart with one bar per PHP branch (active support in green, security-only in orange, faded once end of life, a line for today), summary cards per support state, branch cards with release / active / security dates, status badge and latest patch linking to `/check/{version}`. Data only from php.net via the existing branch catalog. Geometry in `src/lib/timeline.ts` with tests. Nav, sitemap, llms.txt and smoke test updated; `/versions` table links to it. | improve/2026-11-04 |
+
+Next: Feature 2/10 (CVE explorer at /cves).
 
 ## Ideas queue (not done yet)
 
