@@ -12,6 +12,7 @@ const checks = [
   { path: "/", status: 200, contains: "PHP" },
   { path: "/how-it-works", status: 200, contains: "FAQPage" },
   { path: "/about", status: 200 },
+  { path: "/php-versions", status: 200, contains: "PHP versions support timeline" },
   { path: "/llms.txt", status: 200, contains: "/api/check" },
   { path: "/openapi.json", status: 200, json: (b) => b.paths?.["/api/check"]?.get },
   { path: "/robots.txt", status: 200 },
