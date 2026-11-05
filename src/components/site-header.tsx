@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 const LINKS = [
   { href: "/", label: "Home" },
   { href: "/vulnerabilities", label: "Vulnerabilities" },
+  { href: "/cves", label: "CVE Explorer" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/php-versions", label: "PHP Versions" },
   { href: "/password-hashing", label: "Password check" },

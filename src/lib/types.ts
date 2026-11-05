@@ -26,6 +26,8 @@ export type NormalizedCve = {
   published: string | null;
   weaknesses: string[];
   cvss: CvssMetric | null;
+  /** CVSS v3.x if NVD has it, else v2 (used by the /cves severity filter). Missing in older cached copies. */
+  cvssV3OrV2?: CvssMetric | null;
   references: ReferenceLink[];
   phpNetRanges: VersionRange[];
   phpNetUnaffectedRanges: VersionRange[];

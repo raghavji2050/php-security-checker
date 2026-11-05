@@ -30,9 +30,10 @@ One small improvement per day. Each entry lists the area so topics rotate and no
 
 | Feature | Date | Change | PR |
 | --- | --- | --- | --- |
-| 1/10 | 2026-11-04 | `/php-versions` support timeline: server-rendered (cached hours) chart with one bar per PHP branch (active support in green, security-only in orange, faded once end of life, a line for today), summary cards per support state, branch cards with release / active / security dates, status badge and latest patch linking to `/check/{version}`. Data only from php.net via the existing branch catalog. Geometry in `src/lib/timeline.ts` with tests. Nav, sitemap, llms.txt and smoke test updated; `/versions` table links to it. | improve/2026-11-04 |
+| 1/13 | 2026-11-04 | `/php-versions` support timeline: server-rendered (cached hours) chart with one bar per PHP branch (active support in green, security-only in orange, faded once end of life, a line for today), summary cards per support state, branch cards with release / active / security dates, status badge and latest patch linking to `/check/{version}`. Data only from php.net via the existing branch catalog. Geometry in `src/lib/timeline.ts` with tests. Nav, sitemap, llms.txt and smoke test updated; `/versions` table links to it. | improve/2026-11-04 |
+| 2/13 | 2026-11-05 | `/cves` CVE explorer: server-rendered list of every PHP interpreter CVE from the NVD CVE API 2.0 (`virtualMatchString=cpe:2.3:a:php:php:*:*:*:*:*:*:*:*`, rejected excluded, paged politely through the existing NVD loader and shared cache; page cached hours). Search (ID/description) and filters for year, severity (CVSS v3.x base severity, else v2, version labelled; v4-only records fall back to v4, no score = Unrated) and affected branch (derived only from NVD configuration ranges, otherwise "unknown") via URL params, so it works without JavaScript; 50 per page. CVEs-per-year bar chart and severity breakdown in the site's own CSS (bars are clickable filters). Each CVE links to its NVD page and to `/check/{last affected version}` when NVD gives an exact bound. NVD v2 severity is now read from the metric (it was missing). Logic in `src/lib/cve-explorer.ts` with synthetic-fixture tests. Nav, sitemap, llms.txt and smoke test updated. | improve/2026-11-05 |
 
-Next: Feature 2/10 (CVE explorer at /cves).
+Next: Feature 3/13 (composer.lock scanner). Possible /cves follow-ups: CWE filter, CSV export.
 
 ## Ideas queue (not done yet)
 
