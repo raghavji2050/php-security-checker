@@ -19,6 +19,7 @@ export function buildLlmsTxt(): string {
     `- [Home](${url("/")}): enter a PHP version and get a report.`,
     `- [Result page](${url("/check/8.1.12")}): server-rendered report at /check/{version}, for example /check/8.1.12.`,
     `- [Vulnerabilities](${url("/vulnerabilities")}): searchable list of PHP runtime CVEs.`,
+    `- [CVE explorer](${url("/cves")}): every PHP interpreter CVE from NVD with search, filters by year, severity and affected branch (URL params q, year, severity, branch), plus per-year and severity charts.`,
     `- [Versions](${url("/versions")}): PHP branches and their support status.`,
     `- [PHP versions timeline](${url("/php-versions")}): visual support timeline per PHP branch (release, active support, security-only, end of life) from php.net data.`,
     `- [How it works](${url("/how-it-works")}): matching rules, trusted sources and outage behaviour.`,

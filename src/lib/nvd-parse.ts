@@ -3,6 +3,8 @@ import type { CvssMetric, NormalizedCve, ReferenceLink } from "@/lib/types";
 
 type RawMetric = {
   type?: string;
+  /** CVSS v2 metrics carry the severity here instead of inside cvssData. */
+  baseSeverity?: string;
   cvssData?: {
     version?: string;
     vectorString?: string;
@@ -48,6 +50,7 @@ type RawCve = {
 };
 
 const METRIC_KEYS = ["cvssMetricV40", "cvssMetricV31", "cvssMetricV30", "cvssMetricV2"] as const;
+const V3_OR_V2_KEYS = ["cvssMetricV31", "cvssMetricV30", "cvssMetricV2"] as const;
 
 function isPhpProduct(vendor: string, product: string): boolean {
   return /^php$/i.test(product) && /php/i.test(vendor);
@@ -140,6 +143,7 @@ export function parseNvdCve(raw: unknown): NormalizedCve | null {
     published: cve.published ?? null,
     weaknesses: [...new Set(weaknesses)],
     cvss: pickCvss(cve.metrics ?? {}),
+    cvssV3OrV2: pickCvss(cve.metrics ?? {}, V3_OR_V2_KEYS),
     references,
     phpNetRanges,
     phpNetUnaffectedRanges,
@@ -149,8 +153,11 @@ export function parseNvdCve(raw: unknown): NormalizedCve | null {
   };
 }
 
-function pickCvss(metrics: Record<string, RawMetric[] | undefined>): CvssMetric | null {
-  for (const key of METRIC_KEYS) {
+function pickCvss(
+  metrics: Record<string, RawMetric[] | undefined>,
+  keys: readonly string[] = METRIC_KEYS,
+): CvssMetric | null {
+  for (const key of keys) {
     const list = metrics[key];
     if (!list?.length) continue;
     const chosen = list.find((item) => item.type === "Primary") ?? list[0];
@@ -158,7 +165,7 @@ function pickCvss(metrics: Record<string, RawMetric[] | undefined>): CvssMetric 
     if (!data || typeof data.baseScore !== "number" || !data.version) continue;
     return {
       score: data.baseScore,
-      severity: data.baseSeverity ?? null,
+      severity: data.baseSeverity ?? chosen.baseSeverity ?? null,
       version: data.version,
       vector: data.vectorString ?? null,
     };

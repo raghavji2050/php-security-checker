@@ -4,7 +4,7 @@ import { loadBranchCatalog } from "@/lib/dataset";
 import { SITE_URL } from "@/lib/site";
 import { parsePhpVersion } from "@/lib/version";
 
-const PAGES = ["/", "/vulnerabilities", "/how-it-works", "/versions", "/php-versions", "/password-hashing", "/about"];
+const PAGES = ["/", "/vulnerabilities", "/cves", "/how-it-works", "/versions", "/php-versions", "/password-hashing", "/about"];
 
 async function versionPages(): Promise<string[]> {
   "use cache";
