@@ -2,6 +2,9 @@
 
 All notable changes to this project. Dates are in IST. Pull request numbers refer to this repository.
 
+## 2026-11-06
+- Feature 3/13: `/composer` composer.lock scanner and `POST /api/composer-advisories` (Packagist security advisories only; lock parsed in the browser).
+
 ## 2026-11-03
 - Docs: README now covers architecture, data sources, every API route and error code, and how to run and test; added SECURITY.md and this CHANGELOG.
 

@@ -13,6 +13,7 @@ const LINKS = [
   { href: "/cves", label: "CVE Explorer" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/php-versions", label: "PHP Versions" },
+  { href: "/composer", label: "Composer lock" },
   { href: "/password-hashing", label: "Password check" },
   { href: "/about", label: "About" },
 ];
