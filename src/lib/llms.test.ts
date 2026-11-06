@@ -9,6 +9,7 @@ describe("llms.txt and FAQ structured data", () => {
     expect(text).toContain("/check/8.1.12");
     expect(text).toContain("/api/check?v=8.1.12");
     expect(text).toContain("/openapi.json");
+    expect(text).toContain("/composer");
   });
 
   it("builds a FAQPage with question and answer text", () => {

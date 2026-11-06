@@ -1,7 +1,7 @@
 # Suggestions
 
 ## 2026-10-31 — Competitor research ideas
-- **composer.lock upload/paste scanner (client-side parse, Packagist advisories API)** — closes our biggest gap vs composer audit/Enlightn/Snyk, while keeping "no install" convenience.
+- ~~**composer.lock upload/paste scanner (client-side parse, Packagist advisories API)**~~ Done 2026-11-06 as Feature 3/13 (`/composer`).
 - **Event pages + "am I affected" for big PHP CVEs (e.g. PHP2Shell CVE-2026-109618/109619)** — single-purpose checkers (php2shell.live, phpatch.com, Trend Micro) are getting traffic right now; a permanent per-CVE page with branch/fixed-version table captures that search.
 - **Free embeddable badge + GitHub Action / CI endpoint** (`/api/check` returns pass/fail exit for a PHP version) — distribution + backlinks; competitors are either CLI-only or paid.
 

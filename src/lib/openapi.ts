@@ -7,7 +7,7 @@ const errorSchema = {
     error: { type: "string", description: "Human-readable message." },
     code: {
       type: "string",
-      enum: ["missing_version", "invalid_version", "rate_limited", "data_unavailable", "internal_error"],
+      enum: ["missing_version", "invalid_version", "rate_limited", "data_unavailable", "internal_error", "missing_packages", "invalid_packages", "invalid_body", "too_many_packages", "too_large"],
     },
     status: { type: "integer" },
   },
@@ -119,6 +119,50 @@ export function buildOpenApiSpec() {
               description: "status is ok when NVD data is cached and fresh, otherwise degraded.",
               content: { "application/json": { schema: { type: "object" } } },
             },
+          },
+        },
+      },
+      "/api/composer-advisories": {
+        post: {
+          operationId: "composerAdvisories",
+          summary: "Check locked Composer package versions against Packagist security advisories",
+          description:
+            "Send only a name@version map (or list). Do not upload a raw composer.lock. Advisories come only from packagist.org/api/security-advisories/.",
+          requestBody: {
+            required: true,
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  required: ["packages"],
+                  properties: {
+                    packages: {
+                      oneOf: [
+                        { type: "object", additionalProperties: { type: "string" } },
+                        {
+                          type: "array",
+                          items: {
+                            type: "object",
+                            required: ["name", "version"],
+                            properties: {
+                              name: { type: "string" },
+                              version: { type: "string" },
+                              isDev: { type: "boolean" },
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+              },
+            },
+          },
+          responses: {
+            "200": { description: "Audit result with matching advisories only.", content: { "application/json": { schema: { type: "object" } } } },
+            "400": { description: "Invalid body.", content: { "application/json": { schema: errorSchema } } },
+            "429": { description: "Rate limited.", content: { "application/json": { schema: errorSchema } } },
+            "503": { description: "Packagist unavailable.", content: { "application/json": { schema: errorSchema } } },
           },
         },
       },
