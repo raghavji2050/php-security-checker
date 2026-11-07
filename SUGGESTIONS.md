@@ -52,3 +52,10 @@ Sources checked 1 Nov 2026 (IST). No code changed.
 - **Docker image tag input (e.g. `php:8.1-fpm-alpine` or `php:8.2.12-apache`) resolved to its PHP version and checked** — many devs only know their Docker tag, not the exact PHP patch version.
 - **Linux distro backport note (Ubuntu/Debian/RHEL package versions like `8.1.2-1ubuntu2.x`)** — distro builds backport fixes, so this cuts false "vulnerable" alarms for server users.
 - **Copy-paste upgrade commands on results (apt with ondrej PPA, Homebrew, Docker tag bump)** — turns the report into a direct fix step, so people act right away.
+
+## Queued (auto-approved)
+
+### 2026-11-06 — Evening update ideas
+- **`/.well-known/security.txt` (RFC 9116)** — free trust signal for security crawlers and buyers who check it; one static file with contact and preferred languages.
+- **Short version redirects (`/8.1.12` → `/check/8.1.12`)** — easier to share/type than the long path, and a cheap SEO win for version searches.
+- **Branch risk scorecard on `/php-versions` (support state + open CVE count from existing NVD data)** — turns the timeline into an actionable “which branch is safest?” view without new data sources.

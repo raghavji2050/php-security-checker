@@ -278,6 +278,7 @@ function CveItem({ row }: { row: ExplorerRow }) {
         </Badge>
         {row.cvssVersion && <span className="text-xs text-muted-foreground">CVSS {row.cvssVersion}</span>}
         <span className="text-xs text-muted-foreground">{row.published ?? "date unknown"}</span>
+        <Link className="text-xs underline" href={`/cve/${row.id}`}>Am I affected?</Link>
       </div>
       <p className="mt-2 line-clamp-3 text-sm">{row.description || "No description in NVD."}</p>
       <p className="mt-2 text-xs text-muted-foreground">
