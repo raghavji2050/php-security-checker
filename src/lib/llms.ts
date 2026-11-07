@@ -20,6 +20,7 @@ export function buildLlmsTxt(): string {
     `- [Result page](${url("/check/8.1.12")}): server-rendered report at /check/{version}, for example /check/8.1.12.`,
     `- [Vulnerabilities](${url("/vulnerabilities")}): searchable list of PHP runtime CVEs.`,
     `- [CVE explorer](${url("/cves")}): every PHP interpreter CVE from NVD with search, filters by year, severity and affected branch (URL params q, year, severity, branch), plus per-year and severity charts.`,
+    `- [Am I affected? CVE pages](${url("/cve/CVE-2024-4577")}): /cve/{CVE-ID} for any PHP CVE in NVD, with a branch-wise fixed version table from NVD/php.net ranges and a version check (?v=X.Y.Z).`,
     `- [Versions](${url("/versions")}): PHP branches and their support status.`,
     `- [PHP versions timeline](${url("/php-versions")}): visual support timeline per PHP branch (release, active support, security-only, end of life) from php.net data.`,
     `- [composer.lock scanner](${url("/composer")}): paste or upload a composer.lock (parsed in the browser); checks locked name@version against the Packagist security advisories API. POST /api/composer-advisories accepts only the package map, never the raw lock.`,

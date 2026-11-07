@@ -2,6 +2,9 @@
 
 All notable changes to this project. Dates are in IST. Pull request numbers refer to this repository.
 
+## 2026-11-07
+- Feature 4/13: permanent "Am I affected?" pages at `/cve/{CVE-ID}` with branch-wise fixed versions (from NVD/php.net ranges only), a version check and FAQPage JSON-LD; featured major CVEs in the sitemap.
+
 ## 2026-11-06
 - Feature 3/13: `/composer` composer.lock scanner and `POST /api/composer-advisories` (Packagist security advisories only; lock parsed in the browser).
 

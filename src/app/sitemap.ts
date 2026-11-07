@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { cacheLife } from "next/cache";
+import { FEATURED_CVES } from "@/lib/cve-page";
 import { loadBranchCatalog } from "@/lib/dataset";
 import { SITE_URL } from "@/lib/site";
 import { parsePhpVersion } from "@/lib/version";
@@ -31,5 +32,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "daily" as const,
     priority: 0.6,
   }));
-  return [...pages, ...checks];
+  const cves = FEATURED_CVES.map((id) => ({
+    url: new URL(`/cve/${id}`, SITE_URL).toString(),
+    changeFrequency: "weekly" as const,
+    priority: 0.6,
+  }));
+  return [...pages, ...cves, ...checks];
 }
