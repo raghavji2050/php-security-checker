@@ -2,6 +2,9 @@
 
 All notable changes to this project. Dates are in IST. Pull request numbers refer to this repository.
 
+## 2026-11-08
+- Feature 5/13: `/news` daily security news page with headlines and links from official PHP, Laravel, WordPress and LAMP-stack feeds and APIs.
+
 ## 2026-11-07
 - Feature 4/13: permanent "Am I affected?" pages at `/cve/{CVE-ID}` with branch-wise fixed versions (from NVD/php.net ranges only), a version check and FAQPage JSON-LD; featured major CVEs in the sitemap.
 

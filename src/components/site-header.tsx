@@ -11,6 +11,7 @@ const LINKS = [
   { href: "/", label: "Home" },
   { href: "/vulnerabilities", label: "Vulnerabilities" },
   { href: "/cves", label: "CVE Explorer" },
+  { href: "/news", label: "News" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/php-versions", label: "PHP Versions" },
   { href: "/composer", label: "Composer lock" },
