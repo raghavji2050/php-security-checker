@@ -10,7 +10,7 @@ Next.js (App Router, TypeScript, Tailwind) with server-rendered pages and route 
 
 | Layer | Where | Notes |
 | --- | --- | --- |
-| Pages | `src/app` | Home checker, `/check/[version]` (server-rendered, shareable, in the sitemap), `/vulnerabilities`, `/versions`, `/how-it-works`, `/about`, branded 404 and error pages. |
+| Pages | `src/app` | Home checker, `/check/[version]` (server-rendered, shareable, in the sitemap), `/vulnerabilities`, `/cves`, `/news`, `/versions`, `/php-versions`, `/composer`, `/how-it-works`, `/about`, branded 404 and error pages. |
 | API | `src/app/api` | Route handlers listed below, with CORS and JSON errors (`src/lib/api.ts`). |
 | Data loading | `src/lib/dataset.ts`, `nvd.ts`, `php-releases.ts`, `changelog.ts`, `advisories.ts` | Fetches NVD CVE 2.0, php.net releases/branches/ChangeLog and GitHub php/php-src advisories, with retries and a total time budget (`src/lib/http.ts`). |
 | Matching | `src/lib/version.ts`, `ranges.ts`, `evaluate.ts`, `check.ts`, `rce.ts`, `upgrade.ts`, `lifecycle.ts` | Numeric version parsing, range evaluation, source agreement, RCE classification and upgrade path. |
@@ -25,6 +25,7 @@ Next.js (App Router, TypeScript, Tailwind) with server-rendered pages and route 
 | [php.net releases and supported versions](https://www.php.net/supported-versions.php) | Release list, branch support dates, latest patches |
 | [php.net ChangeLogs](https://www.php.net/ChangeLog-8.php) | CVE/GHSA cross-checks |
 | [GitHub Security Advisories for php/php-src](https://github.com/php/php-src/security/advisories) | Affected and patched versions |
+| Official project feeds and APIs (php.net releases and news, [Laravel blog](https://laravel.com/feed), [WordPress.org news](https://wordpress.org/news/feed/) and [security](https://wordpress.org/news/category/security/feed/), [GitHub Security Advisories for Composer](https://docs.github.com/en/rest/security-advisories/global-advisories), [Apache HTTP Server vulnerabilities](https://httpd.apache.org/security/vulnerabilities_24.html), [MariaDB.org](https://mariadb.org/feed/), [MySQL GitHub releases](https://github.com/mysql/mysql-server/releases.atom), [CISA KEV](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)) | Headlines and original links on `/news` (articles are not republished) |
 
 Nothing is hand-typed: no CVE, score or fixed version ships in the repo.
 

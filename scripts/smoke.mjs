@@ -14,6 +14,7 @@ const checks = [
   { path: "/about", status: 200 },
   { path: "/php-versions", status: 200, contains: "PHP versions support timeline" },
   { path: "/cves", status: 200, contains: "PHP CVE explorer" },
+  { path: "/news", status: 200, contains: "PHP security news" },
   { path: "/composer", status: 200, contains: "composer.lock scanner" },
   { path: "/api/composer-advisories", status: 400, json: (b) => b.code === "missing_packages" },
   { path: "/llms.txt", status: 200, contains: "/composer" },

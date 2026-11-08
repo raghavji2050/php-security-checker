@@ -5,7 +5,7 @@ import { loadBranchCatalog } from "@/lib/dataset";
 import { SITE_URL } from "@/lib/site";
 import { parsePhpVersion } from "@/lib/version";
 
-const PAGES = ["/", "/vulnerabilities", "/cves", "/how-it-works", "/versions", "/php-versions", "/composer", "/password-hashing", "/about"];
+const PAGES = ["/", "/vulnerabilities", "/cves", "/news", "/how-it-works", "/versions", "/php-versions", "/composer", "/password-hashing", "/about"];
 
 async function versionPages(): Promise<string[]> {
   "use cache";
@@ -24,7 +24,7 @@ async function versionPages(): Promise<string[]> {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const pages = PAGES.map((path) => ({
     url: new URL(path, SITE_URL).toString(),
-    changeFrequency: (path === "/" || path === "/vulnerabilities" ? "daily" : "weekly") as "daily" | "weekly",
+    changeFrequency: (path === "/" || path === "/vulnerabilities" || path === "/news" ? "daily" : "weekly") as "daily" | "weekly",
     priority: path === "/" ? 1 : 0.7,
   }));
   const checks = (await versionPages()).map((path) => ({
