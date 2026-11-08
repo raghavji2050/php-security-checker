@@ -99,8 +99,9 @@ async function Report({ params }: Params) {
           <p className="mt-3 max-w-2xl text-muted-foreground">
             PHP {loaded.result.version} is <strong>{loaded.result.securityStatusLabel.toLowerCase()}</strong>:{" "}
             {loaded.result.counts.confirmed} confirmed known vulnerabilities ({loaded.result.counts.critical} critical,{" "}
-            {loaded.result.counts.high} high, {loaded.result.counts.rce} RCE-related). Support status:{" "}
-            {loaded.result.support.label}.
+            {loaded.result.counts.high} high, {loaded.result.counts.medium} medium, {loaded.result.counts.low} low,{" "}
+            {loaded.result.counts.rce} RCE-related). Support status: {loaded.result.support.label}. This is a version-based
+            check, not a full application audit.
             {loaded.result.recommendedVersion ? ` Recommended upgrade: PHP ${loaded.result.recommendedVersion}.` : ""}
           </p>
           <div className="mt-8">

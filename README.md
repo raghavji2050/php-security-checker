@@ -10,7 +10,7 @@ Next.js (App Router, TypeScript, Tailwind) with server-rendered pages and route 
 
 | Layer | Where | Notes |
 | --- | --- | --- |
-| Pages | `src/app` | Home checker, `/check/[version]` (server-rendered, shareable, in the sitemap), `/vulnerabilities`, `/cves`, `/news`, `/versions`, `/php-versions`, `/composer`, `/how-it-works`, `/about`, branded 404 and error pages. |
+| Pages | `src/app` | Home checker, `/check/[version]` (server-rendered, shareable, in the sitemap), `/vulnerabilities`, `/cves`, `/news`, `/versions`, `/php-versions`, `/composer`, `/php-ini`, `/extensions`, `/laravel`, `/wordpress`, `/headers`, `/docker`, `/password-hashing`, `/how-it-works`, `/about`, branded 404 and error pages. |
 | API | `src/app/api` | Route handlers listed below, with CORS and JSON errors (`src/lib/api.ts`). |
 | Data loading | `src/lib/dataset.ts`, `nvd.ts`, `php-releases.ts`, `changelog.ts`, `advisories.ts` | Fetches NVD CVE 2.0, php.net releases/branches/ChangeLog and GitHub php/php-src advisories, with retries and a total time budget (`src/lib/http.ts`). |
 | Matching | `src/lib/version.ts`, `ranges.ts`, `evaluate.ts`, `check.ts`, `rce.ts`, `upgrade.ts`, `lifecycle.ts` | Numeric version parsing, range evaluation, source agreement, RCE classification and upgrade path. |
@@ -26,6 +26,10 @@ Next.js (App Router, TypeScript, Tailwind) with server-rendered pages and route 
 | [php.net ChangeLogs](https://www.php.net/ChangeLog-8.php) | CVE/GHSA cross-checks |
 | [GitHub Security Advisories for php/php-src](https://github.com/php/php-src/security/advisories) | Affected and patched versions |
 | Official project feeds and APIs (php.net releases and news, [Laravel blog](https://laravel.com/feed), [WordPress.org news](https://wordpress.org/news/feed/) and [security](https://wordpress.org/news/category/security/feed/), [GitHub Security Advisories for Composer](https://docs.github.com/en/rest/security-advisories/global-advisories), [Apache HTTP Server vulnerabilities](https://httpd.apache.org/security/vulnerabilities_24.html), [MariaDB.org](https://mariadb.org/feed/), [MySQL GitHub releases](https://github.com/mysql/mysql-server/releases.atom), [CISA KEV](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)) | Headlines and original links on `/news` (articles are not republished) |
+| [Laravel release notes](https://github.com/laravel/docs) | Support table on `/laravel`. Non-day values such as “Q3 2027” are not turned into a date. |
+| [Packagist security advisories](https://packagist.org/api/security-advisories/) | `laravel/framework` on `/laravel`, and composer.lock packages |
+| [WordPress.org stable-check](https://api.wordpress.org/core/stable-check/1.0/) | Core status labels only. No plugin or theme data and no CVE list. |
+| [docker-library/php versions.json](https://github.com/docker-library/php/blob/master/versions.json) | Current patch for an official `php` image tag |
 
 Nothing is hand-typed: no CVE, score or fixed version ships in the repo.
 
@@ -77,6 +81,12 @@ Full spec: [`/openapi.json`](https://php-security-checker.vercel.app/openapi.jso
 | `GET /api/php-versions` | Branch, initial release, active support end, security support end, end-of-life status and latest patch, from php.net. |
 | `GET /api/vulnerabilities` | The PHP runtime CVE catalog used by the CVE list page. |
 | `GET /api/health` | App uptime, shared-cache status and per-source data age. Reads the cache only and never calls upstream. `ok` when NVD data is fresh, otherwise `degraded`. |
+| `GET /api/laravel?v=11.31.0` | Laravel support row from the official release notes, plus Packagist advisories for `laravel/framework`. |
+| `GET /api/wordpress?v=6.4.2` | WordPress.org stable-check status (`latest`, `outdated`, or `insecure`). No CVE list. |
+| `GET /api/docker-tag?tag=php:8.3-fpm` | Official `docker-library/php` versions.json mapping for a php image tag. |
+| `POST /api/headers` | Response-header review for one public URL. Private and metadata targets are refused. |
+| `POST /api/extensions` | `php -m` names classified against the PHP manual list and NVD description phrases. |
+| `GET /api/badge?v=8.3.12` | SVG status badge using the same version check. |
 
 Versions must be `MAJOR.MINOR.PATCH`; `8.1` is rejected. Errors are JSON with a `code`:
 

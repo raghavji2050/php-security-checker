@@ -20,7 +20,7 @@ Please test only against your own local copy or with light manual requests to pr
 
 ## How the app protects itself
 
-- It never runs user-supplied code, PHP, or shell commands, and never scans other sites. Input is a version string validated as `MAJOR.MINOR.PATCH`.
+- It never runs user-supplied PHP, shell commands, or exploit payloads. Version checks take a `MAJOR.MINOR.PATCH` string. The headers tool fetches only a URL the user submits, over HTTP or HTTPS on ports 80 and 443, and refuses loopback, private, link-local, and metadata targets, including after redirects. Response bodies are discarded. Pasted ini files, env lines, and Dockerfiles are parsed as text and are not executed.
 - `NVD_API_KEY` and `GITHUB_TOKEN` are used server-side only, sent as headers, and never returned to the browser or written to logs (log fields with secret-looking names are redacted).
 - Responses carry a strict Content-Security-Policy (`frame-ancestors 'none'`), HSTS, nosniff, Referrer-Policy, Permissions-Policy and Cross-Origin-Opener-Policy.
 - API routes are rate limited per client IP with a bounded in-memory limiter, and error responses never include stack traces or internal details.

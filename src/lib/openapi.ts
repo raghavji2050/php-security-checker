@@ -7,7 +7,7 @@ const errorSchema = {
     error: { type: "string", description: "Human-readable message." },
     code: {
       type: "string",
-      enum: ["missing_version", "invalid_version", "rate_limited", "data_unavailable", "internal_error", "missing_packages", "invalid_packages", "invalid_body", "too_many_packages", "too_large"],
+      enum: ["missing_version", "invalid_version", "rate_limited", "data_unavailable", "internal_error", "missing_packages", "invalid_packages", "invalid_body", "too_many_packages", "too_large", "missing_url", "blocked_target", "invalid_url", "missing_tag", "invalid_tag", "invalid_modules"],
     },
     status: { type: "integer" },
   },
@@ -79,8 +79,11 @@ export function buildOpenApiSpec() {
                           total: { type: "integer" },
                           confirmed: { type: "integer" },
                           potential: { type: "integer" },
-                          critical: { type: "integer" },
+                          critical: { type: "integer", description: "Confirmed findings whose severity is CRITICAL." },
                           high: { type: "integer" },
+                          medium: { type: "integer" },
+                          low: { type: "integer" },
+                          unrated: { type: "integer" },
                           rce: { type: "integer" },
                         },
                       },
@@ -163,6 +166,81 @@ export function buildOpenApiSpec() {
             "400": { description: "Invalid body.", content: { "application/json": { schema: errorSchema } } },
             "429": { description: "Rate limited.", content: { "application/json": { schema: errorSchema } } },
             "503": { description: "Packagist unavailable.", content: { "application/json": { schema: errorSchema } } },
+          },
+        },
+      },
+      "/api/laravel": {
+        get: {
+          operationId: "checkLaravelVersion",
+          summary: "Laravel framework support window and Packagist advisories for one version",
+          parameters: [{ name: "v", in: "query", required: true, schema: { type: "string", example: "11.31.0" } }],
+          responses: {
+            "200": { description: "Support row from Laravel release notes, plus Packagist findings for laravel/framework.", content: { "application/json": { schema: { type: "object" } } } },
+            "400": { description: "Missing or invalid version.", content: { "application/json": { schema: errorSchema } } },
+            "503": { description: "Both upstreams failed.", content: { "application/json": { schema: errorSchema } } },
+          },
+        },
+      },
+      "/api/wordpress": {
+        get: {
+          operationId: "checkWordPressCore",
+          summary: "WordPress core status from api.wordpress.org stable-check",
+          parameters: [{ name: "v", in: "query", required: true, schema: { type: "string", example: "6.4.2" } }],
+          responses: {
+            "200": { description: "latest, outdated, or insecure when WordPress.org lists that exact version. No CVE list.", content: { "application/json": { schema: { type: "object" } } } },
+            "400": { description: "Missing or invalid version.", content: { "application/json": { schema: errorSchema } } },
+          },
+        },
+      },
+      "/api/docker-tag": {
+        get: {
+          operationId: "resolvePhpDockerTag",
+          summary: "Map an official php image tag using docker-library/php versions.json",
+          parameters: [{ name: "tag", in: "query", required: true, schema: { type: "string", example: "php:8.3-fpm" } }],
+          responses: {
+            "200": { description: "Parsed tag and the library's current patch for that branch.", content: { "application/json": { schema: { type: "object" } } } },
+            "400": { description: "Missing tag.", content: { "application/json": { schema: errorSchema } } },
+          },
+        },
+      },
+      "/api/headers": {
+        post: {
+          operationId: "checkSecurityHeaders",
+          summary: "Fetch response headers for one public URL",
+          description: "HTTP and HTTPS on ports 80 and 443 only. Local, private, link-local, and metadata targets are refused, including after redirects. The body is discarded.",
+          requestBody: {
+            required: true,
+            content: { "application/json": { schema: { type: "object", required: ["url"], properties: { url: { type: "string", example: "https://example.com" } } } } },
+          },
+          responses: {
+            "200": { description: "Header findings for the final URL.", content: { "application/json": { schema: { type: "object" } } } },
+            "400": { description: "Invalid or blocked URL.", content: { "application/json": { schema: errorSchema } } },
+          },
+        },
+      },
+      "/api/extensions": {
+        post: {
+          operationId: "checkPhpExtensions",
+          summary: "Classify php -m names and match PHP runtime CVE description phrases",
+          description: "Does not invent extension CVEs or decide whether an extension build is outdated.",
+          requestBody: {
+            required: true,
+            content: { "application/json": { schema: { type: "object", properties: { modules: { type: "string" }, version: { type: "string" } } } } },
+          },
+          responses: {
+            "200": { description: "Per-extension classification.", content: { "application/json": { schema: { type: "object" } } } },
+            "400": { description: "No module names, or an invalid PHP version.", content: { "application/json": { schema: errorSchema } } },
+          },
+        },
+      },
+      "/api/badge": {
+        get: {
+          operationId: "phpVersionBadge",
+          summary: "SVG status badge for one PHP version",
+          parameters: [{ name: "v", in: "query", required: true, schema: { type: "string", example: "8.3.12" } }],
+          responses: {
+            "200": { description: "SVG image. Counts come from the same check as /api/check.", content: { "image/svg+xml": { schema: { type: "string" } } } },
+            "400": { description: "Missing or invalid version. The body is still an SVG.", content: { "image/svg+xml": { schema: { type: "string" } } } },
           },
         },
       },

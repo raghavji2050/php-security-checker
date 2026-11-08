@@ -23,8 +23,10 @@ export default function AboutPage() {
             <CardTitle>What you can enter</CardTitle>
           </CardHeader>
           <CardContent className="text-sm leading-6 text-muted-foreground">
-            Only a version string such as 8.1.12. There is no account, and the app never asks for server credentials,
-            paths, or a URL to scan.
+            A PHP version such as 8.1.12, plus optional files you paste yourself: composer.lock (parsed in the browser),
+            php.ini, php -m output, a Laravel or WordPress version, a Dockerfile, or one public URL for response
+            headers. There is no account. The headers tool is the only feature that connects out, and only to the URL
+            you submit.
           </CardContent>
         </Card>
         <Card>
@@ -32,8 +34,9 @@ export default function AboutPage() {
             <CardTitle>What it will not do</CardTitle>
           </CardHeader>
           <CardContent className="text-sm leading-6 text-muted-foreground">
-            It does not run PHP, shell commands, or exploit payloads. It does not probe websites. Version ranges are
-            read from NVD, php.net, and GitHub, not invented in the application.
+            It does not run PHP, shell commands, or exploit payloads. The headers check reads response headers for one
+            URL and refuses private targets. Version ranges and advisories are read from the published sources, not
+            invented in the application.
           </CardContent>
         </Card>
         <Card>

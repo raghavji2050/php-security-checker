@@ -1,13 +1,16 @@
 "use client";
 
-import { Check, ChevronDown, Copy, Download, ExternalLink, Link2 } from "lucide-react";
+import { Check, ChevronDown, Copy, Download, ExternalLink, Link2, Printer } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatStampWithZone } from "@/lib/format";
+import { buildVersionReport, REPORT_NOTE } from "@/lib/report";
+import { riskSummary } from "@/lib/risk";
 import type { CheckResult, Finding, SecurityStatus } from "@/lib/types";
+import { DISTRO_BACKPORT_NOTE, upgradeCommands } from "@/lib/upgrade-commands";
 import { cn } from "@/lib/utils";
 
 const STATUS_CLASS: Record<SecurityStatus, string> = {
@@ -56,6 +59,8 @@ function summaryText(result: CheckResult): string {
     `Confirmed vulnerabilities: ${result.counts.confirmed}`,
     `Critical: ${result.counts.critical}`,
     `High: ${result.counts.high}`,
+    `Medium: ${result.counts.medium}`,
+    `Low: ${result.counts.low}`,
     `Confirmed RCE-related: ${result.counts.rce}`,
     `Minimum fix on this branch: ${result.minimumFixedVersion ?? "Not verified"}`,
     `Recommended upgrade: ${result.recommendedVersion ?? "Not verified"}`,
@@ -71,6 +76,13 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
   const [sortDesc, setSortDesc] = useState(true);
   const [openId, setOpenId] = useState<string | null>(null);
   const [copied, setCopied] = useState<"results" | "link" | null>(null);
+  const [copiedCommand, setCopiedCommand] = useState<string | null>(null);
+  const risk = riskSummary(result);
+  const commands = upgradeCommands({
+    recommended: result.recommendedVersion,
+    minimumFixed: result.minimumFixedVersion,
+    branchLatest: result.support.latestPatch,
+  });
 
   const rows = useMemo(() => {
     const filtered = result.vulnerabilities.filter((finding) => {
@@ -102,7 +114,7 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
   }
 
   function downloadJson() {
-    const blob = new Blob([JSON.stringify(result, null, 2)], { type: "application/json" });
+    const blob = new Blob([JSON.stringify(buildVersionReport(result), null, 2)], { type: "application/json" });
     const href = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = href;
@@ -121,7 +133,25 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
         <p className="mt-2 max-w-3xl text-sm leading-6 opacity-95">{result.statusExplanation}</p>
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <Card>
+        <CardContent className="space-y-2 p-4 text-sm leading-6">
+          <p className="font-medium">Risk: {risk.label}</p>
+          <p className="text-muted-foreground">{risk.detail}</p>
+          <p>{REPORT_NOTE}</p>
+          <p className="text-muted-foreground">
+            Confirmed by severity: {result.counts.critical} critical, {result.counts.high} high, {result.counts.medium} medium,{" "}
+            {result.counts.low} low
+            {result.counts.unrated > 0 ? `, ${result.counts.unrated} unrated` : ""}. {result.counts.potential} still need verification.
+          </p>
+          <p className="text-muted-foreground">
+            Sources: {result.sources.map((source) => source.name).join(", ") || "Not provided"}. Data last updated{" "}
+            {formatStampWithZone(result.lastDataUpdate)}
+            {result.stale ? " (stale cache — the live source was unavailable)." : "."}
+          </p>
+        </CardContent>
+      </Card>
+
+      <div className="no-print flex flex-wrap gap-2">
         <Button type="button" variant="outline" onClick={() => void copyResults()}>
           {copied === "results" ? <Check /> : <Copy />}
           Copy results
@@ -133,6 +163,10 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
         <Button type="button" variant="outline" onClick={downloadJson}>
           <Download />
           Download JSON
+        </Button>
+        <Button type="button" variant="outline" onClick={() => window.print()}>
+          <Printer />
+          Print
         </Button>
       </div>
       <p className="-mt-2 text-sm text-muted-foreground">
@@ -175,6 +209,39 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
               </li>
             ))}
           </ul>
+          <p className="text-muted-foreground">{DISTRO_BACKPORT_NOTE}</p>
+        </CardContent>
+      </Card>
+
+      <Card className="min-w-0 overflow-hidden">
+        <CardHeader>
+          <CardTitle>Upgrade commands</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4 text-sm">
+          <p className="text-muted-foreground">
+            Examples use the versions already named in this report. They do not claim a CVE is fixed, and they are not run here.
+          </p>
+          {commands.map((command) => (
+            <div key={command.id}>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="font-medium">{command.title}</p>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  className="no-print"
+                  onClick={() => {
+                    void navigator.clipboard.writeText(command.command).then(() => setCopiedCommand(command.id));
+                  }}
+                >
+                  {copiedCommand === command.id ? <Check /> : <Copy />}
+                  Copy
+                </Button>
+              </div>
+              <pre className="mt-2 overflow-x-auto rounded-md bg-muted p-3 font-mono text-xs">{command.command}</pre>
+              <p className="mt-1 text-muted-foreground">{command.note}</p>
+            </div>
+          ))}
         </CardContent>
       </Card>
 
@@ -406,6 +473,17 @@ function FindingDetails({ finding }: { finding: Finding }) {
         <a className="inline-flex items-center gap-1 text-primary hover:underline" href={finding.advisoryUrl} target="_blank" rel="noreferrer">
           Open advisory <ExternalLink className="size-3" />
         </a>
+      )}
+      {finding.references.length > 0 && (
+        <ul className="space-y-1">
+          {finding.references.slice(0, 4).map((reference) => (
+            <li key={reference.url} className="break-all">
+              <a className="text-primary hover:underline" href={reference.url} target="_blank" rel="noreferrer">
+                {reference.url}
+              </a>
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );

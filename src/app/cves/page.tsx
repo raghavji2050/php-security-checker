@@ -13,7 +13,9 @@ import {
   countByYear,
   filterHref,
   filterRows,
+  pageList,
   parseFilters,
+  sortRows,
   type ExplorerFilters,
   type ExplorerRow,
   type Severity,
@@ -111,7 +113,7 @@ async function Content({ searchParams }: { searchParams: SearchParams }) {
   }
   const filters = parseFilters(params);
   const all = loaded.rows;
-  const matched = filterRows(all, filters);
+  const matched = sortRows(filterRows(all, filters), filters.sort);
   const pageRaw = Number(Array.isArray(params.page) ? params.page[0] : params.page);
   const pages = Math.max(1, Math.ceil(matched.length / PAGE_SIZE));
   const page = Number.isInteger(pageRaw) && pageRaw >= 1 ? Math.min(pageRaw, pages) : 1;
@@ -120,7 +122,7 @@ async function Content({ searchParams }: { searchParams: SearchParams }) {
   const severities = countBySeverity(matched);
   const allYears = countByYear(all).map((y) => y.year).reverse();
   const branches = branchOptions(all);
-  const filtered = Boolean(filters.q || filters.year || filters.severity || filters.branch);
+  const filtered = Boolean(filters.q || filters.year || filters.severity || filters.branch || filters.minScore !== null || filters.sort !== "published");
 
   return (
     <div className="mt-8 space-y-8">
@@ -130,7 +132,7 @@ async function Content({ searchParams }: { searchParams: SearchParams }) {
         </p>
       )}
 
-      <form method="get" action="/cves" className="grid gap-3 rounded-lg border border-border bg-card p-4 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_auto]">
+      <form method="get" action="/cves" className="grid gap-3 rounded-lg border border-border bg-card p-4 sm:grid-cols-2 lg:grid-cols-3">
         <label className="grid gap-1 text-sm">
           <span className="text-muted-foreground">Search ID or description</span>
           <input name="q" defaultValue={filters.q} placeholder="e.g. CVE-2024-4577 or phar" className="h-10 rounded-md border border-border bg-background px-3 text-sm" />
@@ -155,6 +157,23 @@ async function Content({ searchParams }: { searchParams: SearchParams }) {
             <option value="">All branches</option>
             {branches.map((b) => <option key={b} value={b}>PHP {b}</option>)}
             <option value="unknown">Unknown branch</option>
+          </select>
+        </label>
+        <label className="grid gap-1 text-sm">
+          <span className="text-muted-foreground">Minimum CVSS score</span>
+          <select name="minScore" defaultValue={filters.minScore !== null ? String(filters.minScore) : ""} className="h-10 rounded-md border border-border bg-background px-2 text-sm">
+            <option value="">Any score</option>
+            <option value="4">4.0 and above</option>
+            <option value="7">7.0 and above</option>
+            <option value="9">9.0 and above</option>
+          </select>
+        </label>
+        <label className="grid gap-1 text-sm">
+          <span className="text-muted-foreground">Sort</span>
+          <select name="sort" defaultValue={filters.sort} className="h-10 rounded-md border border-border bg-background px-2 text-sm">
+            <option value="published">Newest published</option>
+            <option value="cvss">CVSS score</option>
+            <option value="id">CVE ID</option>
           </select>
         </label>
         <div className="flex items-end gap-2">
@@ -183,10 +202,36 @@ async function Content({ searchParams }: { searchParams: SearchParams }) {
           </ul>
         )}
         {pages > 1 && (
-          <nav aria-label="Pages" className="mt-6 flex items-center justify-between text-sm">
-            {page > 1 ? <Link className="underline" href={filterHref({ ...filters, page: page - 1 })}>← Newer</Link> : <span />}
+          <nav aria-label="Pages" className="mt-6 flex flex-wrap items-center gap-2 text-sm">
+            {page > 1 ? (
+              <Link className="rounded-md border border-border px-3 py-1.5 hover:bg-muted" href={filterHref({ ...filters, page: page - 1 })}>
+                Previous
+              </Link>
+            ) : (
+              <span className="rounded-md border border-border px-3 py-1.5 text-muted-foreground">Previous</span>
+            )}
+            {pageList(page, pages).map((item, index) =>
+              item === "gap" ? (
+                <span key={`gap-${index}`} className="px-1 text-muted-foreground">…</span>
+              ) : (
+                <Link
+                  key={item}
+                  href={filterHref({ ...filters, page: item })}
+                  aria-current={item === page ? "page" : undefined}
+                  className={`min-w-9 rounded-md border px-2 py-1.5 text-center ${item === page ? "border-primary bg-accent text-foreground" : "border-border hover:bg-muted"}`}
+                >
+                  {item}
+                </Link>
+              ),
+            )}
+            {page < pages ? (
+              <Link className="rounded-md border border-border px-3 py-1.5 hover:bg-muted" href={filterHref({ ...filters, page: page + 1 })}>
+                Next
+              </Link>
+            ) : (
+              <span className="rounded-md border border-border px-3 py-1.5 text-muted-foreground">Next</span>
+            )}
             <span className="text-muted-foreground">Page {page} of {pages}</span>
-            {page < pages ? <Link className="underline" href={filterHref({ ...filters, page: page + 1 })}>Older →</Link> : <span />}
           </nav>
         )}
       </section>

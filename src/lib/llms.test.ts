@@ -11,6 +11,9 @@ describe("llms.txt and FAQ structured data", () => {
     expect(text).toContain("/openapi.json");
     expect(text).toContain("/composer");
     expect(text).toContain("/news");
+    expect(text).toContain("/php-ini");
+    expect(text).toContain("/headers");
+    expect(text).toContain("/api/badge?v=8.3.12");
   });
 
   it("builds a FAQPage with question and answer text", () => {

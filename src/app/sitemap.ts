@@ -5,7 +5,24 @@ import { loadBranchCatalog } from "@/lib/dataset";
 import { SITE_URL } from "@/lib/site";
 import { parsePhpVersion } from "@/lib/version";
 
-const PAGES = ["/", "/vulnerabilities", "/cves", "/news", "/how-it-works", "/versions", "/php-versions", "/composer", "/password-hashing", "/about"];
+const PAGES = [
+  "/",
+  "/vulnerabilities",
+  "/cves",
+  "/news",
+  "/how-it-works",
+  "/versions",
+  "/php-versions",
+  "/composer",
+  "/php-ini",
+  "/extensions",
+  "/laravel",
+  "/wordpress",
+  "/headers",
+  "/docker",
+  "/password-hashing",
+  "/about",
+];
 
 async function versionPages(): Promise<string[]> {
   "use cache";

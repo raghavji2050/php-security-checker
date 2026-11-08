@@ -91,3 +91,20 @@ body {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
+
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+}
