@@ -122,8 +122,13 @@ export type CheckResult = {
     total: number;
     confirmed: number;
     potential: number;
+    /** Confirmed findings only. */
     critical: number;
     high: number;
+    medium: number;
+    low: number;
+    /** Confirmed findings with no CRITICAL/HIGH/MEDIUM/LOW label. */
+    unrated: number;
     rce: number;
   };
   minimumFixedVersion: string | null;

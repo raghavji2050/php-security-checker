@@ -140,16 +140,13 @@ export function Checker() {
 
   return (
     <div>
-      <section className="mx-auto min-w-0 max-w-6xl px-4 pb-4 pt-10 md:pt-16">
-        <p className="text-sm font-medium uppercase tracking-[0.18em] text-primary">Runtime advisory desk</p>
-        <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl">
-          Check your PHP version for known vulnerabilities
-        </h1>
-        <p className="mt-4 max-w-2xl text-lg leading-8 text-muted-foreground">
-          Enter your PHP version to see known runtime vulnerabilities in official records, and which supported release to
-          upgrade to.
+      <section id="checker" className="mx-auto min-w-0 max-w-6xl scroll-mt-24 px-4 pb-4 pt-4">
+        <h2 className="text-2xl font-semibold tracking-tight">Check a PHP version</h2>
+        <p className="mt-2 max-w-2xl text-muted-foreground">
+          Enter the MAJOR.MINOR.PATCH from <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">php -v</code>.
+          The result is a version check against official records, not a scan of your server.
         </p>
-        <Card className="mt-8">
+        <Card className="mt-4">
           <CardContent className="p-4 md:p-6">
             <form
               className="flex flex-col gap-3 sm:flex-row"
@@ -183,8 +180,7 @@ export function Checker() {
               </Button>
             </form>
             <p id="version-help" className="mt-3 text-sm text-muted-foreground">
-              Run <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">php -v</code> in your terminal to see your
-              version. This check does not connect to your server.
+              This version check does not connect to your server. A branch such as 8.3 is not enough — include the patch.
             </p>
             {error && (
               <p id="version-error" role="alert" className="mt-3 text-sm text-danger">

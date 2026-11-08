@@ -3,6 +3,8 @@
 All notable changes to this project. Dates are in IST. Pull request numbers refer to this repository.
 
 ## 2026-11-08
+- PHP Developer Security Toolkit pass: grouped navigation, homepage with live php.net support counts and official headlines, richer version-check results (severity counts, risk note, upgrade commands, distro backport note, JSON report, print view), CVE explorer sort, minimum CVSS score, and numbered pages.
+- New tools: `/php-ini` (browser-only), `/extensions`, `/laravel`, `/wordpress`, `/headers` (SSRF-protected), `/docker`. SVG badge at `/api/badge`, `/.well-known/security.txt`, and `/8.1.12` → `/check/8.1.12`.
 - Feature 5/13: `/news` daily security news page with headlines and links from official PHP, Laravel, WordPress and LAMP-stack feeds and APIs.
 
 ## 2026-11-07

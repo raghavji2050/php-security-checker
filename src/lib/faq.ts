@@ -11,7 +11,7 @@ export const FAQ = [
   {
     question: "Which data sources does PHP Security Checker use?",
     answer:
-      "Only official records: the NIST National Vulnerability Database (NVD API 2.0) for CVEs, CVSS scores and affected ranges; php.net release, supported-versions and end-of-life data; the PHP ChangeLog to cross-check fixes; and GitHub Security Advisories published on php/php-src.",
+      "Version checks use NIST NVD, php.net releases and support dates, the PHP ChangeLog, and GitHub Security Advisories for php/php-src. Composer and Laravel advisories come from Packagist. Laravel support dates come from Laravel's release notes. WordPress core status comes from api.wordpress.org. Docker tag mapping comes from docker-library/php versions.json. News headlines come from the official feeds linked on /news.",
   },
   {
     question: "What happens if NVD or php.net is down or slow?",
@@ -31,7 +31,7 @@ export const FAQ = [
   {
     question: "Does the checker scan my website or run PHP code?",
     answer:
-      "No. It only compares the version string you enter against published records. It never connects to your server, sends payloads, or runs PHP code.",
+      "The version checker only compares the version string you enter. It never connects to your server or runs PHP. The headers tool fetches a single public URL you submit, reads response headers, and discards the body. It refuses local, private, and metadata addresses. It does not send exploit payloads.",
   },
 ] as const;
 

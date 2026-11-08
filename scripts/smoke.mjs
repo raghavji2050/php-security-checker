@@ -16,6 +16,18 @@ const checks = [
   { path: "/cves", status: 200, contains: "PHP CVE explorer" },
   { path: "/news", status: 200, contains: "PHP security news" },
   { path: "/composer", status: 200, contains: "composer.lock scanner" },
+  { path: "/php-ini", status: 200, contains: "php.ini audit" },
+  { path: "/extensions", status: 200, contains: "PHP extension checker" },
+  { path: "/laravel", status: 200, contains: "Laravel checker" },
+  { path: "/wordpress", status: 200, contains: "WordPress core check" },
+  { path: "/headers", status: 200, contains: "Security headers checker" },
+  { path: "/docker", status: 200, contains: "Docker / PHP image check" },
+  { path: "/.well-known/security.txt", status: 200, contains: "Contact:" },
+  { path: "/8.1.12", status: 308, location: "/check/8.1.12" },
+  { path: "/api/badge?v=nope", status: 400, contains: "invalid version" },
+  { path: "/api/laravel", status: 400, json: (b) => b.code === "missing_version" },
+  { path: "/api/wordpress?v=latest", status: 400, json: (b) => b.code === "invalid_version" },
+  { path: "/api/docker-tag", status: 400, json: (b) => b.code === "missing_tag" },
   { path: "/api/composer-advisories", status: 400, json: (b) => b.code === "missing_packages" },
   { path: "/llms.txt", status: 200, contains: "/composer" },
   { path: "/openapi.json", status: 200, json: (b) => b.paths?.["/api/check"]?.get },
@@ -58,6 +70,9 @@ try {
     const problems = [];
     if (res.status !== check.status) problems.push(`status ${res.status}, expected ${check.status}`);
     if (check.contains && !text.includes(check.contains)) problems.push(`missing "${check.contains}"`);
+    if (check.location && !(res.headers.get("location") || "").includes(check.location)) {
+      problems.push(`location ${res.headers.get("location")}`);
+    }
     if (check.json) {
       try {
         if (!check.json(JSON.parse(text))) problems.push("unexpected JSON body");

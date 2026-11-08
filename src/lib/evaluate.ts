@@ -112,6 +112,7 @@ export function evaluateVersion(input: EvaluationInput): CheckResult {
   findings.sort((a, b) => (b.cvssScore ?? -1) - (a.cvssScore ?? -1) || a.id.localeCompare(b.id));
 
   const confirmed = findings.filter((finding) => finding.verdict === "confirmed");
+  const severities = countConfirmedSeverities(findings);
   const potential = findings.filter((finding) => finding.verdict === "potential");
   const rce = findings.filter((finding) => finding.rce);
   const upgrade = buildUpgradeAdvice(parsed.raw, branch, input.branches, confirmed);
@@ -156,8 +157,11 @@ export function evaluateVersion(input: EvaluationInput): CheckResult {
       total: findings.length,
       confirmed: confirmed.length,
       potential: potential.length,
-      critical: confirmed.filter((finding) => finding.severity === "CRITICAL").length,
-      high: confirmed.filter((finding) => finding.severity === "HIGH").length,
+      critical: severities.critical,
+      high: severities.high,
+      medium: severities.medium,
+      low: severities.low,
+      unrated: severities.unrated,
       rce: rce.filter((finding) => finding.verdict === "confirmed").length,
     },
     ...upgrade,
@@ -172,6 +176,26 @@ export function evaluateVersion(input: EvaluationInput): CheckResult {
     ],
     disclaimer: DISCLAIMER,
   };
+}
+
+/** Counts confirmed findings by the severity label already on each finding. */
+export function countConfirmedSeverities(findings: Finding[]): {
+  critical: number;
+  high: number;
+  medium: number;
+  low: number;
+  unrated: number;
+} {
+  const confirmed = findings.filter((finding) => finding.verdict === "confirmed");
+  const tally = { critical: 0, high: 0, medium: 0, low: 0, unrated: 0 };
+  for (const finding of confirmed) {
+    if (finding.severity === "CRITICAL") tally.critical += 1;
+    else if (finding.severity === "HIGH") tally.high += 1;
+    else if (finding.severity === "MEDIUM") tally.medium += 1;
+    else if (finding.severity === "LOW") tally.low += 1;
+    else tally.unrated += 1;
+  }
+  return tally;
 }
 
 function statusFor(input: {

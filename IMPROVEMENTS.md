@@ -36,7 +36,30 @@ One small improvement per day. Each entry lists the area so topics rotate and no
 | 4/13 | 2026-11-07 | `/cve/{CVE-ID}` "Am I affected?" pages for any PHP CVE in the NVD dataset (ID validated, unknown IDs 404). Branch-wise fixed-version table built only from precise php.net ranges when available, else NVD CPE ranges; "Fixed in" shown only for exact exclusive upper bounds, never guessed. GET form `?v=X.Y.Z` answers affected / not in any listed range / unknown, linking to `/check` pages. FAQPage JSON-LD generated from the same data. Featured CVEs verified on the NVD API 2026-11-07 (CVE-2024-4577, CVE-2024-8926, CVE-2024-5458, CVE-2024-8927, CVE-2024-2756, CVE-2019-11043, CVE-2012-1823) are in the sitemap; "PHP2Shell" could not be matched to an official CVE ID, so it was not added. `/cves` items link to their page. Logic in `src/lib/cve-page.ts` with tests; llms.txt and smoke updated. | improve/2026-11-07 |
 | 5/13 | 2026-11-08 | `/news` daily security news: server-rendered headlines and links from official feeds and APIs (php.net releases and news, Laravel blog, WordPress.org news and security, GitHub Security Advisories for Composer, Apache HTTP Server vulnerabilities page, MariaDB.org, MySQL GitHub releases, and CISA KEV filtered to LAMP-related products). Dates shown in IST; optional `?source=` filter works without JavaScript; per-source 1h cache with stale fallback; one source failing does not take down the page. Titles and links only — feed/HTML bodies are not republished. Logic in `src/lib/news.ts` and `src/lib/rss.ts` with synthetic-fixture tests. Nav, sitemap, llms.txt and smoke updated. | improve/2026-11-08 |
 
-Next: Feature 6/13 (free status badge).
+## Toolkit pass (2026-11-08)
+
+Shipped in the PHP Developer Security Toolkit pull request. The daily builder should not recreate these:
+
+| Item | Status |
+| --- | --- |
+| 6/13 free status badge | Done. `GET /api/badge?v=8.3.12` returns an SVG from the real version check. |
+| 7/13 uptime GitHub Action | Done. `.github/workflows/uptime.yml` pings `/api/health` and opens one issue when the status is not `ok`. It runs only on this repository. |
+| 10/13 fuller homepage | Done. Hero, tool links, php.net support counts, and official headlines. No invented statistics. |
+| 11/13 Docker tag input | Done. `/docker` and `GET /api/docker-tag`, using docker-library/php `versions.json`. |
+| 12/13 distro backport note | Done. Shown on version results. It does not claim a distro package is patched. |
+| 13/13 copy-paste upgrade commands | Done. Homebrew, Docker tag, ondrej/php PPA (labelled as a community archive), and a Composer platform note that does not upgrade PHP. |
+| `/.well-known/security.txt` | Done. |
+| Short version redirects | Done. `/8.1.12` redirects to `/check/8.1.12`. |
+| php.ini audit, extension checker, Laravel checker, WordPress core status, SSRF-safe headers checker | Done. See IMPLEMENTATION-NOTES.md. |
+
+Still open for a later day:
+
+- 8/13 Symfony version checker. Use `/composer` for Symfony packages until a support-policy parser exists. Not started here, so it is not a duplicate of a shipped page.
+- 9/13 Playwright in CI.
+- Branch risk scorecard on `/php-versions` (would load the full NVD set onto the timeline).
+- PDF reports. JSON download and print view shipped instead.
+
+Next new feature, if the items above stay as written: Symfony version checker (8/13) or Playwright (9/13). Do not rebuild the badge, homepage, Docker tag tool, upgrade commands, or distro note.
 
 ## Ideas queue (not done yet)
 

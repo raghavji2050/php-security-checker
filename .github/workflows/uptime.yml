@@ -1,0 +1,39 @@
+name: Uptime ping
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  health:
+    if: github.repository == 'raghavji2050/php-security-checker'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check /api/health
+        id: health
+        run: |
+          set -euo pipefail
+          body=$(curl -fsS --max-time 30 https://php-security-checker.vercel.app/api/health)
+          status=$(echo "$body" | jq -r '.status')
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          if [ "$status" = "ok" ]; then
+            echo "bad=0" >> "$GITHUB_OUTPUT"
+          else
+            echo "bad=1" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Open an issue when health is not ok
+        if: steps.health.outputs.bad == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          existing=$(gh issue list --state open --search "in:title Uptime: /api/health" --json number --jq 'length')
+          if [ "$existing" = "0" ]; then
+            gh issue create \
+              --title "Uptime: /api/health is ${{ steps.health.outputs.status }}" \
+              --body "Scheduled check of https://php-security-checker.vercel.app/api/health returned \`${{ steps.health.outputs.status }}\`. This issue is opened by .github/workflows/uptime.yml."
+          fi
