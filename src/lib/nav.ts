@@ -33,6 +33,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/php-ini", label: "php.ini audit" },
       { href: "/extensions", label: "Extensions" },
       { href: "/laravel", label: "Laravel" },
+      { href: "/symfony", label: "Symfony" },
       { href: "/wordpress", label: "WordPress core" },
       { href: "/headers", label: "Security headers" },
       { href: "/docker", label: "Docker / PHP" },

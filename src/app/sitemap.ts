@@ -17,6 +17,7 @@ const PAGES = [
   "/php-ini",
   "/extensions",
   "/laravel",
+  "/symfony",
   "/wordpress",
   "/headers",
   "/docker",
