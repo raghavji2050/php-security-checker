@@ -54,12 +54,18 @@ Shipped in the PHP Developer Security Toolkit pull request. The daily builder sh
 
 Still open for a later day:
 
-- 8/13 Symfony version checker. Use `/composer` for Symfony packages until a support-policy parser exists. Not started here, so it is not a duplicate of a shipped page.
+- ~~8/13 Symfony version checker~~ Done 2026-11-09 (see below).
 - 9/13 Playwright in CI.
 - Branch risk scorecard on `/php-versions` (would load the full NVD set onto the timeline).
 - PDF reports. JSON download and print view shipped instead.
 
-Next new feature, if the items above stay as written: Symfony version checker (8/13) or Playwright (9/13). Do not rebuild the badge, homepage, Docker tag tool, upgrade commands, or distro note.
+Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker tag tool, upgrade commands, or distro note.
+
+## 2026-11-09 — Feature 8/13: Symfony version checker
+- New `/symfony` form and server-rendered `/symfony/check/{version}` reports, plus `GET /api/symfony?v=7.4.10` (rate limited, CORS, JSON errors).
+- Support state uses symfony.com's own data only: `releases.json` (maintained/security lists, min PHP, current stable/LTS) and `releases/{branch}.json` (`is_eomed`/`is_eoled` flags, month-level end of maintenance/end of life, latest patch). Days are never guessed; unknown branches say so.
+- Advisories: Packagist security advisories for `symfony/symfony`, with CVE/advisory links and `composer update "symfony/*" --with-all-dependencies`. Component-only installs are pointed to `/composer`.
+- Nav, sitemap, llms.txt, OpenAPI and smoke checks updated. New unit tests in `src/lib/symfony-support.test.ts`.
 
 ## Ideas queue (not done yet)
 

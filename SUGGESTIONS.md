@@ -59,3 +59,45 @@ Sources checked 1 Nov 2026 (IST). No code changed.
 - **`/.well-known/security.txt` (RFC 9116)** — free trust signal for security crawlers and buyers who check it; one static file with contact and preferred languages.
 - **Short version redirects (`/8.1.12` → `/check/8.1.12`)** — easier to share/type than the long path, and a cheap SEO win for version searches.
 - **Branch risk scorecard on `/php-versions` (support state + open CVE count from existing NVD data)** — turns the timeline into an actionable “which branch is safest?” view without new data sources.
+
+### 2026-11-07 — Evening update ideas
+- **CISA KEV "exploited in the wild" badge on `/cve/{id}` and `/cves` (official CISA KEV JSON feed)** — tells devs at a glance which CVEs are actually being attacked, so they prioritise correctly.
+- **EPSS exploit-probability score on CVE pages (FIRST.org free EPSS API)** — adds a real-world likelihood number next to CVSS, making the "should I worry?" answer more useful.
+- **Related CVEs block on `/cve/{id}` (same branch/year, from existing NVD data)** — stronger internal linking for SEO and keeps visitors browsing longer.
+
+## 2026-11-08 — Weekly market check
+Sources checked 8 Nov 2026 (IST). No code changed. Compared with the 1 Nov 2026 check.
+
+**New or newly noticed in the market (no second launch-press wave like 21–27 Oct):**
+- php2shell.app, a URL-in PHP2Shell checker (one normal GET, no exploit) plus a fixed-version and Linux distro backport table. Debian package status on that table was checked 5 Nov 2026. Site check and bulk list check are free; they also sell credit packs for an assistant that reads pasted server output when the version is hidden (exact credit prices not listed on the homepage fetch, so not repeated here): https://php2shell.app/ and https://php2shell.app/fixed-versions
+- php2shell.uk/checker, last reviewed 28 Oct 2026: URL check on their server, plus a browser-side version / `php -v` / distro-package paste (closer to our version-in model). They also sell a TypeScript checker engine for $99 USD one-time (price taken from their page). They flag CVE-2026-115560 as separate and not version-assessable: https://php2shell.uk/checker
+- php2shell-checker.com published a dedicated CVE-2026-115560 explainer (updated 30 Oct 2026) covering the three config conditions and the `session.upload_progress.enabled=0` mitigation: https://php2shell-checker.com/cve-2026-115560/
+- Additional GitHub/CLI tools not listed on 1 Nov (launch dates not independently confirmed, so not called “new this week”): [adityaaravind/php2shell-check](https://github.com/adityaaravind/php2shell-check) (local binaries, Docker images, running containers, inventory files, passive URL HEAD); [assetnote/php2shell-scanner](https://github.com/assetnote/php2shell-scanner) (authorized active multipart probes); [aancw/php2shell-scanner](https://github.com/aancw/php2shell-scanner) (url / local / ssh modes). [phpscan 1.6.0](https://pypi.org/project/phpscan/) (30 Oct 2026) is the open-source scanner behind already-listed phpatch.com.
+- Pattern is unchanged: most PHP2Shell tools are URL-in and event-specific. A few now add distro-backport tables or fleet/Docker inventory. We are still version-in, with a broader CVE history.
+
+**Existing competitors:**
+- endoflife.date/php still shows PHP 8.2 security support ending 31 Dec 2026 and PHP 8.4 active support ending the same day. Latest listed patches match the 21 Oct PHP2Shell releases (8.2.35 / 8.3.36 / 8.4.27 / 8.5.12): https://endoflife.date/php and https://www.php.net/supported-versions.php
+- Composer / Packagist `composer audit`, Roave SecurityAdvisories (dev-latest updated 7 Nov 2026 as a routine advisory bump), Enlightn, Snyk, WPScan and CVEdetails: no major product-feature change found this week. Snyk has a coverage article on the October RCEs, later updated for CVE-2026-115560: https://snyk.io/blog/php-patches-critical-unauthenticated-rces/
+- openai/php2shell-checker remains the header-only CLI noted on 1 Nov: https://github.com/openai/php2shell-checker
+
+**CVE and search trends:**
+- PHP2Shell is still the main search driver: CVE-2026-109618 and CVE-2026-109619 (CVSS v4.0 9.2 Critical; NVD also lists v3.1 9.8 Critical and 8.1 High respectively). Official write-up: https://www.php.net/archive/2026.php (21 Oct 2026). NVD now has both records with `cpe:2.3:a:php:php` ranges and status Analyzed; published 21 Oct 2026, last modified 5 Nov 2026 19:17 UTC (6 Nov 2026, 12:47 AM IST): https://nvd.nist.gov/vuln/detail/CVE-2026-109618 and https://nvd.nist.gov/vuln/detail/CVE-2026-109619
+- CVE-2026-115560 (informational advisory, 23 Oct 2026 on php.net): a separate, configuration-dependent session upload-progress RCE path. PHP says it is unlikely in practice and will publish a full advisory with the next regular bugfix release. The 21 Oct PHP2Shell releases do not fix it. Mitigation: keep `session.upload_progress.enabled=0` until that release. As of this check (8 Nov 2026 IST) php.net’s latest post is PHP 8.6.0 RC5 (5 Nov 2026); no new stable security release has shipped, and the NVD API returned 0 records for CVE-2026-115560.
+- PHP 8.6.0 GA is planned for 19 Nov 2026 (RC5 published 5 Nov 2026). PHP 8.6.0 RC4 already included the two PHP2Shell fixes: https://www.php.net/archive/2026.php
+- Secondary, Windows-oriented: updated PHP Windows builds on 26 Oct 2026 bundle Brotli 1.2.1 to fix CVE-2026-111497 (out-of-bounds write in Brotli decompression, reachable via the cURL extension when automatic HTTP response decompression is enabled). NVD has this ID (published 22 Oct 2026, last modified 6 Nov 2026).
+- Laravel TokenGuard CVE-2026-114509 is still being written about; no newer Laravel CVE wave found this week: https://github.com/laravel/framework/security/advisories/GHSA-f9x3-7vq9-cph6
+
+**Where we stand (features shipped 2–7 Nov, from IMPROVEMENTS.md):**
+- Feature 1/13 `/php-versions` timeline (4 Nov, PR improve/2026-11-04), Feature 2/13 `/cves` explorer (5 Nov), Feature 3/13 `/composer` lock scanner (6 Nov), Feature 4/13 `/cve/{CVE-ID}` Am I affected? pages (7 Nov). The site is now a small hub (EOL timeline + CVE explorer + lock scanner + per-CVE pages), not only a version-in checker.
+- Remaining gap vs the PHP2Shell pack: no URL-in mode, and Feature 4 did not add PHP2Shell as a featured sitemap CVE because the nickname did not map to an NVD ID on 7 Nov. The IDs CVE-2026-109618 and CVE-2026-109619 are in NVD with php:php CPEs as of this check, so those `/cve/{id}` pages can be featured from official data now.
+
+**New ideas:**
+- **PHP 8.6.0 “is it patched / should I move?” page around the 19 Nov 2026 GA:** captures the launch-week search spike and can state from php.net that RC4 and later already include the PHP2Shell fixes (not for production until GA).
+- **Config-aware page for CVE-2026-115560:** this one is not a version-range question (the three conditions are serialize_handler set to `php_binary`/`php_serialize`, switched to `php` at runtime before `session_start()`, and upload progress still enabled). Competitors are already ranking for it; NVD has no record yet, so the page should cite php.net’s 23 Oct advisory and label the pending full advisory clearly.
+
+## Queued (auto-approved)
+
+### 2026-11-08 — Evening update ideas
+- **composer.json `require.php` constraint checker (paste `"php": "^8.1"`, see which php.net branches it allows and flag EOL ones)** — package maintainers instantly see if their constraint still allows unsupported PHP, using existing php.net branch data.
+- **IndexNow ping on each deploy for new `/cve/{id}`, `/check/` and `/news` URLs (free IndexNow protocol, own sitemap only)** — Bing and other IndexNow engines pick up new CVE pages within hours instead of days.
+- **"Copy as Markdown" button on version and composer reports** — devs can paste a clean CVE/fix table straight into a GitHub issue, PR or Jira ticket, so the report turns into a tracked task.

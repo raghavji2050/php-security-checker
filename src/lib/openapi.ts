@@ -181,6 +181,19 @@ export function buildOpenApiSpec() {
           },
         },
       },
+      "/api/symfony": {
+        get: {
+          operationId: "checkSymfonyVersion",
+          summary: "Symfony support status from symfony.com and Packagist advisories for one version",
+          parameters: [{ name: "v", in: "query", required: true, schema: { type: "string", example: "7.4.10" } }],
+          responses: {
+            "200": { description: "Support state from symfony.com release data, latest branch patch, plus Packagist findings for symfony/symfony.", content: { "application/json": { schema: { type: "object" } } } },
+            "400": { description: "Missing or invalid version.", content: { "application/json": { schema: errorSchema } } },
+            "429": { description: "Rate limited.", content: { "application/json": { schema: errorSchema } } },
+            "503": { description: "Both upstreams failed.", content: { "application/json": { schema: errorSchema } } },
+          },
+        },
+      },
       "/api/wordpress": {
         get: {
           operationId: "checkWordPressCore",
