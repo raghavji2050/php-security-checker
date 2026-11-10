@@ -51,6 +51,7 @@ npm test          # Vitest unit and end-to-end tests with fake upstreams (no net
 npm run build
 npm run smoke     # starts the production build and checks key pages and API responses
 SMOKE_BASE_URL=https://php-security-checker.vercel.app npm run smoke   # same checks against a live deployment
+npm run test:e2e  # Playwright browser tests of the checker flow (needs `npx playwright install chromium` once)
 ```
 
 GitHub Actions (`.github/workflows/ci.yml`) runs lint, test, build and smoke on every pull request and push to `master`.

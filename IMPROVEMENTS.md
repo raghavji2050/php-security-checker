@@ -55,7 +55,7 @@ Shipped in the PHP Developer Security Toolkit pull request. The daily builder sh
 Still open for a later day:
 
 - ~~8/13 Symfony version checker~~ Done 2026-11-09 (see below).
-- 9/13 Playwright in CI.
+- ~~9/13 Playwright in CI.~~ Done 2026-11-10 (see below).
 - Branch risk scorecard on `/php-versions` (would load the full NVD set onto the timeline).
 - PDF reports. JSON download and print view shipped instead.
 
@@ -66,6 +66,12 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 - Support state uses symfony.com's own data only: `releases.json` (maintained/security lists, min PHP, current stable/LTS) and `releases/{branch}.json` (`is_eomed`/`is_eoled` flags, month-level end of maintenance/end of life, latest patch). Days are never guessed; unknown branches say so.
 - Advisories: Packagist security advisories for `symfony/symfony`, with CVE/advisory links and `composer update "symfony/*" --with-all-dependencies`. Component-only installs are pointed to `/composer`.
 - Nav, sitemap, llms.txt, OpenAPI and smoke checks updated. New unit tests in `src/lib/symfony-support.test.ts`.
+
+## 2026-11-10 — Feature 9/13: Playwright browser tests in CI
+- `@playwright/test` with `playwright.config.ts` and `e2e/checker.spec.ts`: home page form, branch-only input shows the validation error, a full version updates the URL and shows a result (or the friendly "Unable to verify" panel if an upstream is down), `/check/8.1.12` heading, invalid `/check/...` not-found page, real 404 for unknown routes.
+- Tests assert the flow, not live CVE counts, so php.net/NVD changes do not make CI flaky. Chromium headless shell only, 1 retry on CI, trace kept on failure and uploaded as an artifact.
+- CI runs `npm run test:e2e` after the smoke step. Run locally with `npm run build && npm run test:e2e`, or against a deployment with `E2E_BASE_URL=https://php-security-checker.vercel.app npm run test:e2e`.
+- Next: oldest item in SUGGESTIONS.md "Queued (auto-approved)" that is not done yet (branch risk scorecard on `/php-versions`).
 
 ## Ideas queue (not done yet)
 
