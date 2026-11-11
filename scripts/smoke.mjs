@@ -13,6 +13,7 @@ const checks = [
   { path: "/how-it-works", status: 200, contains: "FAQPage" },
   { path: "/about", status: 200 },
   { path: "/php-versions", status: 200, contains: "PHP versions support timeline" },
+  { path: "/php-versions", status: 200, contains: "Branch risk scorecard" },
   { path: "/cves", status: 200, contains: "PHP CVE explorer" },
   { path: "/news", status: 200, contains: "PHP security news" },
   { path: "/composer", status: 200, contains: "composer.lock scanner" },
