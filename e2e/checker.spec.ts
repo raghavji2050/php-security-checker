@@ -54,7 +54,10 @@ test("/php-versions shows the branch risk scorecard", async ({ page }) => {
   expect(response?.status()).toBe(200);
   // When php.net data is unreachable the page shows an alert instead; either way, no crash.
   await expect(
-    page.getByRole("heading", { level: 2, name: "Branch risk scorecard" }).or(page.getByRole("alert")),
+    page
+      .getByRole("heading", { level: 2, name: "Branch risk scorecard" })
+      .or(page.getByText("Official PHP branch data could not be loaded right now."))
+      .first(),
   ).toBeVisible({ timeout: 25_000 });
   await expect(page.getByText("Application error")).toHaveCount(0);
 });
