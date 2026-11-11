@@ -73,6 +73,12 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 - CI runs `npm run test:e2e` after the smoke step. Run locally with `npm run build && npm run test:e2e`, or against a deployment with `E2E_BASE_URL=https://php-security-checker.vercel.app npm run test:e2e`.
 - Next: oldest item in SUGGESTIONS.md "Queued (auto-approved)" that is not done yet (branch risk scorecard on `/php-versions`).
 
+## 2026-11-11 — Branch risk scorecard on `/php-versions` (queued idea)
+- New `src/lib/scorecard.ts` (with tests) builds one row per recent branch: official support state, days of security support left, NVD CVEs mapped to the branch, how many are critical or high, latest patch, and a risk label.
+- The risk label uses only the php.net support state (active = lower risk, security-only = plan upgrade, EOL = upgrade now). CVE counts are context and link to `/cves?branch=X.Y`; they are reported CVEs, not "open" ones. If NVD is down the counts show as unavailable, never zero.
+- Page shows a suggested upgrade target (newest actively supported branch). Smoke check and a Playwright e2e test added.
+- Next: oldest undone queued idea, the CISA KEV "exploited in the wild" badge on `/cve/{id}` and `/cves` (security.txt and short redirects were already shipped in PR #22).
+
 ## Ideas queue (not done yet)
 
 - ~~CI linting: GitHub Actions for lint, typecheck, test, build~~ Done 2026-10-25 (Raghav added `ci.yml`).

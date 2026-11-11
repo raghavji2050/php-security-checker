@@ -58,7 +58,7 @@ Sources checked 1 Nov 2026 (IST). No code changed.
 ### 2026-11-06 — Evening update ideas
 - **`/.well-known/security.txt` (RFC 9116)** — free trust signal for security crawlers and buyers who check it; one static file with contact and preferred languages.
 - **Short version redirects (`/8.1.12` → `/check/8.1.12`)** — easier to share/type than the long path, and a cheap SEO win for version searches.
-- **Branch risk scorecard on `/php-versions` (support state + open CVE count from existing NVD data)** — turns the timeline into an actionable “which branch is safest?” view without new data sources.
+- ~~**Branch risk scorecard on `/php-versions` (support state + open CVE count from existing NVD data)**~~ Done 2026-11-11 (counts shown as reported NVD CVEs, not "open") — turns the timeline into an actionable “which branch is safest?” view without new data sources.
 
 ### 2026-11-07 — Evening update ideas
 - **CISA KEV "exploited in the wild" badge on `/cve/{id}` and `/cves` (official CISA KEV JSON feed)** — tells devs at a glance which CVEs are actually being attacked, so they prioritise correctly.
@@ -106,3 +106,8 @@ Sources checked 8 Nov 2026 (IST). No code changed. Compared with the 1 Nov 2026 
 - **Featured /cve pages for CVE-2026-109618 and CVE-2026-109619 (PHP2Shell) from NVD data** — captures the biggest PHP search spike with official data.
 - **Symfony "Copy as Markdown" and badge for /symfony reports** — shareable results for Symfony teams, reuses existing badge code.
 - **PHP 8.6.0 GA (19 Nov) readiness page using php.net data** — launch-week traffic, labelled clearly until GA.
+
+### 2026-11-10 — Evening update ideas
+- **"Is my PHP patched?" copy-paste `php -v` parser (paste full `php -v` output, extract version + distro suffix)** — users paste what they have instead of hand-typing a version.
+- **Per-branch RSS/Atom feed of new PHP CVEs from existing NVD data** — devs subscribe once, and it earns backlinks and returning visitors.
+- **Print-friendly "server audit summary" page combining version, php.ini and extension checks** — gives freelancers a client-ready report.

@@ -5,9 +5,11 @@ import { Suspense } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { loadBranchCatalog } from "@/lib/dataset";
+import { buildExplorerRows, type ExplorerRow } from "@/lib/cve-explorer";
+import { loadBranchCatalog, loadDataset } from "@/lib/dataset";
 import { supportLabel } from "@/lib/lifecycle";
 import { SITE_URL } from "@/lib/site";
+import { buildScorecard, recommendedBranch, RISK_LABEL, type RiskLevel } from "@/lib/scorecard";
 import { buildTimeline, stateCounts, type Timeline } from "@/lib/timeline";
 import type { PhpBranch, SupportState } from "@/lib/types";
 import { parsePhpVersion } from "@/lib/version";
@@ -16,12 +18,12 @@ import { log } from "@/lib/log";
 export const metadata: Metadata = {
   title: "PHP versions support timeline",
   description:
-    "Timeline of every recent PHP branch from official php.net data: release date, active support, security-only window, end of life, latest patch and current status.",
+    "Timeline and risk scorecard of every recent PHP branch from official php.net and NVD data: release date, active support, security-only window, end of life, latest patch, CVE counts and current status.",
   alternates: { canonical: new URL("/php-versions", SITE_URL).toString() },
 };
 
 type Loaded =
-  | { ok: true; branches: PhpBranch[]; timeline: Timeline | null; today: string; retrievedAt: string | null; stale: boolean }
+  | { ok: true; branches: PhpBranch[]; timeline: Timeline | null; cveRows: ExplorerRow[] | null; today: string; retrievedAt: string | null; stale: boolean }
   | { ok: false; message: string };
 
 async function load(): Promise<Loaded> {
@@ -31,10 +33,18 @@ async function load(): Promise<Loaded> {
     const data = await loadBranchCatalog();
     if (data.branches.length === 0) return { ok: false, message: "Official PHP branch data could not be loaded right now." };
     const today = new Date().toISOString().slice(0, 10);
+    let cveRows: ExplorerRow[] | null = null;
+    try {
+      const dataset = await loadDataset();
+      cveRows = buildExplorerRows(dataset.cves, data.branches.map((b) => b.branch));
+    } catch (error) {
+      log.warn("php_versions_page.nvd_unavailable", { error });
+    }
     return {
       ok: true,
       branches: data.branches,
       timeline: buildTimeline(data.branches, today),
+      cveRows,
       today,
       retrievedAt: data.retrievedAt,
       stale: data.stale,
@@ -58,6 +68,20 @@ function day(value: string | null): string {
   return new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(
     new Date(Date.UTC(y, m - 1, d)),
   );
+}
+
+const RISK_BADGE: Record<RiskLevel, "ok" | "warning" | "danger" | "outline"> = {
+  lower: "ok",
+  moderate: "warning",
+  high: "danger",
+  unknown: "outline",
+};
+
+function daysLeftText(days: number | null): string {
+  if (days === null) return "Not published";
+  if (days < 0) return `Ended ${Math.abs(days)} days ago`;
+  if (days === 0) return "Ends today";
+  return `${days} days left`;
 }
 
 function PatchLink({ version }: { version: string | null }) {
@@ -106,6 +130,8 @@ async function Content() {
   const { branches, timeline, today } = loaded;
   const counts = stateCounts(branches);
   const supported = branches.filter((b) => b.state === "active" || b.state === "security");
+  const scorecard = buildScorecard(branches, loaded.cveRows, today);
+  const target = recommendedBranch(scorecard);
 
   return (
     <div className="mt-8 space-y-8">
@@ -134,6 +160,58 @@ async function Content() {
           </Card>
         ))}
       </section>
+
+      {scorecard.length > 0 && (
+        <section aria-labelledby="scorecard">
+          <h2 id="scorecard" className="text-2xl font-semibold tracking-tight">Branch risk scorecard</h2>
+          <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
+            Which branch is safest to run today? The risk label comes only from the official php.net support state.
+            CVE counts are NVD records whose affected-version ranges map to that branch, so they show how much has been
+            reported, not what is still open: the latest patch of a supported branch includes the published fixes.
+            {target ? ` Suggested upgrade target: PHP ${target}.` : ""}
+          </p>
+          <Card className="mt-4">
+            <CardContent className="overflow-x-auto p-0">
+              <table className="w-full min-w-[640px] text-sm">
+                <caption className="sr-only">Risk scorecard for each PHP branch</caption>
+                <thead className="border-b text-left text-muted-foreground">
+                  <tr>
+                    <th scope="col" className="px-4 py-2 font-medium">Branch</th>
+                    <th scope="col" className="px-4 py-2 font-medium">Risk</th>
+                    <th scope="col" className="px-4 py-2 font-medium">Support</th>
+                    <th scope="col" className="px-4 py-2 font-medium">Security fixes</th>
+                    <th scope="col" className="px-4 py-2 font-medium">NVD CVEs</th>
+                    <th scope="col" className="px-4 py-2 font-medium">Critical or high</th>
+                    <th scope="col" className="px-4 py-2 font-medium">Latest patch</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {scorecard.map((row) => (
+                    <tr key={row.branch} className="border-b last:border-0">
+                      <th scope="row" className="px-4 py-2 text-left font-mono font-medium">PHP {row.branch}</th>
+                      <td className="px-4 py-2"><Badge variant={RISK_BADGE[row.risk]}>{RISK_LABEL[row.risk]}</Badge></td>
+                      <td className="px-4 py-2">{supportLabel(row.state)}</td>
+                      <td className="px-4 py-2">{daysLeftText(row.daysOfSecuritySupportLeft)}</td>
+                      <td className="px-4 py-2">
+                        {row.cveCount === null ? (
+                          <span className="text-muted-foreground">Unavailable</span>
+                        ) : (
+                          <Link className="underline underline-offset-2" href={`/cves?branch=${row.branch}`}>{row.cveCount}</Link>
+                        )}
+                      </td>
+                      <td className="px-4 py-2">{row.criticalHighCount ?? <span className="text-muted-foreground">Unavailable</span>}</td>
+                      <td className="px-4 py-2"><PatchLink version={row.latestPatch} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </CardContent>
+          </Card>
+          {loaded.cveRows === null && (
+            <p className="mt-2 text-sm text-muted-foreground" role="status">NVD data could not be loaded right now, so CVE counts are hidden.</p>
+          )}
+        </section>
+      )}
 
       {timeline && (
         <section aria-labelledby="timeline">
@@ -217,8 +295,8 @@ async function Content() {
         </p>
       )}
       <p className="text-sm text-muted-foreground">
-        Sources: php.net supported-versions and end-of-life pages, the php.net releases JSON and the published support
-        schedule. Data refreshes every few hours{loaded.retrievedAt ? `; last synced ${loaded.retrievedAt}` : ""}.
+        Sources: php.net supported-versions and end-of-life pages, the php.net releases JSON, the published support
+        schedule and the NVD CVE API for the scorecard counts. Data refreshes every few hours{loaded.retrievedAt ? `; last synced ${loaded.retrievedAt}` : ""}.
       </p>
     </div>
   );
