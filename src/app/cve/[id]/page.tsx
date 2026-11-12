@@ -9,7 +9,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { toExplorerRow, type ExplorerRow } from "@/lib/cve-explorer";
 import { cveFaq, fixRows, isAffected, normalizeCveId, pickRanges, type FixRow, type RangeSource } from "@/lib/cve-page";
 import { DataUnavailableError, loadDataset } from "@/lib/dataset";
+import { EPSS_PAGE, formatPercentile, formatProbability, lookupEpss, type EpssLookup } from "@/lib/epss";
 import { KEV_CATALOG_PAGE, lookupKev, type KevEntry } from "@/lib/kev";
+import { relatedCves, type RelatedCve } from "@/lib/related-cves";
 import { jsonLdString } from "@/lib/faq";
 import { log } from "@/lib/log";
 import { SITE_URL } from "@/lib/site";
@@ -24,7 +26,7 @@ type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
 type Loaded =
   | { ok: true; found: false }
-  | { ok: true; found: true; row: ExplorerRow; source: RangeSource; rows: FixRow[]; nvdRetrievedAt: string | null; kev: KevEntry | null; kevOk: boolean }
+  | { ok: true; found: true; row: ExplorerRow; source: RangeSource; rows: FixRow[]; nvdRetrievedAt: string | null; kev: KevEntry | null; kevOk: boolean; epss: EpssLookup; related: RelatedCve[] }
   | { ok: false; message: string };
 
 async function load(id: string): Promise<Loaded> {
@@ -35,11 +37,15 @@ async function load(id: string): Promise<Loaded> {
     const cve = data.cves.find((c) => c.id === id);
     if (!cve) return { ok: true, found: false };
     const source = pickRanges(cve);
-    const kev = await lookupKev([id]);
+    const [kev, epss] = await Promise.all([lookupKev([id]), lookupEpss(id)]);
+    const known = data.branches.map((b) => b.branch);
+    const row = toExplorerRow(cve, known);
     return {
       ok: true,
       found: true,
-      row: toExplorerRow(cve, data.branches.map((b) => b.branch)),
+      row,
+      epss,
+      related: relatedCves(row, data.cves.map((c) => toExplorerRow(c, known))),
       source,
       rows: fixRows(source.ranges),
       nvdRetrievedAt: data.retrievedAt,
@@ -147,6 +153,7 @@ async function Content({ params, searchParams }: { params: Params; searchParams:
           Not in the <a className="underline" href={KEV_CATALOG_PAGE} target="_blank" rel="noreferrer">CISA KEV catalog</a> as of the last sync. That means no confirmed exploitation is listed there, not that it is safe.
         </p>
       ) : null}
+      <Epss epss={loaded.epss} />
 
       <Card className="mt-8">
         <CardContent className="p-4">
@@ -191,6 +198,24 @@ async function Content({ params, searchParams }: { params: Params; searchParams:
         </p>
       </section>
 
+      {loaded.related.length > 0 && (
+        <section aria-labelledby="related" className="mt-8">
+          <h2 id="related" className="text-2xl font-semibold tracking-tight">Related CVEs</h2>
+          <p className="mt-1 text-sm text-muted-foreground">Other PHP CVEs that NVD lists for the same branches.</p>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2" data-testid="related-cves">
+            {loaded.related.map((r) => (
+              <li key={r.id} className="rounded-md border border-border px-3 py-2 text-sm">
+                <Link className="font-mono font-medium underline" href={`/cve/${r.id}`}>{r.id}</Link>{" "}
+                <span className="text-muted-foreground">
+                  {label(r.severity)}{r.score !== null ? ` ${r.score.toFixed(1)}` : ""} · PHP {r.sharedBranches.join(", ")}
+                  {r.published ? ` · ${r.published}` : ""}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <section aria-labelledby="faq" className="mt-8">
         <h2 id="faq" className="text-2xl font-semibold tracking-tight">Questions</h2>
         <dl className="mt-3 space-y-4">
@@ -210,6 +235,23 @@ async function Content({ params, searchParams }: { params: Params; searchParams:
         <Link className="underline" href={`/cves?q=${id}`}>CVE explorer</Link>.
       </p>
     </article>
+  );
+}
+
+function Epss({ epss }: { epss: EpssLookup }) {
+  const link = <a className="underline" href={EPSS_PAGE} target="_blank" rel="noreferrer">FIRST EPSS</a>;
+  if (!epss.ok) {
+    return <p className="mt-3 text-xs text-muted-foreground" data-testid="epss">Exploit probability ({link}): Unavailable right now.</p>;
+  }
+  if (!epss.score) {
+    return <p className="mt-3 text-xs text-muted-foreground" data-testid="epss">Exploit probability ({link}): no score published for this CVE.</p>;
+  }
+  const s = epss.score;
+  return (
+    <p className="mt-3 text-sm" data-testid="epss">
+      <strong>Exploit probability ({link}):</strong> {formatProbability(s.epss)} chance of exploitation activity in the next 30 days
+      ({formatPercentile(s.percentile)} of all scored CVEs){s.date ? `, scored ${s.date}` : ""}. EPSS is a likelihood estimate, not proof of attacks.
+    </p>
   );
 }
 

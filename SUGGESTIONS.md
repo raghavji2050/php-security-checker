@@ -62,8 +62,8 @@ Sources checked 1 Nov 2026 (IST). No code changed.
 
 ### 2026-11-07 — Evening update ideas
 - ~~**CISA KEV "exploited in the wild" badge on `/cve/{id}` and `/cves` (official CISA KEV JSON feed)**~~ Done 2026-11-12 — tells devs at a glance which CVEs are actually being attacked, so they prioritise correctly.
-- **EPSS exploit-probability score on CVE pages (FIRST.org free EPSS API)** — adds a real-world likelihood number next to CVSS, making the "should I worry?" answer more useful.
-- **Related CVEs block on `/cve/{id}` (same branch/year, from existing NVD data)** — stronger internal linking for SEO and keeps visitors browsing longer.
+- ~~**EPSS exploit-probability score on CVE pages (FIRST.org free EPSS API)**~~ Done 2026-11-12 — adds a real-world likelihood number next to CVSS, making the "should I worry?" answer more useful.
+- ~~**Related CVEs block on `/cve/{id}` (same branch/year, from existing NVD data)**~~ Done 2026-11-12 — stronger internal linking for SEO and keeps visitors browsing longer.
 
 ## 2026-11-08 — Weekly market check
 Sources checked 8 Nov 2026 (IST). No code changed. Compared with the 1 Nov 2026 check.

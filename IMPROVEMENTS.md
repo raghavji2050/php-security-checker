@@ -85,6 +85,11 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 - `/cves` list items get the same badge, plus a line saying how many of the matching CVEs are in KEV. Playwright e2e test added for `/cve/CVE-2019-11043`.
 - Next: oldest undone queued idea, EPSS exploit-probability score on CVE pages (FIRST.org free API).
 
+## 2026-11-12 — EPSS exploit probability and Related CVEs on `/cve/{id}` (queued ideas)
+- New `src/lib/epss.ts` (with tests) reads the free FIRST.org EPSS API per CVE (cached 12 h, stale allowed). The page shows the probability, the percentile ("top N%") and the score date. If FIRST is down it says "Unavailable"; if FIRST has no score it says so. No number is ever guessed.
+- New `src/lib/related-cves.ts` (with tests) lists up to 6 other PHP CVEs that NVD ranges put on the same branches, closest first (shared branches, same year, CVSS). Better internal linking.
+- Playwright e2e test added for both on `/cve/CVE-2019-11043`.
+
 ## Ideas queue (not done yet)
 
 - ~~CI linting: GitHub Actions for lint, typecheck, test, build~~ Done 2026-10-25 (Raghav added `ci.yml`).
