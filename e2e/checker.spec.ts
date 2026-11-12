@@ -68,3 +68,12 @@ test("/cve/{id} flags a CVE that CISA lists as exploited in the wild", async ({ 
   await expect(page.getByRole("heading", { level: 1, name: "CVE-2019-11043" })).toBeVisible({ timeout: 25_000 });
   await expect(page.getByTestId("kev-callout")).toContainText("Known Exploited Vulnerabilities catalog", { timeout: 25_000 });
 });
+
+test("/cve/{id} shows the EPSS exploit probability and related CVEs", async ({ page }) => {
+  const response = await page.goto("/cve/CVE-2019-11043");
+  expect(response?.status()).toBe(200);
+  // Either a real FIRST score or an honest "Unavailable"/"no score" line, never a made-up number.
+  await expect(page.getByTestId("epss")).toContainText("FIRST EPSS", { timeout: 25_000 });
+  await expect(page.getByRole("heading", { level: 2, name: "Related CVEs" })).toBeVisible();
+  await expect(page.getByTestId("related-cves").getByRole("link").first()).toHaveAttribute("href", /^\/cve\/CVE-\d{4}-\d+$/);
+});
