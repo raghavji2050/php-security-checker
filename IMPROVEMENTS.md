@@ -119,6 +119,10 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 - New `src/lib/page-faq.ts` (with tests) builds questions answered only from the computed report or php.net branch data: "Is PHP X vulnerable?", "Is PHP X.Y still supported?", "Which version should I upgrade to?", and on `/php-versions` "Which PHP versions are still supported?", latest version, next end of life, active-support branches. When data can't be verified it says so rather than answering yes/no.
 - Shared `FaqSection` component shows the questions on the page and publishes the identical text as FAQPage JSON-LD (Google requires the two to match). Playwright e2e test checks the JSON-LD and visible text agree.
 
+## 2026-11-12 — "What changed" between two PHP patch versions (queued idea)
+- New `/changes?from=8.3.10&to=8.3.14` page: lists each official release in between and the security IDs (CVE/GHSA) the php.net ChangeLog lists for it, linking to `/cve/{id}`, the php-src GHSA and the php.net ChangeLog anchor. ChangeLog text itself is not copied. Same-branch only; unknown target versions are rejected.
+- New `src/lib/changelog-diff.ts` (with tests) reuses the existing ChangeLog index. Added to nav, sitemap and llms.txt. Smoke check and Playwright e2e test added.
+
 ## Ideas queue (not done yet)
 
 - ~~CI linting: GitHub Actions for lint, typecheck, test, build~~ Done 2026-10-25 (Raghav added `ci.yml`).

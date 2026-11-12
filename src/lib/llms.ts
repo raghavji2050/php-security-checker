@@ -26,6 +26,7 @@ export function buildLlmsTxt(): string {
     `- [php -v parser](${url("/php-v")}): paste php -v output (parsed in the browser) to get the exact version, distro package suffix, SAPI and thread safety, then the CVE check for that version.`,
     `- [CVE feeds](${url("/feeds/all.xml")}): Atom feed of the 50 newest PHP CVEs from NVD; per branch at /feeds/{MAJOR.MINOR}.xml (e.g. /feeds/8.3.xml).`,
     `- [Support calendar](${url("/php-versions/calendar.ics")}): iCalendar (.ics) of upcoming PHP active/security support end dates from php.net.`,
+    `- [What changed](${url("/changes?from=8.3.10&to=8.3.14")}): security IDs (CVE/GHSA) the php.net ChangeLog lists for each release between two patch versions on one branch.`,
     `- [PHP versions timeline](${url("/php-versions")}): visual support timeline per PHP branch (release, active support, security-only, end of life) from php.net data.`,
     `- [require.php constraint checker](${url("/composer/php-constraint")}): paste the composer.json "php" constraint (e.g. ^8.1) to see which php.net branches it allows and whether any are end of life.`,
     `- [composer.lock scanner](${url("/composer")}): paste or upload a composer.lock (parsed in the browser); checks locked name@version against the Packagist security advisories API. POST /api/composer-advisories accepts only the package map, never the raw lock.`,

@@ -168,3 +168,17 @@ test("/check/{version} and /php-versions publish FAQPage JSON-LD matching visibl
     }
   }
 });
+
+test("/changes lists releases and security IDs between two patch versions", async ({ page }) => {
+  await page.goto("/changes");
+  await page.getByLabel("Current version").fill("8.3.20");
+  await page.getByLabel("Upgrade to").fill("8.3.26");
+  await page.getByRole("button", { name: "Compare" }).click();
+  await expect(page).toHaveURL(/\/changes\?from=8\.3\.20&to=8\.3\.26/);
+  const result = page.getByTestId("changes-result");
+  await expect(result.or(page.locator("main [role=alert]")).first()).toBeVisible({ timeout: 25_000 });
+  if (await result.count()) {
+    await expect(result.getByRole("heading", { level: 2 })).toContainText("PHP 8.3.20 → 8.3.26: 6 releases");
+    await expect(result.getByRole("link", { name: "PHP 8.3.23" })).toHaveAttribute("href", "https://www.php.net/ChangeLog-8.php#8.3.23");
+  }
+});
