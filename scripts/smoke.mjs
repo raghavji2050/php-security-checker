@@ -40,6 +40,7 @@ const checks = [
   { path: "/llms.txt", status: 200, contains: "/composer" },
   { path: "/openapi.json", status: 200, json: (b) => b.paths?.["/api/check"]?.get },
   { path: "/feeds/nope.xml", status: 404, contains: "Unknown feed" },
+  { path: "/b4ffe2722d6124db514be3758af6ea2b.txt", status: 200, contains: "b4ffe2722d6124db514be3758af6ea2b" },
   { path: "/robots.txt", status: 200 },
   { path: "/sitemap.xml", status: 200, contains: "<urlset" },
   { path: "/sitemap.xml", status: 200, contains: "/cve/CVE-2026-109618" },

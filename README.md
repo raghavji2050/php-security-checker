@@ -123,6 +123,17 @@ The long-term recommendation is the latest patch on the newest branch php.net st
 
 Import the repository, set `NVD_API_KEY`, and deploy. The first check calls NVD, so the function timeout needs to allow that download. On a short timeout, retry after the cache has been filled, or run one check from a longer-lived environment first.
 
+### IndexNow ping after a production deploy
+
+After `vercel --prod` and a passing production smoke run, notify IndexNow engines (Bing, Yandex, Seznam, Naver…) about our sitemap URLs:
+
+```sh
+npm run indexnow                    # POSTs every https://php-security-checker.vercel.app sitemap URL in one batch
+INDEXNOW_DRY_RUN=1 npm run indexnow # print the payload only
+```
+
+The key is public by design and lives in `public/b4ffe2722d6124db514be3758af6ea2b.txt` (the key-location file). There is no secret and nothing in CI. The script only sends URLs on our own host, caps the batch at the 10,000-URL spec limit, logs the HTTP status (200/202 = accepted) and always exits 0, so it never breaks a deploy. Needs Node 22.18+ (type stripping).
+
 ### Railway
 
 Railway can build the `Dockerfile` or run `npm install`, `npm run build`, and `npm start`. `npm start` listens on `PORT`. Set `NVD_API_KEY` in the service variables. The cache lives on the local disk of the instance and is empty after a new deploy.
