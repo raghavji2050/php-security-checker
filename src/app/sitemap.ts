@@ -13,6 +13,7 @@ const PAGES = [
   "/how-it-works",
   "/versions",
   "/php-versions",
+  "/php-v",
   "/composer",
   "/composer/php-constraint",
   "/php-ini",

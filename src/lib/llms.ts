@@ -23,6 +23,7 @@ export function buildLlmsTxt(): string {
     `- [Security news](${url("/news")}): headlines and links from official PHP, Laravel, WordPress and LAMP-stack feeds and APIs (filter with ?source=). We do not republish articles.`,
     `- [Am I affected? CVE pages](${url("/cve/CVE-2024-4577")}): /cve/{CVE-ID} for any PHP CVE in NVD, with a branch-wise fixed version table from NVD/php.net ranges and a version check (?v=X.Y.Z).`,
     `- [Versions](${url("/versions")}): PHP branches and their support status.`,
+    `- [php -v parser](${url("/php-v")}): paste php -v output (parsed in the browser) to get the exact version, distro package suffix, SAPI and thread safety, then the CVE check for that version.`,
     `- [PHP versions timeline](${url("/php-versions")}): visual support timeline per PHP branch (release, active support, security-only, end of life) from php.net data.`,
     `- [require.php constraint checker](${url("/composer/php-constraint")}): paste the composer.json "php" constraint (e.g. ^8.1) to see which php.net branches it allows and whether any are end of life.`,
     `- [composer.lock scanner](${url("/composer")}): paste or upload a composer.lock (parsed in the browser); checks locked name@version against the Packagist security advisories API. POST /api/composer-advisories accepts only the package map, never the raw lock.`,

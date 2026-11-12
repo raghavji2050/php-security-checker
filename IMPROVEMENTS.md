@@ -105,6 +105,11 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 - New `src/lib/featured-advisories.ts` (with tests) adds short notes from the official php.net 21 Oct 2026 advisory: php.net's title, fixed releases (8.5.12 / 8.4.27 / 8.3.36 / 8.2.35), the interim mitigations in plain words, and the php-src GHSA links. "PHP2Shell" is labelled as a press nickname, not an official name. Branch fixed versions on the page still come from live NVD/php.net ranges.
 - Smoke check (sitemap lists the page) and Playwright e2e test added.
 
+## 2026-11-12 — "Is my PHP patched?" `php -v` parser (queued idea)
+- New `/php-v` page: paste the full `php -v` output. It is parsed only in the browser (`src/lib/php-v.ts`, with tests) and shows the exact version, package suffix with a distro hint (Ubuntu, Debian, deb.sury.org, RHEL family, Amazon Linux, Fedora, Alpine), SAPI, ZTS/NTS, build date, OPcache/Xdebug, and pre-release builds.
+- When there is a distro suffix it explains that distros backport fixes without changing the version and asks the user to confirm with their vendor; it never claims a backport exists. Links to `/check/{version}`.
+- Added to nav, sitemap and llms.txt. Smoke check and Playwright e2e test added.
+
 ## Ideas queue (not done yet)
 
 - ~~CI linting: GitHub Actions for lint, typecheck, test, build~~ Done 2026-10-25 (Raghav added `ci.yml`).
