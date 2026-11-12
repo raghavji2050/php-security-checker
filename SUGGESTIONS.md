@@ -113,6 +113,6 @@ Sources checked 8 Nov 2026 (IST). No code changed. Compared with the 1 Nov 2026 
 - **Print-friendly "server audit summary" page combining version, php.ini and extension checks** — gives freelancers a client-ready report.
 
 ### 2026-11-11 — Evening update ideas
-- **"What changed" diff page between two PHP patch versions (php.net ChangeLog data)** — shows which fixes you get by upgrading, a strong reason to upgrade.
+- ~~**"What changed" diff page between two PHP patch versions (php.net ChangeLog data)** — shows which fixes you get by upgrading, a strong reason to upgrade.~~ Done 2026-11-12 (`/changes`, security IDs only)
 - **Laravel version support checker (laravel.com release policy + Packagist advisories)** — same hub pattern as Symfony, covers his main stack.
 - ~~**JSON-LD FAQ schema on /check and /php-versions pages** — helps Google/AI answer engines quote the site.~~ Done 2026-11-12
