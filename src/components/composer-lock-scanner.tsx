@@ -2,7 +2,10 @@
 
 import { useCallback, useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { CopyMarkdownButton } from "@/components/copy-markdown-button";
 import { Button } from "@/components/ui/button";
+import { composerReportMarkdown } from "@/lib/markdown-report";
+import { SITE_URL } from "@/lib/site";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   MAX_LOCK_BYTES,
@@ -258,6 +261,9 @@ export function ComposerLockScanner() {
             </CardTitle>
           </CardHeader>
           <CardContent className="grid gap-4 text-sm">
+            <div className="no-print">
+              <CopyMarkdownButton markdown={composerReportMarkdown(state.result, SITE_URL)} />
+            </div>
             <p className="text-muted-foreground">
               Checked {state.result.packageCount} package{state.result.packageCount === 1 ? "" : "s"} (
               {state.parsed.packageCount} prod

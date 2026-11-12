@@ -3,11 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cacheLife } from "next/cache";
 import { Suspense } from "react";
+import { CopyMarkdownButton } from "@/components/copy-markdown-button";
 import { SymfonyForm } from "@/components/symfony-form";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { log } from "@/lib/log";
+import { symfonyReportMarkdown } from "@/lib/markdown-report";
 import { SITE_URL } from "@/lib/site";
 import { checkSymfony, normalizeSymfonyVersion, type SymfonyCheck } from "@/lib/symfony-support";
 
@@ -152,6 +154,28 @@ function Result({ r }: { r: SymfonyCheck }) {
           )}
         </CardContent>
       </Card>
+      <Share r={r} />
     </div>
+  );
+}
+
+function Share({ r }: { r: SymfonyCheck }) {
+  const badgeUrl = new URL(`/api/symfony/badge?v=${r.version}`, SITE_URL).toString();
+  const pageUrl = new URL(`/symfony/check/${r.version}`, SITE_URL).toString();
+  const badgeMd = `[![Symfony ${r.version} security status](${badgeUrl})](${pageUrl})`;
+  return (
+    <Card className="no-print" data-testid="symfony-share">
+      <CardHeader><CardTitle>Share this report</CardTitle></CardHeader>
+      <CardContent className="space-y-3">
+        <div className="flex flex-wrap gap-2">
+          <CopyMarkdownButton markdown={symfonyReportMarkdown(r, SITE_URL)} />
+          <CopyMarkdownButton markdown={badgeMd} label="Copy badge Markdown" />
+        </div>
+        <p className="text-muted-foreground">README badge (updates hourly from symfony.com and Packagist data):</p>
+        {/* eslint-disable-next-line @next/next/no-img-element -- live SVG badge from our own API */}
+        <img src={`/api/symfony/badge?v=${r.version}`} alt={`Symfony ${r.version} security status badge`} height={20} />
+        <pre className="overflow-x-auto rounded-md bg-muted p-2 font-mono text-xs">{badgeMd}</pre>
+      </CardContent>
+    </Card>
   );
 }

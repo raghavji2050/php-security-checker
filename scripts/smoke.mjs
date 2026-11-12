@@ -29,6 +29,7 @@ const checks = [
   { path: "/.well-known/security.txt", status: 200, contains: "Contact:" },
   { path: "/8.1.12", status: 308, location: "/check/8.1.12" },
   { path: "/api/badge?v=nope", status: 400, contains: "invalid version" },
+  { path: "/api/symfony/badge?v=nope", status: 400, contains: "invalid version" },
   { path: "/api/laravel", status: 400, json: (b) => b.code === "missing_version" },
   { path: "/api/symfony?v=7.4", status: 400, json: (b) => b.code === "invalid_version" },
   { path: "/api/wordpress?v=latest", status: 400, json: (b) => b.code === "invalid_version" },

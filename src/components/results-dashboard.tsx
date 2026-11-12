@@ -3,11 +3,14 @@
 import { Check, ChevronDown, Copy, Download, ExternalLink, Link2, Printer } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { CopyMarkdownButton } from "@/components/copy-markdown-button";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatStampWithZone } from "@/lib/format";
+import { versionReportMarkdown } from "@/lib/markdown-report";
 import { buildVersionReport, REPORT_NOTE } from "@/lib/report";
+import { SITE_URL } from "@/lib/site";
 import { riskSummary } from "@/lib/risk";
 import type { CheckResult, Finding, SecurityStatus } from "@/lib/types";
 import { DISTRO_BACKPORT_NOTE, upgradeCommands } from "@/lib/upgrade-commands";
@@ -160,6 +163,7 @@ export function ResultsDashboard({ result }: { result: CheckResult }) {
           {copied === "link" ? <Check /> : <Link2 />}
           Copy link
         </Button>
+        <CopyMarkdownButton markdown={versionReportMarkdown(result, SITE_URL)} />
         <Button type="button" variant="outline" onClick={downloadJson}>
           <Download />
           Download JSON

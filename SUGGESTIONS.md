@@ -100,11 +100,11 @@ Sources checked 8 Nov 2026 (IST). No code changed. Compared with the 1 Nov 2026 
 ### 2026-11-08 — Evening update ideas
 - ~~**composer.json `require.php` constraint checker (paste `"php": "^8.1"`, see which php.net branches it allows and flag EOL ones)** — package maintainers instantly see if their constraint still allows unsupported PHP, using existing php.net branch data.~~ Done 2026-11-12 (`/composer/php-constraint`).
 - **IndexNow ping on each deploy for new `/cve/{id}`, `/check/` and `/news` URLs (free IndexNow protocol, own sitemap only)** — Bing and other IndexNow engines pick up new CVE pages within hours instead of days.
-- **"Copy as Markdown" button on version and composer reports** — devs can paste a clean CVE/fix table straight into a GitHub issue, PR or Jira ticket, so the report turns into a tracked task.
+- ~~**"Copy as Markdown" button on version and composer reports** — devs can paste a clean CVE/fix table straight into a GitHub issue, PR or Jira ticket, so the report turns into a tracked task.~~ Done 2026-11-12
 
 ### 2026-11-09 — Evening update ideas
 - **Featured /cve pages for CVE-2026-109618 and CVE-2026-109619 (PHP2Shell) from NVD data** — captures the biggest PHP search spike with official data.
-- **Symfony "Copy as Markdown" and badge for /symfony reports** — shareable results for Symfony teams, reuses existing badge code.
+- ~~**Symfony "Copy as Markdown" and badge for /symfony reports** — shareable results for Symfony teams, reuses existing badge code.~~ Done 2026-11-12 (`/api/symfony/badge`)
 - **PHP 8.6.0 GA (19 Nov) readiness page using php.net data** — launch-week traffic, labelled clearly until GA.
 
 ### 2026-11-10 — Evening update ideas
