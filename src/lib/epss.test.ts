@@ -29,6 +29,8 @@ describe("formatting", () => {
     expect(formatProbability(0.0123)).toBe("1.23%");
     expect(formatProbability(0.00001)).toBe("<0.01%");
     expect(formatProbability(0)).toBe("0.00%");
+    expect(formatProbability(0.99987)).toBe(">99.9%");
+    expect(formatProbability(1)).toBe("100.0%");
   });
   it("formats percentile as top N%", () => {
     expect(formatPercentile(0.99956)).toBe("top 1%");

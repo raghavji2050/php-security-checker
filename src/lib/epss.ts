@@ -48,6 +48,8 @@ export function parseEpss(payload: unknown): Record<string, EpssScore> {
 export function formatProbability(value: number): string {
   const pct = value * 100;
   if (pct > 0 && pct < 0.01) return "<0.01%";
+  // Never round a real score up to a certain-sounding 100%.
+  if (pct < 100 && pct >= 99.95) return ">99.9%";
   return `${pct >= 10 ? pct.toFixed(1) : pct.toFixed(2)}%`;
 }
 
