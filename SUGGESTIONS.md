@@ -109,7 +109,7 @@ Sources checked 8 Nov 2026 (IST). No code changed. Compared with the 1 Nov 2026 
 
 ### 2026-11-10 — Evening update ideas
 - ~~**"Is my PHP patched?" copy-paste `php -v` parser (paste full `php -v` output, extract version + distro suffix)** — users paste what they have instead of hand-typing a version.~~ Done 2026-11-12 (`/php-v`)
-- **Per-branch RSS/Atom feed of new PHP CVEs from existing NVD data** — devs subscribe once, and it earns backlinks and returning visitors.
+- ~~**Per-branch RSS/Atom feed of new PHP CVEs from existing NVD data** — devs subscribe once, and it earns backlinks and returning visitors.~~ Done 2026-11-12 (`/feeds/all.xml`, `/feeds/8.3.xml`)
 - **Print-friendly "server audit summary" page combining version, php.ini and extension checks** — gives freelancers a client-ready report.
 
 ### 2026-11-11 — Evening update ideas

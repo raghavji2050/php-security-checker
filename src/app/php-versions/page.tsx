@@ -19,7 +19,10 @@ export const metadata: Metadata = {
   title: "PHP versions support timeline",
   description:
     "Timeline and risk scorecard of every recent PHP branch from official php.net and NVD data: release date, active support, security-only window, end of life, latest patch, CVE counts and current status.",
-  alternates: { canonical: new URL("/php-versions", SITE_URL).toString() },
+  alternates: {
+    canonical: new URL("/php-versions", SITE_URL).toString(),
+    types: { "application/atom+xml": [{ url: "/feeds/all.xml", title: "New PHP CVEs (NVD)" }] },
+  },
 };
 
 type Loaded =
@@ -102,6 +105,11 @@ export default function PhpVersionsPage() {
       <p className="mt-3 max-w-2xl text-muted-foreground">
         When each PHP branch was released, how long it gets bug fixes, when it drops to security fixes only, and when it
         reaches end of life. All dates come from official php.net data.
+      </p>
+      <p className="mt-3 text-sm" data-testid="subscribe-links">
+        Subscribe: <a className="underline" href="/php-versions/calendar.ics">support end dates calendar (.ics)</a> ·{" "}
+        <a className="underline" href="/feeds/all.xml">new PHP CVEs feed (Atom)</a>, or one branch, e.g.{" "}
+        <a className="font-mono underline" href="/feeds/8.4.xml">/feeds/8.4.xml</a>
       </p>
       <Suspense
         fallback={

@@ -32,7 +32,10 @@ export const metadata: Metadata = {
   title: "PHP CVE explorer",
   description:
     "Explore every PHP interpreter CVE in NIST NVD: search, filter by year, CVSS severity and affected PHP branch, with CVEs-per-year and severity charts.",
-  alternates: { canonical: new URL("/cves", SITE_URL).toString() },
+  alternates: {
+    canonical: new URL("/cves", SITE_URL).toString(),
+    types: { "application/atom+xml": [{ url: "/feeds/all.xml", title: "New PHP CVEs (NVD)" }] },
+  },
 };
 
 const PAGE_SIZE = 50;
@@ -88,6 +91,10 @@ export default function CvesPage({ searchParams }: { searchParams: SearchParams 
         Every CVE that NIST NVD links to the PHP interpreter (CPE <span className="font-mono text-sm">php:php</span>).
         Search and filter by year, severity and affected branch. Branches come only from NVD version ranges; when NVD
         gives no usable range the branch is shown as unknown.
+      </p>
+      <p className="mt-3 text-sm">
+        Follow new CVEs: <a className="underline" href="/feeds/all.xml">Atom feed</a> (all branches) or per branch, e.g.{" "}
+        <a className="font-mono underline" href="/feeds/8.3.xml">/feeds/8.3.xml</a>.
       </p>
       <p className="mt-3 text-sm" data-testid="featured-cves">
         <span className="font-medium">Featured:</span>{" "}

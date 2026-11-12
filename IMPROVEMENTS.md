@@ -110,6 +110,11 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 - When there is a distro suffix it explains that distros backport fixes without changing the version and asks the user to confirm with their vendor; it never claims a backport exists. Links to `/check/{version}`.
 - Added to nav, sitemap and llms.txt. Smoke check and Playwright e2e test added.
 
+## 2026-11-12 — Per-branch Atom feeds of new PHP CVEs + ICS support-dates calendar (queued ideas)
+- New `/feeds/all.xml` and `/feeds/{MAJOR.MINOR}.xml` (e.g. `/feeds/8.3.xml`): Atom 1.0 feeds of the 50 newest PHP CVEs from existing NVD data, each entry linking to `/cve/{id}`. Unknown slugs return 404; if NVD data is unavailable the feed returns 503 instead of an empty or fake feed. Builder in `src/lib/cve-feed.ts` (with tests).
+- New `/php-versions/calendar.ics`: iCalendar all-day events for every upcoming active-support and security-support end date from php.net (e.g. PHP 8.2 end of life on 31 Dec 2026). Builder in `src/lib/ics.ts` (RFC 5545 escaping and line folding, with tests).
+- Subscribe links on `/php-versions` and `/cves`, `<link rel="alternate">` for the feed, llms.txt entries. Smoke check (404 path) and Playwright e2e test added.
+
 ## Ideas queue (not done yet)
 
 - ~~CI linting: GitHub Actions for lint, typecheck, test, build~~ Done 2026-10-25 (Raghav added `ci.yml`).

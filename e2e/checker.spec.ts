@@ -135,3 +135,21 @@ test("/php-v reads pasted php -v output and links to the check", async ({ page }
   await expect(result).toContainText("Ubuntu build");
   await expect(page.getByTestId("php-v-check-link")).toHaveAttribute("href", "/check/8.1.2");
 });
+
+test("CVE Atom feeds and the support calendar are served", async ({ page, request }) => {
+  const feed = await request.get("/feeds/8.3.xml");
+  // 503 only when NVD data is unavailable; never a fake feed.
+  expect([200, 503]).toContain(feed.status());
+  if (feed.status() === 200) {
+    expect(feed.headers()["content-type"]).toContain("application/atom+xml");
+    expect(await feed.text()).toContain("<title>PHP 8.3 CVEs (NVD)</title>");
+  }
+  const ics = await request.get("/php-versions/calendar.ics");
+  expect([200, 503]).toContain(ics.status());
+  if (ics.status() === 200) {
+    expect(ics.headers()["content-type"]).toContain("text/calendar");
+    expect(await ics.text()).toContain("BEGIN:VCALENDAR");
+  }
+  await page.goto("/php-versions");
+  await expect(page.getByTestId("subscribe-links").getByRole("link", { name: /calendar/ })).toHaveAttribute("href", "/php-versions/calendar.ics");
+});
