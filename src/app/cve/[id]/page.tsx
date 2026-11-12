@@ -10,6 +10,7 @@ import { toExplorerRow, type ExplorerRow } from "@/lib/cve-explorer";
 import { cveFaq, fixRows, isAffected, normalizeCveId, pickRanges, type FixRow, type RangeSource } from "@/lib/cve-page";
 import { DataUnavailableError, loadDataset } from "@/lib/dataset";
 import { EPSS_PAGE, formatPercentile, formatProbability, lookupEpss, type EpssLookup } from "@/lib/epss";
+import { featuredAdvisory, type FeaturedAdvisory } from "@/lib/featured-advisories";
 import { KEV_CATALOG_PAGE, lookupKev, type KevEntry } from "@/lib/kev";
 import { relatedCves, type RelatedCve } from "@/lib/related-cves";
 import { jsonLdString } from "@/lib/faq";
@@ -125,6 +126,7 @@ async function Content({ params, searchParams }: { params: Params; searchParams:
     mainEntity: faq.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })),
   };
   const danger = row.severity === "CRITICAL" || row.severity === "HIGH";
+  const advisory = featuredAdvisory(id);
 
   return (
     <article>
@@ -154,6 +156,7 @@ async function Content({ params, searchParams }: { params: Params; searchParams:
         </p>
       ) : null}
       <Epss epss={loaded.epss} />
+      {advisory && <PhpNetAdvisory a={advisory} />}
 
       <Card className="mt-8">
         <CardContent className="p-4">
@@ -235,6 +238,33 @@ async function Content({ params, searchParams }: { params: Params; searchParams:
         <Link className="underline" href={`/cves?q=${id}`}>CVE explorer</Link>.
       </p>
     </article>
+  );
+}
+
+function PhpNetAdvisory({ a }: { a: FeaturedAdvisory }) {
+  return (
+    <Card className="mt-6" data-testid="php-net-advisory">
+      <CardContent className="space-y-2 p-4 text-sm">
+        <h2 className="text-lg font-semibold">php.net security advisory: {a.title}</h2>
+        {a.nickname && <p className="text-muted-foreground">Often called &ldquo;{a.nickname}&rdquo; in news coverage (not an official php.net name).</p>}
+        <p>
+          Published by php.net on {a.published}. Fixed in PHP{" "}
+          {a.fixedIn.map((v, i) => (
+            <span key={v}>{i > 0 ? ", " : ""}<Link className="font-mono underline" href={`/check/${v}`}>{v}</Link></span>
+          ))}
+          . PHP 8.1 and older get no official release; php.net points to distribution/LTS vendor backports.
+        </p>
+        <p className="font-medium">If you cannot update right away (php.net says these reduce exposure but do not make you safe):</p>
+        <ul className="list-disc space-y-1 pl-5">
+          {a.mitigations.map((m) => <li key={m}>{m}</li>)}
+        </ul>
+        <p className="text-xs text-muted-foreground">
+          Sources: <a className="underline" href={a.advisoryUrl} target="_blank" rel="noreferrer">php.net advisory</a> ·{" "}
+          <a className="underline" href={a.ghsaUrl} target="_blank" rel="noreferrer">{a.ghsaId}</a>
+          {a.relatedCves.length > 0 && <> · Fixed together with {a.relatedCves.map((c) => <Link key={c} className="font-mono underline" href={`/cve/${c}`}>{c}</Link>)}</>}
+        </p>
+      </CardContent>
+    </Card>
   );
 }
 

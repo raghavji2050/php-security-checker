@@ -39,6 +39,7 @@ const checks = [
   { path: "/openapi.json", status: 200, json: (b) => b.paths?.["/api/check"]?.get },
   { path: "/robots.txt", status: 200 },
   { path: "/sitemap.xml", status: 200, contains: "<urlset" },
+  { path: "/sitemap.xml", status: 200, contains: "/cve/CVE-2026-109618" },
   { path: "/api/check", status: 400, json: (b) => b.code === "missing_version" },
   { path: "/api/check?v=8.1", status: 400, json: (b) => b.code === "invalid_version" },
   { path: "/api/health", status: 200, json: (b) => (b.status === "ok" || b.status === "degraded") && Array.isArray(b.sources) },
