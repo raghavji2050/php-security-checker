@@ -115,6 +115,10 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 - New `/php-versions/calendar.ics`: iCalendar all-day events for every upcoming active-support and security-support end date from php.net (e.g. PHP 8.2 end of life on 31 Dec 2026). Builder in `src/lib/ics.ts` (RFC 5545 escaping and line folding, with tests).
 - Subscribe links on `/php-versions` and `/cves`, `<link rel="alternate">` for the feed, llms.txt entries. Smoke check (404 path) and Playwright e2e test added.
 
+## 2026-11-12 — JSON-LD FAQ schema on `/check/{version}` and `/php-versions` (queued idea)
+- New `src/lib/page-faq.ts` (with tests) builds questions answered only from the computed report or php.net branch data: "Is PHP X vulnerable?", "Is PHP X.Y still supported?", "Which version should I upgrade to?", and on `/php-versions` "Which PHP versions are still supported?", latest version, next end of life, active-support branches. When data can't be verified it says so rather than answering yes/no.
+- Shared `FaqSection` component shows the questions on the page and publishes the identical text as FAQPage JSON-LD (Google requires the two to match). Playwright e2e test checks the JSON-LD and visible text agree.
+
 ## Ideas queue (not done yet)
 
 - ~~CI linting: GitHub Actions for lint, typecheck, test, build~~ Done 2026-10-25 (Raghav added `ci.yml`).
