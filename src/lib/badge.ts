@@ -42,3 +42,20 @@ export function badgeForResult(result: CheckResult): string {
 export function badgeMessage(left: string, right: string): string {
   return statusBadgeSvg(left, right, "#44403c");
 }
+
+/** Badge text and colour for a Symfony check; never claims "clean" when a source failed. */
+export function symfonyBadge(r: {
+  version: string;
+  support: { state: "active" | "security" | "eol" | "unknown" };
+  patchBehind: boolean | null;
+  advisories: { findings: unknown[] } | null;
+}): string {
+  const left = `Symfony ${r.version}`;
+  if (!r.advisories) return statusBadgeSvg(left, "unable to verify", COLORS.unable_to_verify);
+  const count = r.advisories.findings.length;
+  if (count > 0) return statusBadgeSvg(left, `${count} advisor${count === 1 ? "y" : "ies"}`, COLORS.vulnerable);
+  if (r.support.state === "eol") return statusBadgeSvg(left, "end of life", COLORS.vulnerable);
+  if (r.patchBehind) return statusBadgeSvg(left, "update available", COLORS.caution);
+  if (r.support.state === "unknown") return statusBadgeSvg(left, "no advisories", COLORS.caution);
+  return statusBadgeSvg(left, "no known advisories", COLORS.no_known_issues);
+}

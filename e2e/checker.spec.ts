@@ -90,3 +90,28 @@ test("/composer/php-constraint shows which PHP branches a constraint allows", as
     await expect(page.getByText("Allows end-of-life PHP:")).toBeVisible();
   }
 });
+
+test("version report has a Copy as Markdown button", async ({ page, context }) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.goto("/check/8.1.12");
+  const button = page.getByTestId("copy-markdown");
+  // The report needs live NVD/php.net data; when it is unavailable the page shows an alert instead.
+  await expect(button.or(page.locator("main [role=alert]")).first()).toBeVisible({ timeout: 25_000 });
+  if (await button.count()) {
+    await button.click();
+    await expect(button).toContainText("Copied");
+    const md = await page.evaluate(() => navigator.clipboard.readText());
+    expect(md).toContain("## PHP 8.1.12 security check");
+  }
+});
+
+test("/symfony/check/{version} offers Markdown and a README badge", async ({ page }) => {
+  const response = await page.goto("/symfony/check/7.4.0");
+  expect(response?.status()).toBe(200);
+  const share = page.getByTestId("symfony-share");
+  await expect(share.or(page.locator("main [role=alert]")).first()).toBeVisible({ timeout: 25_000 });
+  if (await share.count()) {
+    await expect(share.getByRole("button", { name: "Copy badge Markdown" })).toBeVisible();
+    await expect(share.getByRole("img")).toHaveAttribute("src", "/api/symfony/badge?v=7.4.0");
+  }
+});

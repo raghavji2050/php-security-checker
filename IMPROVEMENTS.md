@@ -94,6 +94,12 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 - New `/composer/php-constraint` page: paste `^8.1`, `>=8.1 <8.4`, `~8.2.0 || ^8.4` or a whole `"php": "..."` line. It lists which php.net branches the constraint allows, flags end-of-life branches it still allows (with a suggested `^X.Y` floor from the oldest supported branch), and notes when it also allows unreleased future branches.
 - New `src/lib/php-constraint.ts` (with tests) handles Composer `^ ~ * x`, comparison operators, hyphen ranges, `,`/space AND and `|`/`||` OR. Linked from `/composer`, nav, sitemap and llms.txt. Smoke check and Playwright e2e test added.
 
+## 2026-11-12 — "Copy as Markdown" on version, composer and Symfony reports + Symfony badge (queued ideas)
+- New `src/lib/markdown-report.ts` (with tests) builds GitHub-flavoured Markdown: status summary, a CVE/advisory table with fixed versions, update commands and a link back to the full report. Only confirmed findings go in the version table. Missing data is written as "Unavailable", never 0.
+- Shared `CopyMarkdownButton` added to the PHP version report, the composer.lock report and `/symfony/check/{version}`.
+- New `/api/symfony/badge?v=7.4.10` SVG (reuses the PHP badge drawing code). It says "unable to verify" when Packagist fails and never shows a clean badge then. The Symfony report has a "Share this report" card with the badge preview and its README Markdown.
+- Smoke check for the badge's 400 path; Playwright e2e tests for both Markdown buttons and the badge card.
+
 ## Ideas queue (not done yet)
 
 - ~~CI linting: GitHub Actions for lint, typecheck, test, build~~ Done 2026-10-25 (Raghav added `ci.yml`).
