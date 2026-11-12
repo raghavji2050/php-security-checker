@@ -20,6 +20,7 @@ import {
   type ExplorerRow,
   type Severity,
 } from "@/lib/cve-explorer";
+import { FEATURED_CVES } from "@/lib/cve-page";
 import { DataUnavailableError, loadDataset } from "@/lib/dataset";
 import { KEV_CATALOG_PAGE, lookupKev, type KevEntry } from "@/lib/kev";
 import { log } from "@/lib/log";
@@ -87,6 +88,15 @@ export default function CvesPage({ searchParams }: { searchParams: SearchParams 
         Every CVE that NIST NVD links to the PHP interpreter (CPE <span className="font-mono text-sm">php:php</span>).
         Search and filter by year, severity and affected branch. Branches come only from NVD version ranges; when NVD
         gives no usable range the branch is shown as unknown.
+      </p>
+      <p className="mt-3 text-sm" data-testid="featured-cves">
+        <span className="font-medium">Featured:</span>{" "}
+        {FEATURED_CVES.map((id, i) => (
+          <span key={id}>
+            {i > 0 ? " · " : ""}
+            <Link className="font-mono underline" href={`/cve/${id}`}>{id}</Link>
+          </span>
+        ))}
       </p>
       <Suspense
         fallback={

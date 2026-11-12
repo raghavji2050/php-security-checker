@@ -115,3 +115,13 @@ test("/symfony/check/{version} offers Markdown and a README badge", async ({ pag
     await expect(share.getByRole("img")).toHaveAttribute("src", "/api/symfony/badge?v=7.4.0");
   }
 });
+
+test("featured PHP2Shell CVE page shows the php.net advisory notes", async ({ page }) => {
+  const response = await page.goto("/cve/CVE-2026-109618");
+  expect(response?.status()).toBe(200);
+  const advisory = page.getByTestId("php-net-advisory");
+  await expect(advisory).toContainText("RCE via OOM corruption", { timeout: 25_000 });
+  await expect(advisory.getByRole("link", { name: "GHSA-w8hw-w9fx-j79w" })).toHaveAttribute("href", "https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w");
+  await page.goto("/cves");
+  await expect(page.getByTestId("featured-cves").getByRole("link", { name: "CVE-2026-109619" })).toBeVisible();
+});

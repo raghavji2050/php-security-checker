@@ -100,6 +100,11 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 - New `/api/symfony/badge?v=7.4.10` SVG (reuses the PHP badge drawing code). It says "unable to verify" when Packagist fails and never shows a clean badge then. The Symfony report has a "Share this report" card with the badge preview and its README Markdown.
 - Smoke check for the badge's 400 path; Playwright e2e tests for both Markdown buttons and the badge card.
 
+## 2026-11-12 — Featured `/cve` pages for CVE-2026-109618 and CVE-2026-109619 (PHP2Shell) (queued idea)
+- Both IDs re-checked in the NVD CVE API on 12 Nov 2026 (published 21 Oct 2026, php:php CPE ranges) and added to `FEATURED_CVES`, so they are in the sitemap and in a new "Featured" line on `/cves`.
+- New `src/lib/featured-advisories.ts` (with tests) adds short notes from the official php.net 21 Oct 2026 advisory: php.net's title, fixed releases (8.5.12 / 8.4.27 / 8.3.36 / 8.2.35), the interim mitigations in plain words, and the php-src GHSA links. "PHP2Shell" is labelled as a press nickname, not an official name. Branch fixed versions on the page still come from live NVD/php.net ranges.
+- Smoke check (sitemap lists the page) and Playwright e2e test added.
+
 ## Ideas queue (not done yet)
 
 - ~~CI linting: GitHub Actions for lint, typecheck, test, build~~ Done 2026-10-25 (Raghav added `ci.yml`).
