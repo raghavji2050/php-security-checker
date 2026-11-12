@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { cacheLife } from "next/cache";
 import { Suspense } from "react";
+import { FaqSection } from "@/components/faq-section";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { buildExplorerRows, type ExplorerRow } from "@/lib/cve-explorer";
 import { loadBranchCatalog, loadDataset } from "@/lib/dataset";
 import { supportLabel } from "@/lib/lifecycle";
+import { branchesFaq } from "@/lib/page-faq";
 import { SITE_URL } from "@/lib/site";
 import { buildScorecard, recommendedBranch, RISK_LABEL, type RiskLevel } from "@/lib/scorecard";
 import { buildTimeline, stateCounts, type Timeline } from "@/lib/timeline";
@@ -294,6 +296,8 @@ async function Content() {
           ))}
         </div>
       </section>
+
+      <FaqSection items={branchesFaq(branches)} />
 
       {supported.length > 0 && (
         <p className="text-sm text-muted-foreground">

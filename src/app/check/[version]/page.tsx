@@ -3,10 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cacheLife } from "next/cache";
 import { Suspense } from "react";
+import { FaqSection } from "@/components/faq-section";
 import { ResultsDashboard } from "@/components/results-dashboard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { checkVersion } from "@/lib/check";
 import { DataUnavailableError } from "@/lib/dataset";
+import { versionFaq } from "@/lib/page-faq";
 import { SITE_URL } from "@/lib/site";
 import type { CheckResult } from "@/lib/types";
 import { parsePhpVersion } from "@/lib/version";
@@ -106,6 +108,9 @@ async function Report({ params }: Params) {
           </p>
           <div className="mt-8">
             <ResultsDashboard result={loaded.result} />
+          </div>
+          <div className="mt-10">
+            <FaqSection items={versionFaq(loaded.result)} />
           </div>
         </>
       ) : (

@@ -153,3 +153,18 @@ test("CVE Atom feeds and the support calendar are served", async ({ page, reques
   await page.goto("/php-versions");
   await expect(page.getByTestId("subscribe-links").getByRole("link", { name: /calendar/ })).toHaveAttribute("href", "/php-versions/calendar.ics");
 });
+
+test("/check/{version} and /php-versions publish FAQPage JSON-LD matching visible questions", async ({ page }) => {
+  for (const path of ["/check/8.1.12", "/php-versions"]) {
+    await page.goto(path);
+    const faq = page.getByTestId("page-faq");
+    await expect(faq.or(page.locator("main [role=alert]")).first()).toBeVisible({ timeout: 25_000 });
+    if (await faq.count()) {
+      const raw = await faq.locator('script[type="application/ld+json"]').textContent();
+      const data = JSON.parse(raw ?? "{}");
+      expect(data["@type"]).toBe("FAQPage");
+      const first = data.mainEntity[0].name as string;
+      await expect(faq.getByText(first, { exact: true })).toBeVisible();
+    }
+  }
+});
