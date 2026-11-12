@@ -17,6 +17,7 @@ const checks = [
   { path: "/cves", status: 200, contains: "PHP CVE explorer" },
   { path: "/news", status: 200, contains: "PHP security news" },
   { path: "/composer", status: 200, contains: "composer.lock scanner" },
+  { path: "/composer/php-constraint", status: 200, contains: "require.php constraint checker" },
   { path: "/php-ini", status: 200, contains: "php.ini audit" },
   { path: "/extensions", status: 200, contains: "PHP extension checker" },
   { path: "/laravel", status: 200, contains: "Laravel checker" },

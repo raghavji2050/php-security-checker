@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ComposerLockScanner } from "@/components/composer-lock-scanner";
 import { SITE_URL } from "@/lib/site";
 
@@ -19,6 +20,10 @@ export default function ComposerPage() {
         in your browser; we never store the file and never execute anything. Results show affected packages, CVE and
         advisory links, severity when Packagist provides it, suggested fixed versions, and copy-paste{" "}
         <code className="text-xs">composer update</code> commands.
+      </p>
+      <p className="mt-3 text-sm">
+        Maintaining a package? Check your <code className="text-xs">require.php</code> line with the{" "}
+        <Link className="underline" href="/composer/php-constraint">constraint checker</Link>.
       </p>
       <ComposerLockScanner />
     </main>

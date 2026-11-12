@@ -30,6 +30,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Tools",
     links: [
       { href: "/composer", label: "composer.lock" },
+      { href: "/composer/php-constraint", label: "require.php constraint" },
       { href: "/php-ini", label: "php.ini audit" },
       { href: "/extensions", label: "Extensions" },
       { href: "/laravel", label: "Laravel" },
