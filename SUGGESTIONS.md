@@ -108,7 +108,7 @@ Sources checked 8 Nov 2026 (IST). No code changed. Compared with the 1 Nov 2026 
 - **PHP 8.6.0 GA (19 Nov) readiness page using php.net data** — launch-week traffic, labelled clearly until GA.
 
 ### 2026-11-10 — Evening update ideas
-- **"Is my PHP patched?" copy-paste `php -v` parser (paste full `php -v` output, extract version + distro suffix)** — users paste what they have instead of hand-typing a version.
+- ~~**"Is my PHP patched?" copy-paste `php -v` parser (paste full `php -v` output, extract version + distro suffix)** — users paste what they have instead of hand-typing a version.~~ Done 2026-11-12 (`/php-v`)
 - **Per-branch RSS/Atom feed of new PHP CVEs from existing NVD data** — devs subscribe once, and it earns backlinks and returning visitors.
 - **Print-friendly "server audit summary" page combining version, php.ini and extension checks** — gives freelancers a client-ready report.
 

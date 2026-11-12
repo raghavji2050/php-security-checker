@@ -13,6 +13,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Version",
     links: [
       { href: "/", label: "Check a version" },
+      { href: "/php-v", label: "Paste php -v" },
       { href: "/php-versions", label: "Support timeline" },
       { href: "/versions", label: "Branch table" },
     ],

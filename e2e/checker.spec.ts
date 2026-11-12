@@ -125,3 +125,13 @@ test("featured PHP2Shell CVE page shows the php.net advisory notes", async ({ pa
   await page.goto("/cves");
   await expect(page.getByTestId("featured-cves").getByRole("link", { name: "CVE-2026-109619" })).toBeVisible();
 });
+
+test("/php-v reads pasted php -v output and links to the check", async ({ page }) => {
+  await page.goto("/php-v");
+  await page.getByLabel("Output of php -v").fill("PHP 8.1.2-1ubuntu2.20 (cli) (built: Jun 24 2024 15:20:40) (NTS)\nZend Engine v4.1.2");
+  await page.getByRole("button", { name: "Read version" }).click();
+  const result = page.getByTestId("php-v-result");
+  await expect(result).toContainText("PHP 8.1.2");
+  await expect(result).toContainText("Ubuntu build");
+  await expect(page.getByTestId("php-v-check-link")).toHaveAttribute("href", "/check/8.1.2");
+});
