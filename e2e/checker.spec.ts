@@ -61,3 +61,10 @@ test("/php-versions shows the branch risk scorecard", async ({ page }) => {
   ).toBeVisible({ timeout: 25_000 });
   await expect(page.getByText("Application error")).toHaveCount(0);
 });
+
+test("/cve/{id} flags a CVE that CISA lists as exploited in the wild", async ({ page }) => {
+  const response = await page.goto("/cve/CVE-2019-11043");
+  expect(response?.status()).toBe(200);
+  await expect(page.getByRole("heading", { level: 1, name: "CVE-2019-11043" })).toBeVisible({ timeout: 25_000 });
+  await expect(page.getByTestId("kev-callout")).toContainText("Known Exploited Vulnerabilities catalog", { timeout: 25_000 });
+});
