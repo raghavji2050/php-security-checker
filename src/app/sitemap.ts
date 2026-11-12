@@ -14,6 +14,7 @@ const PAGES = [
   "/versions",
   "/php-versions",
   "/composer",
+  "/composer/php-constraint",
   "/php-ini",
   "/extensions",
   "/laravel",

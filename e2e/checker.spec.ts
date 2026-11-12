@@ -77,3 +77,16 @@ test("/cve/{id} shows the EPSS exploit probability and related CVEs", async ({ p
   await expect(page.getByRole("heading", { level: 2, name: "Related CVEs" })).toBeVisible();
   await expect(page.getByTestId("related-cves").getByRole("link").first()).toHaveAttribute("href", /^\/cve\/CVE-\d{4}-\d+$/);
 });
+
+test("/composer/php-constraint shows which PHP branches a constraint allows", async ({ page }) => {
+  await page.goto("/composer/php-constraint");
+  await page.getByLabel("PHP constraint").fill("^7.4 || ^8.0");
+  await page.getByRole("button", { name: "Check constraint" }).click();
+  await expect(page).toHaveURL(/\/composer\/php-constraint\?c=/);
+  await expect(
+    page.getByTestId("constraint-result").or(page.getByText("Official PHP branch data could not be loaded right now.")).first(),
+  ).toBeVisible({ timeout: 25_000 });
+  if (await page.getByTestId("constraint-result").count()) {
+    await expect(page.getByText("Allows end-of-life PHP:")).toBeVisible();
+  }
+});

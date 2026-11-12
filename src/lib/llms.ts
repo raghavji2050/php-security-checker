@@ -24,6 +24,7 @@ export function buildLlmsTxt(): string {
     `- [Am I affected? CVE pages](${url("/cve/CVE-2024-4577")}): /cve/{CVE-ID} for any PHP CVE in NVD, with a branch-wise fixed version table from NVD/php.net ranges and a version check (?v=X.Y.Z).`,
     `- [Versions](${url("/versions")}): PHP branches and their support status.`,
     `- [PHP versions timeline](${url("/php-versions")}): visual support timeline per PHP branch (release, active support, security-only, end of life) from php.net data.`,
+    `- [require.php constraint checker](${url("/composer/php-constraint")}): paste the composer.json "php" constraint (e.g. ^8.1) to see which php.net branches it allows and whether any are end of life.`,
     `- [composer.lock scanner](${url("/composer")}): paste or upload a composer.lock (parsed in the browser); checks locked name@version against the Packagist security advisories API. POST /api/composer-advisories accepts only the package map, never the raw lock.`,
     `- [php.ini audit](${url("/php-ini")}): paste or upload php.ini. Parsed in the browser. Findings explain current vs recommended, with cases where a stricter setting would break an app.`,
     `- [Extension checker](${url("/extensions")}): paste php -m. Bundled names come from the PHP manual. Confirmed matches are PHP runtime CVEs whose description mentions the extension. Outdated is not assessed.`,

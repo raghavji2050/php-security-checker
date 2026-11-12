@@ -98,7 +98,7 @@ Sources checked 8 Nov 2026 (IST). No code changed. Compared with the 1 Nov 2026 
 ## Queued (auto-approved)
 
 ### 2026-11-08 — Evening update ideas
-- **composer.json `require.php` constraint checker (paste `"php": "^8.1"`, see which php.net branches it allows and flag EOL ones)** — package maintainers instantly see if their constraint still allows unsupported PHP, using existing php.net branch data.
+- ~~**composer.json `require.php` constraint checker (paste `"php": "^8.1"`, see which php.net branches it allows and flag EOL ones)** — package maintainers instantly see if their constraint still allows unsupported PHP, using existing php.net branch data.~~ Done 2026-11-12 (`/composer/php-constraint`).
 - **IndexNow ping on each deploy for new `/cve/{id}`, `/check/` and `/news` URLs (free IndexNow protocol, own sitemap only)** — Bing and other IndexNow engines pick up new CVE pages within hours instead of days.
 - **"Copy as Markdown" button on version and composer reports** — devs can paste a clean CVE/fix table straight into a GitHub issue, PR or Jira ticket, so the report turns into a tracked task.
 

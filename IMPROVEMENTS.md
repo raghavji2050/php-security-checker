@@ -90,6 +90,10 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 - New `src/lib/related-cves.ts` (with tests) lists up to 6 other PHP CVEs that NVD ranges put on the same branches, closest first (shared branches, same year, CVSS). Better internal linking.
 - Playwright e2e test added for both on `/cve/CVE-2019-11043`.
 
+## 2026-11-12 — composer.json `require.php` constraint checker (queued idea)
+- New `/composer/php-constraint` page: paste `^8.1`, `>=8.1 <8.4`, `~8.2.0 || ^8.4` or a whole `"php": "..."` line. It lists which php.net branches the constraint allows, flags end-of-life branches it still allows (with a suggested `^X.Y` floor from the oldest supported branch), and notes when it also allows unreleased future branches.
+- New `src/lib/php-constraint.ts` (with tests) handles Composer `^ ~ * x`, comparison operators, hyphen ranges, `,`/space AND and `|`/`||` OR. Linked from `/composer`, nav, sitemap and llms.txt. Smoke check and Playwright e2e test added.
+
 ## Ideas queue (not done yet)
 
 - ~~CI linting: GitHub Actions for lint, typecheck, test, build~~ Done 2026-10-25 (Raghav added `ci.yml`).
