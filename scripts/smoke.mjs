@@ -38,6 +38,7 @@ const checks = [
   { path: "/api/composer-advisories", status: 400, json: (b) => b.code === "missing_packages" },
   { path: "/llms.txt", status: 200, contains: "/composer" },
   { path: "/openapi.json", status: 200, json: (b) => b.paths?.["/api/check"]?.get },
+  { path: "/feeds/nope.xml", status: 404, contains: "Unknown feed" },
   { path: "/robots.txt", status: 200 },
   { path: "/sitemap.xml", status: 200, contains: "<urlset" },
   { path: "/sitemap.xml", status: 200, contains: "/cve/CVE-2026-109618" },
