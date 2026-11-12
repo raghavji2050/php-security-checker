@@ -79,6 +79,12 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 - Page shows a suggested upgrade target (newest actively supported branch). Smoke check and a Playwright e2e test added.
 - Next: oldest undone queued idea, the CISA KEV "exploited in the wild" badge on `/cve/{id}` and `/cves` (security.txt and short redirects were already shipped in PR #22).
 
+## 2026-11-12 — CISA KEV "exploited in the wild" badge on `/cve/{id}` and `/cves` (queued idea)
+- New `src/lib/kev.ts` (with tests) reads the official CISA KEV JSON feed, sharing the raw-feed cache key with `/news`, and indexes entries by CVE ID (date added, due date, CISA's ransomware-use value).
+- `/cve/{id}` shows a red "Exploited in the wild (CISA KEV)" badge and a callout with the date added (and known ransomware use when CISA says "Known"). When not listed, it says "not in the catalog as of the last sync", never "safe". If the feed is down, nothing is shown rather than a false "not listed".
+- `/cves` list items get the same badge, plus a line saying how many of the matching CVEs are in KEV. Playwright e2e test added for `/cve/CVE-2019-11043`.
+- Next: oldest undone queued idea, EPSS exploit-probability score on CVE pages (FIRST.org free API).
+
 ## Ideas queue (not done yet)
 
 - ~~CI linting: GitHub Actions for lint, typecheck, test, build~~ Done 2026-10-25 (Raghav added `ci.yml`).

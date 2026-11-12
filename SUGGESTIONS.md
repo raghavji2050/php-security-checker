@@ -61,7 +61,7 @@ Sources checked 1 Nov 2026 (IST). No code changed.
 - ~~**Branch risk scorecard on `/php-versions` (support state + open CVE count from existing NVD data)**~~ Done 2026-11-11 (counts shown as reported NVD CVEs, not "open") — turns the timeline into an actionable “which branch is safest?” view without new data sources.
 
 ### 2026-11-07 — Evening update ideas
-- **CISA KEV "exploited in the wild" badge on `/cve/{id}` and `/cves` (official CISA KEV JSON feed)** — tells devs at a glance which CVEs are actually being attacked, so they prioritise correctly.
+- ~~**CISA KEV "exploited in the wild" badge on `/cve/{id}` and `/cves` (official CISA KEV JSON feed)**~~ Done 2026-11-12 — tells devs at a glance which CVEs are actually being attacked, so they prioritise correctly.
 - **EPSS exploit-probability score on CVE pages (FIRST.org free EPSS API)** — adds a real-world likelihood number next to CVSS, making the "should I worry?" answer more useful.
 - **Related CVEs block on `/cve/{id}` (same branch/year, from existing NVD data)** — stronger internal linking for SEO and keeps visitors browsing longer.
 
@@ -111,3 +111,8 @@ Sources checked 8 Nov 2026 (IST). No code changed. Compared with the 1 Nov 2026 
 - **"Is my PHP patched?" copy-paste `php -v` parser (paste full `php -v` output, extract version + distro suffix)** — users paste what they have instead of hand-typing a version.
 - **Per-branch RSS/Atom feed of new PHP CVEs from existing NVD data** — devs subscribe once, and it earns backlinks and returning visitors.
 - **Print-friendly "server audit summary" page combining version, php.ini and extension checks** — gives freelancers a client-ready report.
+
+### 2026-11-11 — Evening update ideas
+- **"What changed" diff page between two PHP patch versions (php.net ChangeLog data)** — shows which fixes you get by upgrading, a strong reason to upgrade.
+- **Laravel version support checker (laravel.com release policy + Packagist advisories)** — same hub pattern as Symfony, covers his main stack.
+- **JSON-LD FAQ schema on /check and /php-versions pages** — helps Google/AI answer engines quote the site.

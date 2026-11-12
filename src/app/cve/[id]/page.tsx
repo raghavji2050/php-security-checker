@@ -9,6 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { toExplorerRow, type ExplorerRow } from "@/lib/cve-explorer";
 import { cveFaq, fixRows, isAffected, normalizeCveId, pickRanges, type FixRow, type RangeSource } from "@/lib/cve-page";
 import { DataUnavailableError, loadDataset } from "@/lib/dataset";
+import { KEV_CATALOG_PAGE, lookupKev, type KevEntry } from "@/lib/kev";
 import { jsonLdString } from "@/lib/faq";
 import { log } from "@/lib/log";
 import { SITE_URL } from "@/lib/site";
@@ -23,7 +24,7 @@ type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
 type Loaded =
   | { ok: true; found: false }
-  | { ok: true; found: true; row: ExplorerRow; source: RangeSource; rows: FixRow[]; nvdRetrievedAt: string | null }
+  | { ok: true; found: true; row: ExplorerRow; source: RangeSource; rows: FixRow[]; nvdRetrievedAt: string | null; kev: KevEntry | null; kevOk: boolean }
   | { ok: false; message: string };
 
 async function load(id: string): Promise<Loaded> {
@@ -34,6 +35,7 @@ async function load(id: string): Promise<Loaded> {
     const cve = data.cves.find((c) => c.id === id);
     if (!cve) return { ok: true, found: false };
     const source = pickRanges(cve);
+    const kev = await lookupKev([id]);
     return {
       ok: true,
       found: true,
@@ -41,6 +43,8 @@ async function load(id: string): Promise<Loaded> {
       source,
       rows: fixRows(source.ranges),
       nvdRetrievedAt: data.retrievedAt,
+      kev: kev.entries[id] ?? null,
+      kevOk: kev.ok,
     };
   } catch (error) {
     if (error instanceof DataUnavailableError) return { ok: false, message: error.message };
@@ -126,10 +130,23 @@ async function Content({ params, searchParams }: { params: Params; searchParams:
           {label(row.severity)}
           {row.score !== null ? ` ${row.score.toFixed(1)}` : ""}
         </Badge>
+        {loaded.kev && <Badge variant="danger">Exploited in the wild (CISA KEV)</Badge>}
         {row.cvssVersion && <span className="text-muted-foreground">CVSS {row.cvssVersion}</span>}
         <span className="text-muted-foreground">Published {row.published ?? "date unknown"}</span>
       </div>
       <p className="mt-4 text-muted-foreground">{row.description || "No description in NVD."}</p>
+      {loaded.kev ? (
+        <div className="mt-4 rounded-md border border-danger/40 bg-danger/10 px-3 py-2 text-sm" data-testid="kev-callout">
+          <strong>Actively exploited.</strong> CISA lists {id} in its{" "}
+          <a className="underline" href={KEV_CATALOG_PAGE} target="_blank" rel="noreferrer">Known Exploited Vulnerabilities catalog</a>
+          {loaded.kev.dateAdded ? <> (added {loaded.kev.dateAdded})</> : null}
+          {loaded.kev.ransomware === "Known" ? <>, with known use in ransomware campaigns</> : null}. Treat this as a patch-now issue.
+        </div>
+      ) : loaded.kevOk ? (
+        <p className="mt-3 text-xs text-muted-foreground">
+          Not in the <a className="underline" href={KEV_CATALOG_PAGE} target="_blank" rel="noreferrer">CISA KEV catalog</a> as of the last sync. That means no confirmed exploitation is listed there, not that it is safe.
+        </p>
+      ) : null}
 
       <Card className="mt-8">
         <CardContent className="p-4">

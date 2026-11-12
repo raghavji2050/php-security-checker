@@ -21,6 +21,7 @@ import {
   type Severity,
 } from "@/lib/cve-explorer";
 import { DataUnavailableError, loadDataset } from "@/lib/dataset";
+import { KEV_CATALOG_PAGE, lookupKev, type KevEntry } from "@/lib/kev";
 import { log } from "@/lib/log";
 import { SITE_URL } from "@/lib/site";
 
@@ -38,7 +39,7 @@ const PAGE_SIZE = 50;
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
 type Loaded =
-  | { ok: true; rows: ExplorerRow[]; retrievedAt: string | null; stale: boolean }
+  | { ok: true; rows: ExplorerRow[]; retrievedAt: string | null; stale: boolean; kev: Record<string, KevEntry>; kevOk: boolean }
   | { ok: false; message: string };
 
 async function load(): Promise<Loaded> {
@@ -47,7 +48,9 @@ async function load(): Promise<Loaded> {
   try {
     const data = await loadDataset();
     const known = data.branches.map((b) => b.branch);
-    return { ok: true, rows: buildExplorerRows(data.cves, known), retrievedAt: data.retrievedAt, stale: data.stale };
+    const rows = buildExplorerRows(data.cves, known);
+    const kev = await lookupKev(rows.map((r) => r.id));
+    return { ok: true, rows, retrievedAt: data.retrievedAt, stale: data.stale, kev: kev.entries, kevOk: kev.ok };
   } catch (error) {
     if (error instanceof DataUnavailableError) return { ok: false, message: error.message };
     log.error("cves_page.failed", { error });
@@ -194,11 +197,18 @@ async function Content({ searchParams }: { searchParams: SearchParams }) {
 
       <section aria-labelledby="list">
         <h2 id="list" className="text-2xl font-semibold tracking-tight">CVEs</h2>
+        {loaded.kevOk && (
+          <p className="mt-2 text-sm text-muted-foreground">
+            {matched.filter((r) => loaded.kev[r.id]).length} of these {matched.length} CVEs are in the{" "}
+            <a className="underline" href={KEV_CATALOG_PAGE} target="_blank" rel="noreferrer">CISA Known Exploited Vulnerabilities catalog</a>
+            {" "}(confirmed exploited in the wild). Patch those first.
+          </p>
+        )}
         {shown.length === 0 ? (
           <p className="mt-4 text-muted-foreground">No CVEs match these filters.</p>
         ) : (
           <ul className="mt-4 space-y-3">
-            {shown.map((row) => <CveItem key={row.id} row={row} />)}
+            {shown.map((row) => <CveItem key={row.id} row={row} kev={loaded.kev[row.id]} />)}
           </ul>
         )}
         {pages > 1 && (
@@ -305,7 +315,7 @@ function SeverityChart({ counts, total, filters }: { counts: Record<Severity, nu
   );
 }
 
-function CveItem({ row }: { row: ExplorerRow }) {
+function CveItem({ row, kev }: { row: ExplorerRow; kev?: KevEntry }) {
   return (
     <li className="rounded-lg border border-border bg-card p-4">
       <div className="flex flex-wrap items-center gap-2">
@@ -321,6 +331,7 @@ function CveItem({ row }: { row: ExplorerRow }) {
           {label(row.severity)}
           {row.score !== null ? ` ${row.score.toFixed(1)}` : ""}
         </Badge>
+        {kev && <KevBadge entry={kev} />}
         {row.cvssVersion && <span className="text-xs text-muted-foreground">CVSS {row.cvssVersion}</span>}
         <span className="text-xs text-muted-foreground">{row.published ?? "date unknown"}</span>
         <Link className="text-xs underline" href={`/cve/${row.id}`}>Am I affected?</Link>
@@ -342,5 +353,13 @@ function CveItem({ row }: { row: ExplorerRow }) {
         )}
       </p>
     </li>
+  );
+}
+
+function KevBadge({ entry }: { entry: KevEntry }) {
+  return (
+    <Badge variant="danger" title={entry.dateAdded ? `Added to CISA KEV on ${entry.dateAdded}` : "Listed in CISA KEV"}>
+      Exploited in the wild (CISA KEV)
+    </Badge>
   );
 }
