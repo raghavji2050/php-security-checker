@@ -3,6 +3,7 @@
 import { Printer } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { AuditOffers } from "@/components/audit-offers";
 import { CopyMarkdownButton } from "@/components/copy-markdown-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -142,6 +143,7 @@ export function ServerAudit() {
       </Card>
 
       {report && (
+        <>
         <Card data-testid="audit-report">
           <CardHeader>
             <CardTitle>PHP server audit summary{report.label ? `: ${report.label}` : ""}</CardTitle>
@@ -207,6 +209,8 @@ export function ServerAudit() {
             </div>
           </CardContent>
         </Card>
+        <AuditOffers />
+        </>
       )}
     </div>
   );

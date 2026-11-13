@@ -185,6 +185,7 @@ test("/changes lists releases and security IDs between two patch versions", asyn
 
 test("/audit builds a print-friendly summary from php.ini", async ({ page }) => {
   await page.goto("/audit");
+  await expect(page.getByTestId("audit-offers")).toHaveCount(0);
   await page.getByLabel("Server or client name (optional, shown on the report)").fill("demo-server");
   await page.getByLabel("php.ini (optional, read in your browser)").fill("display_errors = On\nexpose_php = On\n");
   await page.getByRole("button", { name: "Build audit summary" }).click();
@@ -194,4 +195,14 @@ test("/audit builds a print-friendly summary from php.ini", async ({ page }) => 
   await expect(report).toContainText("display_errors");
   await expect(report).toContainText("Not checked: PHP version, extensions");
   await expect(report.getByRole("button", { name: /Print/ })).toBeVisible();
+  const offers = page.getByTestId("audit-offers");
+  await expect(offers).toBeVisible();
+  await expect(offers.getByRole("link", { name: "Book on Topmate" })).toHaveAttribute(
+    "href",
+    "https://topmate.io/raghavji/2387784",
+  );
+  await expect(offers.getByRole("link", { name: "Message on Topmate" })).toHaveAttribute(
+    "href",
+    "https://topmate.io/raghavji",
+  );
 });
