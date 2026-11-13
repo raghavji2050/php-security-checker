@@ -21,6 +21,7 @@ const checks = [
   { path: "/composer", status: 200, contains: "composer.lock scanner" },
   { path: "/composer/php-constraint", status: 200, contains: "require.php constraint checker" },
   { path: "/php-ini", status: 200, contains: "php.ini audit" },
+  { path: "/audit", status: 200, contains: "Server audit summary" },
   { path: "/extensions", status: 200, contains: "PHP extension checker" },
   { path: "/laravel", status: 200, contains: "Laravel checker" },
   { path: "/symfony", status: 200, contains: "Symfony version checker" },

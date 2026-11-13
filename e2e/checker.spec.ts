@@ -182,3 +182,16 @@ test("/changes lists releases and security IDs between two patch versions", asyn
     await expect(result.getByRole("link", { name: "PHP 8.3.23" })).toHaveAttribute("href", "https://www.php.net/ChangeLog-8.php#8.3.23");
   }
 });
+
+test("/audit builds a print-friendly summary from php.ini", async ({ page }) => {
+  await page.goto("/audit");
+  await page.getByLabel("Server or client name (optional, shown on the report)").fill("demo-server");
+  await page.getByLabel("php.ini (optional, read in your browser)").fill("display_errors = On\nexpose_php = On\n");
+  await page.getByRole("button", { name: "Build audit summary" }).click();
+  const report = page.getByTestId("audit-report");
+  await expect(report).toContainText("PHP server audit summary: demo-server");
+  await expect(page.getByTestId("audit-level")).toHaveText("Action needed");
+  await expect(report).toContainText("display_errors");
+  await expect(report).toContainText("Not checked: PHP version, extensions");
+  await expect(report.getByRole("button", { name: /Print/ })).toBeVisible();
+});
