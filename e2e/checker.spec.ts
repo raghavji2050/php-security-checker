@@ -201,8 +201,8 @@ test("/audit builds a print-friendly summary from php.ini", async ({ page }) => 
     "href",
     "https://topmate.io/raghavji/2387784",
   );
-  await expect(offers.getByRole("link", { name: "Message on LinkedIn" })).toHaveAttribute(
+  await expect(offers.getByRole("link", { name: "Message on Topmate" })).toHaveAttribute(
     "href",
-    "https://www.linkedin.com/in/jiraghav",
+    "https://topmate.io/raghavji",
   );
 });

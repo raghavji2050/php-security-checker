@@ -4,7 +4,7 @@
  */
 export const TOPMATE_CODE_REVIEW_URL = "https://topmate.io/raghavji/2387784";
 export const TOPMATE_CODE_REVIEW_PRICE = "₹299";
-export const FREELANCE_AUDIT_CONTACT_URL = "https://www.linkedin.com/in/jiraghav";
+export const FREELANCE_AUDIT_CONTACT_URL = "https://topmate.io/raghavji";
 
 export type AuditOffer = {
   id: "code-review" | "freelance-audit";
@@ -34,8 +34,8 @@ export function auditOffers(urls?: { codeReview?: string; freelanceAudit?: strin
       id: "freelance-audit",
       href: freelanceAudit,
       title: "Freelance PHP/Laravel security audit",
-      detail: "If you need a fuller review of an application or server than this free summary, get in touch on LinkedIn.",
-      cta: "Message on LinkedIn",
+      detail: "If you need a fuller review of an application or server than this free summary, get in touch on Topmate.",
+      cta: "Message on Topmate",
     });
   }
 

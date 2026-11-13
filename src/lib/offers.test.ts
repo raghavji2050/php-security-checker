@@ -7,7 +7,7 @@ import {
 } from "@/lib/offers";
 
 describe("auditOffers", () => {
-  it("includes the live Topmate code review and LinkedIn audit enquiry when URLs are set", () => {
+  it("includes the live Topmate code review and Topmate profile audit enquiry when URLs are set", () => {
     const offers = auditOffers();
     expect(offers).toHaveLength(2);
     expect(offers[0]).toMatchObject({
@@ -20,11 +20,12 @@ describe("auditOffers", () => {
       id: "freelance-audit",
       href: FREELANCE_AUDIT_CONTACT_URL,
     });
+    expect(offers[1].href).toBe("https://topmate.io/raghavji");
   });
 
   it("hides an offer when its URL is empty", () => {
     expect(auditOffers({ codeReview: "", freelanceAudit: "" })).toEqual([]);
-    expect(auditOffers({ codeReview: "", freelanceAudit: "https://www.linkedin.com/in/jiraghav" })).toEqual([
+    expect(auditOffers({ codeReview: "", freelanceAudit: "https://topmate.io/raghavji" })).toEqual([
       expect.objectContaining({ id: "freelance-audit" }),
     ]);
     expect(auditOffers({ codeReview: "https://topmate.io/raghavji/2387784", freelanceAudit: "" })).toEqual([
