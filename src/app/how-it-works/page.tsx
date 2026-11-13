@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { FAQ, faqJsonLd, jsonLdString } from "@/lib/faq";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "How it works",
   description:
     "How PHP Security Checker matches a PHP version to NVD, php.net and GitHub records, which sources it trusts, and what happens when a source is down.",
+  alternates: { canonical: new URL("/how-it-works", SITE_URL).toString() },
 };
 
 const SECTIONS = [

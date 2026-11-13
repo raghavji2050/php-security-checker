@@ -24,7 +24,7 @@ export const maxDuration = 300;
 export const metadata: Metadata = {
   title: "PHP security news",
   description:
-    "Headlines and links to official security news for PHP, Laravel, WordPress and the LAMP stack, gathered from project feeds and APIs. We do not republish articles.",
+    "Headlines and links to official security news for PHP, Laravel, WordPress and the LAMP stack, from project feeds and APIs. We do not republish articles.",
   alternates: { canonical: new URL("/news", SITE_URL).toString() },
 };
 

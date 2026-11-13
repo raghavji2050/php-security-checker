@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/site";
 export const metadata: Metadata = {
   title: "PHP extension checker",
   description:
-    "Paste php -m output. Bundled extensions are named from the PHP manual. Confirmed issues come only from PHP runtime CVEs whose official description mentions the extension.",
+    "Paste php -m output. Bundled extensions are named from the PHP manual. Confirmed issues come only from PHP runtime CVEs that mention the extension.",
   alternates: { canonical: new URL("/extensions", SITE_URL).toString() },
 };
 

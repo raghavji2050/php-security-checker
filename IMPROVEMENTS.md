@@ -134,6 +134,12 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 - Report has an optional server/client label, generated time, Print / save as PDF (inputs, header and footer hidden in print) and Copy as Markdown. Added to Tools nav, sitemap and llms.txt; smoke check and Playwright e2e test added.
 - Build fix: `/php-versions` prerender failed in CI and locally ("use cache" took too long) when the NVD dataset fetch was slow. The optional CVE count fetch is now wrapped in `withTimeout(..., 20s)` (`src/lib/timeout.ts`, with tests); on timeout the page renders without that column, as it already did when NVD was unavailable.
 
+## 2026-11-13 — Technical SEO hygiene (canonicals, sitemap 404, meta length)
+- Removed `CVE-2024-2756` from `FEATURED_CVES` / the sitemap. NVD still has the record (`vulnStatus: Deferred`, checked 13 Nov 2026) but no CPE configurations or php.net ranges, so `parseNvdCve` drops it and `/cve/CVE-2024-2756` rendered as a soft 404 with `noindex`.
+- Added missing canonical URLs on `/`, `/vulnerabilities`, `/how-it-works`, `/versions`, `/password-hashing` and `/about`.
+- Tightened a few titles and meta descriptions that were over the usual 65 / 160 character limits (including `/check/{version}` and `/cve/{id}` title templates). Visible headings were left unchanged.
+- Tests: `parseNvdCve` still returns null when a PHP-looking NVD record has no ranges; featured list must not include `CVE-2024-2756`. Smoke checks robots.txt, `/audit` in the sitemap, that `CVE-2024-2756` is absent, and that `/` and `/audit` emit a canonical link.
+
 ## Ideas queue (not done yet)
 
 - ~~CI linting: GitHub Actions for lint, typecheck, test, build~~ Done 2026-10-25 (Raghav added `ci.yml`).

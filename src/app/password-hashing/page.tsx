@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { PasswordHashChecker } from "@/components/password-hash-checker";
 import { PASSWORD_LESSON_URL } from "@/lib/password-hashing";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Password Hashing Check",
   description: "Paste PHP code to flag md5(), sha1(), hash() and crypt() password hashing and switch to password_hash() / password_verify().",
+  alternates: { canonical: new URL("/password-hashing", SITE_URL).toString() },
 };
 
 export default function PasswordHashingPage() {

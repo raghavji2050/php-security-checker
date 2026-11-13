@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SITE_URL } from "@/lib/site";
 import { DISCLAIMER } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "About",
   description:
     "What PHP Security Checker does and refuses to do, its data sources, privacy, and the full disclaimer for version-based checks.",
+  alternates: { canonical: new URL("/about", SITE_URL).toString() },
 };
 
 export default function AboutPage() {

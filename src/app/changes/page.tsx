@@ -13,7 +13,7 @@ import type { ChangelogIndex } from "@/lib/types";
 export const maxDuration = 300;
 
 export const metadata: Metadata = {
-  title: "What changed between two PHP versions (security fixes)",
+  title: "Security fixes between two PHP versions",
   description:
     "Pick two PHP patch versions on the same branch and see every security fix (CVE and GHSA) you gain by upgrading, from the official php.net ChangeLog.",
   alternates: { canonical: new URL("/changes", SITE_URL).toString() },

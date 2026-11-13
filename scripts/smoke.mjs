@@ -42,9 +42,14 @@ const checks = [
   { path: "/openapi.json", status: 200, json: (b) => b.paths?.["/api/check"]?.get },
   { path: "/feeds/nope.xml", status: 404, contains: "Unknown feed" },
   { path: "/b4ffe2722d6124db514be3758af6ea2b.txt", status: 200, contains: "b4ffe2722d6124db514be3758af6ea2b" },
-  { path: "/robots.txt", status: 200 },
+  { path: "/robots.txt", status: 200, contains: "Sitemap:" },
+  { path: "/robots.txt", status: 200, contains: "Disallow: /api/" },
   { path: "/sitemap.xml", status: 200, contains: "<urlset" },
+  { path: "/sitemap.xml", status: 200, contains: "/audit" },
   { path: "/sitemap.xml", status: 200, contains: "/cve/CVE-2026-109618" },
+  { path: "/sitemap.xml", status: 200, excludes: "/cve/CVE-2024-2756" },
+  { path: "/audit", status: 200, contains: 'rel="canonical"' },
+  { path: "/", status: 200, contains: 'rel="canonical"' },
   { path: "/api/check", status: 400, json: (b) => b.code === "missing_version" },
   { path: "/api/check?v=8.1", status: 400, json: (b) => b.code === "invalid_version" },
   { path: "/api/health", status: 200, json: (b) => (b.status === "ok" || b.status === "degraded") && Array.isArray(b.sources) },
@@ -82,6 +87,7 @@ try {
     const problems = [];
     if (res.status !== check.status) problems.push(`status ${res.status}, expected ${check.status}`);
     if (check.contains && !text.includes(check.contains)) problems.push(`missing "${check.contains}"`);
+    if (check.excludes && text.includes(check.excludes)) problems.push(`unexpected "${check.excludes}"`);
     if (check.location && !(res.headers.get("location") || "").includes(check.location)) {
       problems.push(`location ${res.headers.get("location")}`);
     }

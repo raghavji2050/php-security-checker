@@ -69,7 +69,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (loaded.ok && !loaded.found) notFound();
   const fixed = loaded.ok && loaded.found ? loaded.rows.filter((r) => r.fixed).map((r) => r.fixed) : [];
   return {
-    title: `${id}: am I affected? PHP fixed versions`,
+    title: `${id}: am I affected?`,
     description: fixed.length
       ? `Check if your PHP version is affected by ${id}. Fixed in PHP ${fixed.slice(0, 4).join(", ")}, per official data.`
       : `Check if your PHP version is affected by ${id}, with affected ranges from official NVD and php.net data.`,
