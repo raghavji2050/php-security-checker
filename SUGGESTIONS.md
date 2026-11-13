@@ -110,9 +110,14 @@ Sources checked 8 Nov 2026 (IST). No code changed. Compared with the 1 Nov 2026 
 ### 2026-11-10 — Evening update ideas
 - ~~**"Is my PHP patched?" copy-paste `php -v` parser (paste full `php -v` output, extract version + distro suffix)** — users paste what they have instead of hand-typing a version.~~ Done 2026-11-12 (`/php-v`)
 - ~~**Per-branch RSS/Atom feed of new PHP CVEs from existing NVD data** — devs subscribe once, and it earns backlinks and returning visitors.~~ Done 2026-11-12 (`/feeds/all.xml`, `/feeds/8.3.xml`)
-- **Print-friendly "server audit summary" page combining version, php.ini and extension checks** — gives freelancers a client-ready report.
+- ~~**Print-friendly "server audit summary" page combining version, php.ini and extension checks** — gives freelancers a client-ready report.~~ Done 2026-11-13 (`/audit`)
 
 ### 2026-11-11 — Evening update ideas
 - ~~**"What changed" diff page between two PHP patch versions (php.net ChangeLog data)** — shows which fixes you get by upgrading, a strong reason to upgrade.~~ Done 2026-11-12 (`/changes`, security IDs only)
 - **Laravel version support checker (laravel.com release policy + Packagist advisories)** — same hub pattern as Symfony, covers his main stack.
 - ~~**JSON-LD FAQ schema on /check and /php-versions pages** — helps Google/AI answer engines quote the site.~~ Done 2026-11-12
+
+### 2026-11-12 — Evening update ideas
+- **Embeddable "PHP support status" widget (small iframe/SVG for blogs and hosting docs)** — every embed is a backlink and a returning-visitor source, using php.net data only.
+- **Dynamic OG share images per /cve/{id} (severity, KEV/EPSS, fixed versions via next/og)** — CVE links look better on X/LinkedIn/Slack, so click-through goes up.
+- **Open data JSON at /data/php-cves.json (NVD-attributed, cached, with update time)** — devs and bloggers can use it and cite the site, which earns links.

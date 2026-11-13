@@ -31,6 +31,7 @@ export function buildLlmsTxt(): string {
     `- [require.php constraint checker](${url("/composer/php-constraint")}): paste the composer.json "php" constraint (e.g. ^8.1) to see which php.net branches it allows and whether any are end of life.`,
     `- [composer.lock scanner](${url("/composer")}): paste or upload a composer.lock (parsed in the browser); checks locked name@version against the Packagist security advisories API. POST /api/composer-advisories accepts only the package map, never the raw lock.`,
     `- [php.ini audit](${url("/php-ini")}): paste or upload php.ini. Parsed in the browser. Findings explain current vs recommended, with cases where a stricter setting would break an app.`,
+    `- [Server audit summary](${url("/audit")}): combine a PHP version check, php.ini audit and php -m module check into one print-friendly, prioritised report (also copyable as Markdown).`,
     `- [Extension checker](${url("/extensions")}): paste php -m. Bundled names come from the PHP manual. Confirmed matches are PHP runtime CVEs whose description mentions the extension. Outdated is not assessed.`,
     `- [Laravel checker](${url("/laravel")}): framework version against Laravel's release-note support table and Packagist advisories for laravel/framework. Env checklist stays in the browser.`,
     `- [Symfony checker](${url("/symfony")}): Symfony version against symfony.com release/EOL data and Packagist advisories for symfony/symfony. Server-rendered reports at /symfony/check/{version}.`,

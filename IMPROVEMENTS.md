@@ -128,6 +128,11 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 - `src/lib/indexnow.ts` (with tests) reads `<loc>` URLs from the sitemap and builds the spec payload (`host`, `key`, `keyLocation`, `urlList`) for our own host only: other hosts, http and bad URLs are dropped, duplicates removed, capped at 10,000.
 - `npm run indexnow` (`scripts/indexnow.mts`) checks the key file is live, fetches the production sitemap and POSTs one batch to `https://api.indexnow.org/indexnow`. It logs the HTTP status and always exits 0, so it never breaks a deploy. Run it after `vercel --prod` and a passing prod smoke; not wired into CI. Smoke check for the key file added.
 
+## 2026-11-13 — Print-friendly server audit summary (`/audit`, queued idea)
+- New `/audit` page combines three existing checks for one server: PHP version (plain version or full `php -v` output, via `/api/check`), php.ini (parsed in the browser with the existing production audit) and `php -m` module names (via `/api/extensions`). Every input is optional; parts not provided are listed as "Not checked".
+- New `src/lib/server-audit.ts` (with tests) builds the overall verdict and a prioritised Action/Review table only from data the checks returned (EOL branch, confirmed/potential CVEs, distro backport note, Xdebug, high/review php.ini directives, extension CVE mentions). No new data sources.
+- Report has an optional server/client label, generated time, Print / save as PDF (inputs, header and footer hidden in print) and Copy as Markdown. Added to Tools nav, sitemap and llms.txt; smoke check and Playwright e2e test added.
+
 ## Ideas queue (not done yet)
 
 - ~~CI linting: GitHub Actions for lint, typecheck, test, build~~ Done 2026-10-25 (Raghav added `ci.yml`).

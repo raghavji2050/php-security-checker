@@ -19,6 +19,7 @@ const PAGES = [
   "/composer/php-constraint",
   "/php-ini",
   "/extensions",
+  "/audit",
   "/laravel",
   "/symfony",
   "/wordpress",

@@ -35,6 +35,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/composer/php-constraint", label: "require.php constraint" },
       { href: "/php-ini", label: "php.ini audit" },
       { href: "/extensions", label: "Extensions" },
+      { href: "/audit", label: "Server audit summary" },
       { href: "/laravel", label: "Laravel" },
       { href: "/symfony", label: "Symfony" },
       { href: "/wordpress", label: "WordPress core" },
