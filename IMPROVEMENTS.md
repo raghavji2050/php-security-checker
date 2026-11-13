@@ -132,6 +132,7 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 - New `/audit` page combines three existing checks for one server: PHP version (plain version or full `php -v` output, via `/api/check`), php.ini (parsed in the browser with the existing production audit) and `php -m` module names (via `/api/extensions`). Every input is optional; parts not provided are listed as "Not checked".
 - New `src/lib/server-audit.ts` (with tests) builds the overall verdict and a prioritised Action/Review table only from data the checks returned (EOL branch, confirmed/potential CVEs, distro backport note, Xdebug, high/review php.ini directives, extension CVE mentions). No new data sources.
 - Report has an optional server/client label, generated time, Print / save as PDF (inputs, header and footer hidden in print) and Copy as Markdown. Added to Tools nav, sitemap and llms.txt; smoke check and Playwright e2e test added.
+- Build fix: `/php-versions` prerender failed in CI and locally ("use cache" took too long) when the NVD dataset fetch was slow. The optional CVE count fetch is now wrapped in `withTimeout(..., 20s)` (`src/lib/timeout.ts`, with tests); on timeout the page renders without that column, as it already did when NVD was unavailable.
 
 ## Ideas queue (not done yet)
 

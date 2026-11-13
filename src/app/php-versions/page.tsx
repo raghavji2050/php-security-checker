@@ -16,6 +16,7 @@ import { buildTimeline, stateCounts, type Timeline } from "@/lib/timeline";
 import type { PhpBranch, SupportState } from "@/lib/types";
 import { parsePhpVersion } from "@/lib/version";
 import { log } from "@/lib/log";
+import { withTimeout } from "@/lib/timeout";
 
 export const metadata: Metadata = {
   title: "PHP versions support timeline",
@@ -40,7 +41,8 @@ async function load(): Promise<Loaded> {
     const today = new Date().toISOString().slice(0, 10);
     let cveRows: ExplorerRow[] | null = null;
     try {
-      const dataset = await loadDataset();
+      // The CVE count column is optional: never let a slow NVD fetch block the page (or the build prerender).
+      const dataset = await withTimeout(loadDataset(), 20_000);
       cveRows = buildExplorerRows(dataset.cves, data.branches.map((b) => b.branch));
     } catch (error) {
       log.warn("php_versions_page.nvd_unavailable", { error });
