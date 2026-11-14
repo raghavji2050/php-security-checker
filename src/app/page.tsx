@@ -5,11 +5,13 @@ import { Checker } from "@/components/checker";
 import { HomeSnapshot } from "@/components/home-snapshot";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toolLinks } from "@/lib/nav";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: { absolute: "PHP Security Checker · Secure your PHP applications" },
   description:
-    "Check a PHP version against official vulnerability records, then review php.ini, extensions, Laravel, WordPress core, security headers, and Docker tags. Real data only.",
+    "Check a PHP version against official vulnerability records, then review php.ini, extensions, Laravel, WordPress, headers and Docker tags. Real data only.",
+  alternates: { canonical: new URL("/", SITE_URL).toString() },
 };
 
 export default function HomePage() {

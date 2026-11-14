@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CveCatalog } from "@/components/cve-catalog";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "PHP Runtime Vulnerabilities",
   description:
     "Browse the latest PHP runtime CVEs from NIST NVD and php/php-src advisories, with severity, affected range, fixed version, and verification status.",
+  alternates: { canonical: new URL("/vulnerabilities", SITE_URL).toString() },
 };
 
 export default function VulnerabilitiesPage() {

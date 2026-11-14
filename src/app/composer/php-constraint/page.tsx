@@ -14,7 +14,7 @@ import type { PhpBranch, SupportState } from "@/lib/types";
 import { compareBranches } from "@/lib/version";
 
 export const metadata: Metadata = {
-  title: "composer.json require.php constraint checker",
+  title: "composer.json PHP constraint checker",
   description:
     "Paste the PHP constraint from composer.json (like ^8.1) and see which official php.net branches it allows, and whether any of them are end of life.",
   alternates: { canonical: new URL("/composer/php-constraint", SITE_URL).toString() },

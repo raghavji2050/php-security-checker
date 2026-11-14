@@ -34,6 +34,18 @@ describe("parseNvdCve", () => {
     expect(parseNvdCve(raw)).toBeNull();
   });
 
+  it("skips PHP-looking records that have no CPE and no php.net ranges", () => {
+    const raw = {
+      cve: {
+        id: "CVE-0000-0010",
+        vulnStatus: "Deferred",
+        descriptions: [{ lang: "en", value: "A PHP cookie handling issue." }],
+        configurations: [],
+      },
+    };
+    expect(parseNvdCve(raw)).toBeNull();
+  });
+
   it("skips records that do not touch the PHP runtime", () => {
     const raw = {
       cve: {

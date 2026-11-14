@@ -6,7 +6,7 @@ import { SITE_URL } from "@/lib/site";
 export const metadata: Metadata = {
   title: "composer.lock scanner",
   description:
-    "Paste or upload a composer.lock to check locked package versions against official Packagist security advisories. The lock file stays in your browser; only name@version is checked.",
+    "Paste or upload a composer.lock to check locked versions against official Packagist advisories. The file stays in your browser; only name@version is checked.",
   alternates: { canonical: new URL("/composer", SITE_URL).toString() },
 };
 

@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const fix = r.minimumFixedVersion ? ` Minimum fix: ${r.minimumFixedVersion}.` : "";
   const upgrade = r.recommendedVersion ? ` Recommended upgrade: ${r.recommendedVersion}.` : "";
   return {
-    title: `PHP ${r.version} vulnerabilities and security status`,
+    title: `PHP ${r.version} security status`,
     description: `PHP ${r.version}: ${r.securityStatusLabel}, ${r.counts.confirmed} confirmed known vulnerabilities (${r.counts.critical} critical, ${r.counts.high} high), support ${r.support.label}.${fix}${upgrade}`.slice(0, 300),
     alternates: { canonical },
   };

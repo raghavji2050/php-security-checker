@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { VersionsBoard } from "@/components/versions-board";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "PHP Versions",
   description: "Official PHP branch support windows from php.net: active support, security-only, end of life, and the latest patch release on each branch.",
+  alternates: { canonical: new URL("/versions", SITE_URL).toString() },
 };
 
 export default function VersionsPage() {

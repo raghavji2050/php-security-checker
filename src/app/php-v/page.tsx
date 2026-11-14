@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Is my PHP patched? php -v output parser",
   description:
-    "Paste the output of php -v to get the exact PHP version, distribution package suffix, SAPI and thread safety, then check it for known CVEs. Runs in your browser.",
+    "Paste php -v output to get the exact PHP version, distro package suffix, SAPI and thread safety, then check it for known CVEs. Runs in your browser.",
   alternates: { canonical: new URL("/php-v", SITE_URL).toString() },
 };
 

@@ -21,7 +21,7 @@ import { withTimeout } from "@/lib/timeout";
 export const metadata: Metadata = {
   title: "PHP versions support timeline",
   description:
-    "Timeline and risk scorecard of every recent PHP branch from official php.net and NVD data: release date, active support, security-only window, end of life, latest patch, CVE counts and current status.",
+    "Timeline and risk scorecard of recent PHP branches from official php.net and NVD data, with support windows, latest patches and CVE counts.",
   alternates: {
     canonical: new URL("/php-versions", SITE_URL).toString(),
     types: { "application/atom+xml": [{ url: "/feeds/all.xml", title: "New PHP CVEs (NVD)" }] },

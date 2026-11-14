@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Docker PHP image and Dockerfile check",
   description:
-    "Resolve an official PHP image tag with docker-library/php versions.json, and review a Dockerfile for floating tags, root, and copied secrets. Images are not pulled.",
+    "Resolve a PHP image tag with docker-library/php versions.json, and review a Dockerfile for floating tags, root and copied secrets. Images are not pulled.",
   alternates: { canonical: new URL("/docker", SITE_URL).toString() },
 };
 
