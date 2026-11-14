@@ -26,6 +26,7 @@ export const metadata: Metadata = {
   },
   description:
     "Check an installed PHP version against known runtime vulnerabilities and the official support timeline.",
+  verification: { google: "rE5wA0YQEuBOKMiP8jOhXePlFCnfh85Fya2Sy-1Gn3E" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
