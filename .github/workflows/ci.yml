@@ -19,6 +19,9 @@ jobs:
       - run: npm run smoke
       - run: npx playwright install --with-deps --only-shell chromium
       - run: npm run test:e2e
+        env:
+          # Official NVD snapshot only; the live NVD API is not called in CI e2e.
+          NVD_FIXTURE: e2e/fixtures/nvd-php-runtime.json
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

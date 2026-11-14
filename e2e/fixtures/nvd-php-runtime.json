@@ -1,0 +1,4905 @@
+{
+  "comment": "Official NIST NVD PHP runtime CVE records (already parsed). Used only when NVD_FIXTURE is set, so CI e2e does not call the live NVD API. This is a small subset, not the full catalog. Do not invent or edit scores, ranges, or IDs.",
+  "source": "NIST NVD API 2.0",
+  "sourceUrl": "https://services.nvd.nist.gov/rest/json/cves/2.0",
+  "storedAt": "2026-11-13T05:37:09.913Z",
+  "cves": [
+    {
+      "id": "CVE-2026-109618",
+      "description": "PHP uses longjmp() for out-of-memory (OOM) errors to exit the current context and abort handling of the request. Some contexts may not properly account for this scenario and leave request memory in an uninitialized state before performing an allocation. The subsequent request cleanup procedure may read or branch on this memory. Multiple OOM strategies can consistently trigger this condition and lead to remote code execution (RCE).",
+      "published": "2026-10-21T14:17:09.357",
+      "weaknesses": [
+        "CWE-416",
+        "CWE-755",
+        "CWE-824",
+        "CWE-1325"
+      ],
+      "cvss": {
+        "score": 9.2,
+        "severity": "CRITICAL",
+        "version": "4.0",
+        "vector": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X"
+      },
+      "cvssV3OrV2": {
+        "score": 9.8,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "references": [
+        {
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w",
+          "tags": [
+            "Mitigation",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "http://seclists.org/fulldisclosure/2026/Oct/51",
+          "tags": [
+            "Mailing List"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2026/10/21/6",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2026/10/23/5",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://arcticwolf.com/resources/blog/php2shell-critical-php-vulnerabilities-enable-unauthenticated-remote-code-execution/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://cert-portal.siemens.com/productcert/html/ssa-166980.html",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://cert-portal.siemens.com/productcert/html/ssa-566435.html",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://cert-portal.siemens.com/productcert/html/ssa-566512.html",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://php2shell.delftintellab.com",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-109618",
+          "tags": [
+            "US Government Resource"
+          ]
+        },
+        {
+          "url": "https://www.wiz.io/blog/php2shell-php-rce",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 35,
+              "raw": "8.2.35"
+            },
+            "inclusive": false
+          },
+          "branch": "8.2",
+          "precision": "precise",
+          "label": "PHP 8.2 only, 8.2.0 (including) to 8.2.35 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 36,
+              "raw": "8.3.36"
+            },
+            "inclusive": false
+          },
+          "branch": "8.3",
+          "precision": "precise",
+          "label": "PHP 8.3 only, 8.3.0 (including) to 8.3.36 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 4,
+              "patch": 0,
+              "raw": "8.4.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 4,
+              "patch": 27,
+              "raw": "8.4.27"
+            },
+            "inclusive": false
+          },
+          "branch": "8.4",
+          "precision": "precise",
+          "label": "PHP 8.4 only, 8.4.0 (including) to 8.4.27 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 5,
+              "patch": 0,
+              "raw": "8.5.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 5,
+              "patch": 12,
+              "raw": "8.5.12"
+            },
+            "inclusive": false
+          },
+          "branch": "8.5",
+          "precision": "precise",
+          "label": "PHP 8.5 only, 8.5.0 (including) to 8.5.12 (excluding)"
+        }
+      ],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": true,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 0,
+              "raw": "7.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 35,
+              "raw": "8.2.35"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.3.0 (including) to 8.2.35 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 36,
+              "raw": "8.3.36"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.3.0 (including) to 8.3.36 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 4,
+              "patch": 0,
+              "raw": "8.4.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 4,
+              "patch": 27,
+              "raw": "8.4.27"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.4.0 (including) to 8.4.27 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 5,
+              "patch": 0,
+              "raw": "8.5.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 5,
+              "patch": 12,
+              "raw": "8.5.12"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.5.0 (including) to 8.5.12 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2026-109619",
+      "description": "PHP has various global state that temporarily points into request memory. In some scenarios, global state may not be correctly reset, or may be repopulated after being reset. The global state may then refer to request memory even after it has been freed. Subsequent requests may read or branch on this stale state before it is fully initialized. Multiple strategies can trigger this condition and produce remote code execution (RCE).",
+      "published": "2026-10-21T14:17:09.823",
+      "weaknesses": [
+        "CWE-416",
+        "CWE-755",
+        "CWE-824",
+        "CWE-1325"
+      ],
+      "cvss": {
+        "score": 9.2,
+        "severity": "CRITICAL",
+        "version": "4.0",
+        "vector": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X"
+      },
+      "cvssV3OrV2": {
+        "score": 8.1,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "references": [
+        {
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp",
+          "tags": [
+            "Mitigation",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2026/10/21/16",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2026/10/21/17",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2026/10/21/23",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2026/10/21/7",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2026/10/22/14",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2026/10/22/15",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2026/10/22/16",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2026/10/22/19",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2026/10/22/2",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2026/10/22/20",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2026/10/23/4",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 35,
+              "raw": "8.2.35"
+            },
+            "inclusive": false
+          },
+          "branch": "8.2",
+          "precision": "precise",
+          "label": "PHP 8.2 only, 8.2.0 (including) to 8.2.35 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 36,
+              "raw": "8.3.36"
+            },
+            "inclusive": false
+          },
+          "branch": "8.3",
+          "precision": "precise",
+          "label": "PHP 8.3 only, 8.3.0 (including) to 8.3.36 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 4,
+              "patch": 0,
+              "raw": "8.4.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 4,
+              "patch": 27,
+              "raw": "8.4.27"
+            },
+            "inclusive": false
+          },
+          "branch": "8.4",
+          "precision": "precise",
+          "label": "PHP 8.4 only, 8.4.0 (including) to 8.4.27 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 5,
+              "patch": 0,
+              "raw": "8.5.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 5,
+              "patch": 12,
+              "raw": "8.5.12"
+            },
+            "inclusive": false
+          },
+          "branch": "8.5",
+          "precision": "precise",
+          "label": "PHP 8.5 only, 8.5.0 (including) to 8.5.12 (excluding)"
+        }
+      ],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": true,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 5,
+              "minor": 4,
+              "patch": 0,
+              "raw": "5.4.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 35,
+              "raw": "8.2.35"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "5.4.0 (including) to 8.2.35 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 36,
+              "raw": "8.3.36"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.3.0 (including) to 8.3.36 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 4,
+              "patch": 0,
+              "raw": "8.4.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 4,
+              "patch": 27,
+              "raw": "8.4.27"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.4.0 (including) to 8.4.27 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 5,
+              "patch": 0,
+              "raw": "8.5.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 5,
+              "patch": 12,
+              "raw": "8.5.12"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.5.0 (including) to 8.5.12 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2024-4577",
+      "description": "In PHP versions 8.1.* before 8.1.29, 8.2.* before 8.2.20, 8.3.* before 8.3.8, when using Apache and PHP-CGI on Windows, if the system is set up to use certain code pages, Windows may use \"Best-Fit\" behavior to replace characters in command line given to Win32 API functions. PHP CGI module may misinterpret those characters as PHP options, which may allow a malicious user to pass options to PHP binary being run, and thus reveal the source code of scripts, run arbitrary PHP code on the server, etc.",
+      "published": "2024-06-09T20:15:09.550",
+      "weaknesses": [
+        "CWE-78"
+      ],
+      "cvss": {
+        "score": 9.8,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "cvssV3OrV2": {
+        "score": 9.8,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "references": [
+        {
+          "url": "https://www.php.net/ChangeLog-8.php#8.1.29",
+          "tags": [
+            "Release Notes"
+          ]
+        },
+        {
+          "url": "https://www.php.net/ChangeLog-8.php#8.2.20",
+          "tags": [
+            "Release Notes"
+          ]
+        },
+        {
+          "url": "https://www.php.net/ChangeLog-8.php#8.3.8",
+          "tags": [
+            "Release Notes"
+          ]
+        },
+        {
+          "url": "https://www.php.net/ChangeLog-8.php#8.1.29",
+          "tags": [
+            "Release Notes"
+          ]
+        },
+        {
+          "url": "https://www.php.net/ChangeLog-8.php#8.2.20",
+          "tags": [
+            "Release Notes"
+          ]
+        },
+        {
+          "url": "https://www.php.net/ChangeLog-8.php#8.3.8",
+          "tags": [
+            "Release Notes"
+          ]
+        },
+        {
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-3qgc-jrrr-25jv",
+          "tags": [
+            "Exploit",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://github.com/rapid7/metasploit-framework/pull/19247",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Patch"
+          ]
+        },
+        {
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-3qgc-jrrr-25jv",
+          "tags": [
+            "Exploit",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://github.com/rapid7/metasploit-framework/pull/19247",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Patch"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2024/06/07/1",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://arstechnica.com/security/2024/06/php-vulnerability-allows-attackers-to-run-malicious-code-on-windows-servers/",
+          "tags": [
+            "Exploit",
+            "Press/Media Coverage",
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 29,
+              "raw": "8.1.29"
+            },
+            "inclusive": false
+          },
+          "branch": "8.1",
+          "precision": "precise",
+          "label": "PHP 8.1 only, 8.1.0 (including) to 8.1.29 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 20,
+              "raw": "8.2.20"
+            },
+            "inclusive": false
+          },
+          "branch": "8.2",
+          "precision": "precise",
+          "label": "PHP 8.2 only, 8.2.0 (including) to 8.2.20 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 8,
+              "raw": "8.3.8"
+            },
+            "inclusive": false
+          },
+          "branch": "8.3",
+          "precision": "precise",
+          "label": "PHP 8.3 only, 8.3.0 (including) to 8.3.8 (excluding)"
+        }
+      ],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": true,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 29,
+              "raw": "8.1.29"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.1.0 (including) to 8.1.29 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 20,
+              "raw": "8.2.20"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.2.0 (including) to 8.2.20 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 8,
+              "raw": "8.3.8"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.3.0 (including) to 8.3.8 (excluding)"
+        }
+      ],
+      "prerequisites": [
+        "Module: CGI",
+        "Platform: Windows",
+        "NVD configuration also requires cpe:2.3:o:microsoft:windows:-:*:*:*:*:*:*:*"
+      ]
+    },
+    {
+      "id": "CVE-2024-8926",
+      "description": "In PHP versions 8.1.* before 8.1.30, 8.2.* before 8.2.24, 8.3.* before 8.3.12, when using a certain non-standard configurations of Windows codepages, the fixes for  CVE-2024-4577 https://github.com/advisories/GHSA-vxpp-6299-mxw3  may still be bypassed and the same command injection related to Windows \"Best Fit\" codepage behavior can be achieved. This may allow a malicious user to pass options to PHP binary being run, and thus reveal the source code of scripts, run arbitrary PHP code on the server, etc.",
+      "published": "2024-10-08T04:15:10.637",
+      "weaknesses": [
+        "CWE-78"
+      ],
+      "cvss": {
+        "score": 8.8,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "cvssV3OrV2": {
+        "score": 8.8,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "references": [
+        {
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-p99j-rfp4-xqvq",
+          "tags": [
+            "Exploit",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20241101-0003/",
+          "tags": []
+        }
+      ],
+      "phpNetRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 30,
+              "raw": "8.1.30"
+            },
+            "inclusive": false
+          },
+          "branch": "8.1",
+          "precision": "precise",
+          "label": "PHP 8.1 only, 8.1.0 (including) to 8.1.30 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 24,
+              "raw": "8.2.24"
+            },
+            "inclusive": false
+          },
+          "branch": "8.2",
+          "precision": "precise",
+          "label": "PHP 8.2 only, 8.2.0 (including) to 8.2.24 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 12,
+              "raw": "8.3.12"
+            },
+            "inclusive": false
+          },
+          "branch": "8.3",
+          "precision": "precise",
+          "label": "PHP 8.3 only, 8.3.0 (including) to 8.3.12 (excluding)"
+        }
+      ],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": true,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 30,
+              "raw": "8.1.30"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.1.0 (including) to 8.1.30 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 24,
+              "raw": "8.2.24"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.2.0 (including) to 8.2.24 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 12,
+              "raw": "8.3.12"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.3.0 (including) to 8.3.12 (excluding)"
+        }
+      ],
+      "prerequisites": [
+        "Platform: Windows"
+      ]
+    },
+    {
+      "id": "CVE-2024-5458",
+      "description": "In PHP versions 8.1.* before 8.1.29, 8.2.* before 8.2.20, 8.3.* before 8.3.8, due to a code logic error, filtering functions such as filter_var when validating URLs (FILTER_VALIDATE_URL) for certain types of URLs the function will result in invalid user information (username + password part of URLs) being treated as valid user information. This may lead to the downstream code accepting invalid URLs as valid and parsing them incorrectly.",
+      "published": "2024-06-09T19:15:52.397",
+      "weaknesses": [
+        "CWE-345"
+      ],
+      "cvss": {
+        "score": 5.3,
+        "severity": "MEDIUM",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+      },
+      "cvssV3OrV2": {
+        "score": 5.3,
+        "severity": "MEDIUM",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+      },
+      "references": [
+        {
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-w8qr-v226-r27w",
+          "tags": [
+            "Exploit",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-w8qr-v226-r27w",
+          "tags": [
+            "Exploit",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2024/06/07/1",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.debian.org/debian-lts-announce/2024/06/msg00009.html",
+          "tags": []
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/PKGTQUOA2NTZ3RXN22CSAUJPIRUYRB4B/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/W45DBOH56NQDRTOM2DN2LNA2FZIMC3PK/",
+          "tags": []
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20240726-0001/",
+          "tags": []
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2024/06/07/1",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.debian.org/debian-lts-announce/2024/06/msg00009.html",
+          "tags": []
+        },
+        {
+          "url": "https://lists.debian.org/debian-lts-announce/2024/10/msg00011.html",
+          "tags": []
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/PKGTQUOA2NTZ3RXN22CSAUJPIRUYRB4B/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/W45DBOH56NQDRTOM2DN2LNA2FZIMC3PK/",
+          "tags": []
+        }
+      ],
+      "phpNetRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 29,
+              "raw": "8.1.29"
+            },
+            "inclusive": false
+          },
+          "branch": "8.1",
+          "precision": "precise",
+          "label": "PHP 8.1 only, 8.1.0 (including) to 8.1.29 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 20,
+              "raw": "8.2.20"
+            },
+            "inclusive": false
+          },
+          "branch": "8.2",
+          "precision": "precise",
+          "label": "PHP 8.2 only, 8.2.0 (including) to 8.2.20 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 8,
+              "raw": "8.3.8"
+            },
+            "inclusive": false
+          },
+          "branch": "8.3",
+          "precision": "precise",
+          "label": "PHP 8.3 only, 8.3.0 (including) to 8.3.8 (excluding)"
+        }
+      ],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": true,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 27,
+              "raw": "7.3.27"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 33,
+              "raw": "7.3.33"
+            },
+            "inclusive": true
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.3.27 (including) to 7.3.33 (including)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 4,
+              "patch": 15,
+              "raw": "7.4.15"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 4,
+              "patch": 33,
+              "raw": "7.4.33"
+            },
+            "inclusive": true
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.4.15 (including) to 7.4.33 (including)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 0,
+              "patch": 2,
+              "raw": "8.0.2"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 0,
+              "patch": 30,
+              "raw": "8.0.30"
+            },
+            "inclusive": true
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.0.2 (including) to 8.0.30 (including)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 29,
+              "raw": "8.1.29"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.1.0 (including) to 8.1.29 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 20,
+              "raw": "8.2.20"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.2.0 (including) to 8.2.20 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 8,
+              "raw": "8.3.8"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.3.0 (including) to 8.3.8 (excluding)"
+        }
+      ],
+      "prerequisites": [
+        "Module: filter"
+      ]
+    },
+    {
+      "id": "CVE-2024-8927",
+      "description": "In PHP versions 8.1.* before 8.1.30, 8.2.* before 8.2.24, 8.3.* before 8.3.12, HTTP_REDIRECT_STATUS variable is used to check whether or not CGI binary is being run by the HTTP server. However, in certain scenarios, the content of this variable can be controlled by the request submitter via HTTP headers, which can lead to cgi.force_redirect option not being correctly applied. In certain configurations this may lead to arbitrary file inclusion in PHP.",
+      "published": "2024-10-08T04:15:10.867",
+      "weaknesses": [
+        "CWE-1220"
+      ],
+      "cvss": {
+        "score": 7.5,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "cvssV3OrV2": {
+        "score": 7.5,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "references": [
+        {
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-94p6-54jq-9mwp",
+          "tags": [
+            "Exploit",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.debian.org/debian-lts-announce/2024/10/msg00011.html",
+          "tags": []
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20241101-0003/",
+          "tags": []
+        }
+      ],
+      "phpNetRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 30,
+              "raw": "8.1.30"
+            },
+            "inclusive": false
+          },
+          "branch": "8.1",
+          "precision": "precise",
+          "label": "PHP 8.1 only, 8.1.0 (including) to 8.1.30 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 24,
+              "raw": "8.2.24"
+            },
+            "inclusive": false
+          },
+          "branch": "8.2",
+          "precision": "precise",
+          "label": "PHP 8.2 only, 8.2.0 (including) to 8.2.24 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 12,
+              "raw": "8.3.12"
+            },
+            "inclusive": false
+          },
+          "branch": "8.3",
+          "precision": "precise",
+          "label": "PHP 8.3 only, 8.3.0 (including) to 8.3.12 (excluding)"
+        }
+      ],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": true,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 30,
+              "raw": "8.1.30"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.1.0 (including) to 8.1.30 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 24,
+              "raw": "8.2.24"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.2.0 (including) to 8.2.24 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 12,
+              "raw": "8.3.12"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.3.0 (including) to 8.3.12 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2019-11043",
+      "description": "In PHP versions 7.1.x below 7.1.33, 7.2.x below 7.2.24 and 7.3.x below 7.3.11 in certain configurations of FPM setup it is possible to cause FPM module to write past allocated buffers into the space reserved for FCGI protocol data, thus opening the possibility of remote code execution.",
+      "published": "2019-10-28T15:15:13.863",
+      "weaknesses": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "cvss": {
+        "score": 9.8,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "cvssV3OrV2": {
+        "score": 9.8,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "references": [
+        {
+          "url": "https://bugs.php.net/bug.php?id=78599",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://bugs.php.net/bug.php?id=78599",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-11/msg00011.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-11/msg00014.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://packetstormsecurity.com/files/156642/PHP-FPM-7.x-Remote-Code-Execution.html",
+          "tags": [
+            "Exploit",
+            "Third Party Advisory",
+            "VDB Entry"
+          ]
+        },
+        {
+          "url": "http://seclists.org/fulldisclosure/2020/Jan/40",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:3286",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:3287",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:3299",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:3300",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:3724",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:3735",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 1,
+              "patch": 0,
+              "raw": "7.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 1,
+              "patch": 33,
+              "raw": "7.1.33"
+            },
+            "inclusive": false
+          },
+          "branch": "7.1",
+          "precision": "precise",
+          "label": "PHP 7.1 only, 7.1.0 (including) to 7.1.33 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 2,
+              "patch": 0,
+              "raw": "7.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 2,
+              "patch": 24,
+              "raw": "7.2.24"
+            },
+            "inclusive": false
+          },
+          "branch": "7.2",
+          "precision": "precise",
+          "label": "PHP 7.2 only, 7.2.0 (including) to 7.2.24 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 0,
+              "raw": "7.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 11,
+              "raw": "7.3.11"
+            },
+            "inclusive": false
+          },
+          "branch": "7.3",
+          "precision": "precise",
+          "label": "PHP 7.3 only, 7.3.0 (including) to 7.3.11 (excluding)"
+        }
+      ],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": true,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 1,
+              "patch": 0,
+              "raw": "7.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 1,
+              "patch": 33,
+              "raw": "7.1.33"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.1.0 (including) to 7.1.33 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 2,
+              "patch": 0,
+              "raw": "7.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 2,
+              "patch": 24,
+              "raw": "7.2.24"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.2.0 (including) to 7.2.24 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 0,
+              "raw": "7.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 11,
+              "raw": "7.3.11"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.3.0 (including) to 7.3.11 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2012-1823",
+      "description": "sapi/cgi/cgi_main.c in PHP before 5.3.12 and 5.4.x before 5.4.2, when configured as a CGI script (aka php-cgi), does not properly handle query strings that lack an = (equals sign) character, which allows remote attackers to execute arbitrary code by placing command-line options in the query string, related to lack of skipping a certain php_getopt for the 'd' case.",
+      "published": "2012-05-11T10:15:48.043",
+      "weaknesses": [
+        "CWE-77"
+      ],
+      "cvss": {
+        "score": 9.8,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "cvssV3OrV2": {
+        "score": 9.8,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "references": [
+        {
+          "url": "http://www.php.net/ChangeLog-5.php#5.4.2",
+          "tags": [
+            "Exploit",
+            "Patch",
+            "Release Notes"
+          ]
+        },
+        {
+          "url": "http://www.php.net/ChangeLog-5.php#5.4.2",
+          "tags": [
+            "Exploit",
+            "Patch",
+            "Release Notes"
+          ]
+        },
+        {
+          "url": "https://bugs.php.net/bug.php?id=61910",
+          "tags": [
+            "Exploit",
+            "Patch"
+          ]
+        },
+        {
+          "url": "https://bugs.php.net/patch-display.php?bug_id=61910&patch=cgi.diff&revision=1335984315&display=1",
+          "tags": [
+            "Patch"
+          ]
+        },
+        {
+          "url": "https://bugs.php.net/bug.php?id=61910",
+          "tags": [
+            "Exploit",
+            "Patch"
+          ]
+        },
+        {
+          "url": "https://bugs.php.net/patch-display.php?bug_id=61910&patch=cgi.diff&revision=1335984315&display=1",
+          "tags": [
+            "Patch"
+          ]
+        },
+        {
+          "url": "http://www.php.net/archive/2012.php#id2012-05-03-1",
+          "tags": [
+            "Release Notes"
+          ]
+        },
+        {
+          "url": "http://www.php.net/archive/2012.php#id2012-05-03-1",
+          "tags": [
+            "Release Notes"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/PKGTQUOA2NTZ3RXN22CSAUJPIRUYRB4B/",
+          "tags": [
+            "Mailing List",
+            "Release Notes"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/W45DBOH56NQDRTOM2DN2LNA2FZIMC3PK/",
+          "tags": [
+            "Mailing List",
+            "Release Notes"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/PKGTQUOA2NTZ3RXN22CSAUJPIRUYRB4B/",
+          "tags": [
+            "Mailing List",
+            "Release Notes"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/W45DBOH56NQDRTOM2DN2LNA2FZIMC3PK/",
+          "tags": [
+            "Mailing List",
+            "Release Notes"
+          ]
+        }
+      ],
+      "phpNetRanges": [],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": false,
+      "cpeRanges": [
+        {
+          "start": null,
+          "end": {
+            "version": {
+              "major": 5,
+              "minor": 3,
+              "patch": 12,
+              "raw": "5.3.12"
+            },
+            "inclusive": false
+          },
+          "branch": "5.3",
+          "precision": "broad",
+          "label": "PHP 5.3 only, before 5.3.12"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 5,
+              "minor": 4,
+              "patch": 0,
+              "raw": "5.4.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 5,
+              "minor": 4,
+              "patch": 2,
+              "raw": "5.4.2"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "5.4.0 (including) to 5.4.2 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2019-9641",
+      "description": "An issue was discovered in the EXIF component in PHP before 7.1.27, 7.2.x before 7.2.16, and 7.3.x before 7.3.3. There is an uninitialized read in exif_process_IFD_in_TIFF.",
+      "published": "2019-03-09T00:29:00.693",
+      "weaknesses": [
+        "CWE-908"
+      ],
+      "cvss": {
+        "score": 9.8,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "cvssV3OrV2": {
+        "score": 9.8,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "references": [
+        {
+          "url": "https://bugs.php.net/bug.php?id=77509",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://bugs.php.net/bug.php?id=77509",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20190502-0007/",
+          "tags": [
+            "Patch",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20190502-0007/",
+          "tags": [
+            "Patch",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-04/msg00083.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-04/msg00104.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00041.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00044.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.debian.org/debian-lts-announce/2019/03/msg00043.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://usn.ubuntu.com/3922-1/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://usn.ubuntu.com/3922-2/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://usn.ubuntu.com/3922-3/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": false,
+      "cpeRanges": [
+        {
+          "start": null,
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 1,
+              "patch": 27,
+              "raw": "7.1.27"
+            },
+            "inclusive": false
+          },
+          "branch": "7.1",
+          "precision": "broad",
+          "label": "PHP 7.1 only, before 7.1.27"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 2,
+              "patch": 0,
+              "raw": "7.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 2,
+              "patch": 16,
+              "raw": "7.2.16"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.2.0 (including) to 7.2.16 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 0,
+              "raw": "7.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 3,
+              "raw": "7.3.3"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.3.0 (including) to 7.3.3 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2019-9640",
+      "description": "An issue was discovered in the EXIF component in PHP before 7.1.27, 7.2.x before 7.2.16, and 7.3.x before 7.3.3. There is an Invalid Read in exif_process_SOFn.",
+      "published": "2019-03-09T00:29:00.647",
+      "weaknesses": [
+        "CWE-125"
+      ],
+      "cvss": {
+        "score": 7.5,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "cvssV3OrV2": {
+        "score": 7.5,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "references": [
+        {
+          "url": "https://bugs.php.net/bug.php?id=77540",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://bugs.php.net/bug.php?id=77540",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20190502-0007/",
+          "tags": [
+            "Patch",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20190502-0007/",
+          "tags": [
+            "Patch",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-04/msg00104.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00012.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00041.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00044.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:2519",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:3299",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.debian.org/debian-lts-announce/2019/03/msg00043.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://usn.ubuntu.com/3922-1/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": false,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 1,
+              "patch": 0,
+              "raw": "7.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 1,
+              "patch": 27,
+              "raw": "7.1.27"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.1.0 (including) to 7.1.27 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 2,
+              "patch": 0,
+              "raw": "7.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 2,
+              "patch": 16,
+              "raw": "7.2.16"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.2.0 (including) to 7.2.16 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 0,
+              "raw": "7.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 3,
+              "raw": "7.3.3"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.3.0 (including) to 7.3.3 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2019-9639",
+      "description": "An issue was discovered in the EXIF component in PHP before 7.1.27, 7.2.x before 7.2.16, and 7.3.x before 7.3.3. There is an uninitialized read in exif_process_IFD_in_MAKERNOTE because of mishandling the data_len variable.",
+      "published": "2019-03-09T00:29:00.600",
+      "weaknesses": [
+        "CWE-908",
+        "CWE-909"
+      ],
+      "cvss": {
+        "score": 7.5,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "cvssV3OrV2": {
+        "score": 7.5,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "references": [
+        {
+          "url": "https://bugs.php.net/bug.php?id=77659",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Mailing List",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://bugs.php.net/bug.php?id=77659",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Mailing List",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20190502-0007/",
+          "tags": [
+            "Patch",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20190502-0007/",
+          "tags": [
+            "Patch",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-04/msg00104.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00012.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00041.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00044.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:2519",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:3299",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.debian.org/debian-lts-announce/2019/03/msg00043.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://usn.ubuntu.com/3922-1/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": false,
+      "cpeRanges": [
+        {
+          "start": null,
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 1,
+              "patch": 27,
+              "raw": "7.1.27"
+            },
+            "inclusive": false
+          },
+          "branch": "7.1",
+          "precision": "broad",
+          "label": "PHP 7.1 only, before 7.1.27"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 2,
+              "patch": 0,
+              "raw": "7.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 2,
+              "patch": 16,
+              "raw": "7.2.16"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.2.0 (including) to 7.2.16 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 0,
+              "raw": "7.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 3,
+              "raw": "7.3.3"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.3.0 (including) to 7.3.3 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2019-9638",
+      "description": "An issue was discovered in the EXIF component in PHP before 7.1.27, 7.2.x before 7.2.16, and 7.3.x before 7.3.3. There is an uninitialized read in exif_process_IFD_in_MAKERNOTE because of mishandling the maker_note->offset relationship to value_len.",
+      "published": "2019-03-09T00:29:00.553",
+      "weaknesses": [
+        "CWE-125"
+      ],
+      "cvss": {
+        "score": 7.5,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "cvssV3OrV2": {
+        "score": 7.5,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "references": [
+        {
+          "url": "https://bugs.php.net/bug.php?id=77563",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://bugs.php.net/bug.php?id=77563",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20190502-0007/",
+          "tags": [
+            "Patch",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20190502-0007/",
+          "tags": [
+            "Patch",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-04/msg00104.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00012.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00041.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00044.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:2519",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:3299",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.debian.org/debian-lts-announce/2019/03/msg00043.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://usn.ubuntu.com/3922-1/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": false,
+      "cpeRanges": [
+        {
+          "start": null,
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 1,
+              "patch": 27,
+              "raw": "7.1.27"
+            },
+            "inclusive": false
+          },
+          "branch": "7.1",
+          "precision": "broad",
+          "label": "PHP 7.1 only, before 7.1.27"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 2,
+              "patch": 0,
+              "raw": "7.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 2,
+              "patch": 16,
+              "raw": "7.2.16"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.2.0 (including) to 7.2.16 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 0,
+              "raw": "7.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 3,
+              "raw": "7.3.3"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.3.0 (including) to 7.3.3 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2019-9637",
+      "description": "An issue was discovered in PHP before 7.1.27, 7.2.x before 7.2.16, and 7.3.x before 7.3.3. Due to the way rename() across filesystems is implemented, it is possible that file being renamed is briefly available with wrong permissions while the rename is ongoing, thus enabling unauthorized users to access the data.",
+      "published": "2019-03-09T00:29:00.520",
+      "weaknesses": [
+        "CWE-264"
+      ],
+      "cvss": {
+        "score": 7.5,
+        "severity": "HIGH",
+        "version": "3.0",
+        "vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "cvssV3OrV2": {
+        "score": 7.5,
+        "severity": "HIGH",
+        "version": "3.0",
+        "vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "references": [
+        {
+          "url": "https://bugs.php.net/bug.php?id=77630",
+          "tags": [
+            "Issue Tracking",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://bugs.php.net/bug.php?id=77630",
+          "tags": [
+            "Issue Tracking",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-04/msg00104.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00012.html",
+          "tags": []
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00041.html",
+          "tags": []
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00044.html",
+          "tags": []
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:2519",
+          "tags": []
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:3299",
+          "tags": []
+        },
+        {
+          "url": "https://lists.debian.org/debian-lts-announce/2019/03/msg00043.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20190502-0007/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://support.f5.com/csp/article/K53825211",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://usn.ubuntu.com/3922-1/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": false,
+      "cpeRanges": [
+        {
+          "start": null,
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 1,
+              "patch": 27,
+              "raw": "7.1.27"
+            },
+            "inclusive": false
+          },
+          "branch": "7.1",
+          "precision": "broad",
+          "label": "PHP 7.1 only, before 7.1.27"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 2,
+              "patch": 0,
+              "raw": "7.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 2,
+              "patch": 16,
+              "raw": "7.2.16"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.2.0 (including) to 7.2.16 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 0,
+              "raw": "7.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 3,
+              "raw": "7.3.3"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.3.0 (including) to 7.3.3 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2019-9024",
+      "description": "An issue was discovered in PHP before 5.6.40, 7.x before 7.1.26, 7.2.x before 7.2.14, and 7.3.x before 7.3.1. xmlrpc_decode() can allow a hostile XMLRPC server to cause PHP to read memory outside of allocated areas in base64_decode_xmlrpc in ext/xmlrpc/libxmlrpc/base64.c.",
+      "published": "2019-02-22T23:29:00.627",
+      "weaknesses": [
+        "CWE-125"
+      ],
+      "cvss": {
+        "score": 7.5,
+        "severity": "HIGH",
+        "version": "3.0",
+        "vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "cvssV3OrV2": {
+        "score": 7.5,
+        "severity": "HIGH",
+        "version": "3.0",
+        "vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "references": [
+        {
+          "url": "https://bugs.php.net/bug.php?id=77380",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://bugs.php.net/bug.php?id=77380",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-04/msg00083.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-04/msg00104.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00041.html",
+          "tags": []
+        },
+        {
+          "url": "http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00044.html",
+          "tags": []
+        },
+        {
+          "url": "http://www.securityfocus.com/bid/107156",
+          "tags": [
+            "Third Party Advisory",
+            "VDB Entry"
+          ]
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:2519",
+          "tags": []
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:3299",
+          "tags": []
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20190321-0001/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://usn.ubuntu.com/3902-1/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://usn.ubuntu.com/3902-2/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": false,
+      "cpeRanges": [
+        {
+          "start": null,
+          "end": {
+            "version": {
+              "major": 5,
+              "minor": 6,
+              "patch": 40,
+              "raw": "5.6.40"
+            },
+            "inclusive": false
+          },
+          "branch": "5.6",
+          "precision": "broad",
+          "label": "PHP 5.6 only, before 5.6.40"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 0,
+              "patch": 0,
+              "raw": "7.0.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 1,
+              "patch": 26,
+              "raw": "7.1.26"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.0.0 (including) to 7.1.26 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 2,
+              "patch": 0,
+              "raw": "7.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 2,
+              "patch": 14,
+              "raw": "7.2.14"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.2.0 (including) to 7.2.14 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 0,
+              "raw": "7.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 3,
+              "patch": 1,
+              "raw": "7.3.1"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.3.0 (including) to 7.3.1 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2017-9118",
+      "description": "PHP 7.1.5 has an Out of bounds access in php_pcre_replace_impl via a crafted preg_replace call.",
+      "published": "2018-08-02T15:29:00.230",
+      "weaknesses": [
+        "CWE-125"
+      ],
+      "cvss": {
+        "score": 7.5,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cvssV3OrV2": {
+        "score": 7.5,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "references": [
+        {
+          "url": "https://bugs.php.net/bug.php?id=74604",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://bugs.php.net/bug.php?id=74604",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:2519",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20181107-0003/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://access.redhat.com/errata/RHSA-2019:2519",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20181107-0003/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": false,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 4,
+              "patch": 0,
+              "raw": "7.4.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 4,
+              "patch": 27,
+              "raw": "7.4.27"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.4.0 (including) to 7.4.27 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 0,
+              "patch": 0,
+              "raw": "8.0.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 0,
+              "patch": 14,
+              "raw": "8.0.14"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.0.0 (including) to 8.0.14 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 1,
+              "raw": "8.1.1"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.1.0 (including) to 8.1.1 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 1,
+              "patch": 5,
+              "raw": "7.1.5"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 1,
+              "patch": 5,
+              "raw": "7.1.5"
+            },
+            "inclusive": true
+          },
+          "branch": "7.1",
+          "precision": "precise",
+          "label": "7.1.5 exactly"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2021-21708",
+      "description": "In PHP versions 7.4.x below 7.4.28, 8.0.x below 8.0.16, and 8.1.x below 8.1.3, when using filter functions with FILTER_VALIDATE_FLOAT filter and min/max limits, if the filter fails, there is a possibility to trigger use of allocated memory after free, which can result it crashes, and potentially in overwrite of other memory chunks and RCE. This issue affects: code that uses FILTER_VALIDATE_FLOAT with min/max limits.",
+      "published": "2022-02-27T08:15:06.817",
+      "weaknesses": [
+        "CWE-416"
+      ],
+      "cvss": {
+        "score": 9.8,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "cvssV3OrV2": {
+        "score": 9.8,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "references": [
+        {
+          "url": "https://bugs.php.net/bug.php?id=81708",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://bugs.php.net/bug.php?id=81708",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://security.gentoo.org/glsa/202209-20",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20220325-0004/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://security.gentoo.org/glsa/202209-20",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20220325-0004/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 4,
+              "patch": 0,
+              "raw": "7.4.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 4,
+              "patch": 28,
+              "raw": "7.4.28"
+            },
+            "inclusive": false
+          },
+          "branch": "7.4",
+          "precision": "precise",
+          "label": "PHP 7.4 only, 7.4.0 (including) to 7.4.28 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 0,
+              "patch": 0,
+              "raw": "8.0.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 0,
+              "patch": 16,
+              "raw": "8.0.16"
+            },
+            "inclusive": false
+          },
+          "branch": "8.0",
+          "precision": "precise",
+          "label": "PHP 8.0 only, 8.0.0 (including) to 8.0.16 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 3,
+              "raw": "8.1.3"
+            },
+            "inclusive": false
+          },
+          "branch": "8.1",
+          "precision": "precise",
+          "label": "PHP 8.1 only, 8.1.0 (including) to 8.1.3 (excluding)"
+        }
+      ],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": true,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 4,
+              "patch": 0,
+              "raw": "7.4.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 4,
+              "patch": 28,
+              "raw": "7.4.28"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.4.0 (including) to 7.4.28 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 0,
+              "patch": 0,
+              "raw": "8.0.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 0,
+              "patch": 16,
+              "raw": "8.0.16"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.0.0 (including) to 8.0.16 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 3,
+              "raw": "8.1.3"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.1.0 (including) to 8.1.3 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2022-31625",
+      "description": "In PHP versions 7.4.x below 7.4.30, 8.0.x below 8.0.20, and 8.1.x below 8.1.7, when using Postgres database extension, supplying invalid parameters to the parametrized query may lead to PHP attempting to free memory using uninitialized data as pointers. This could lead to RCE vulnerability or denial of service.",
+      "published": "2022-06-16T06:15:08.623",
+      "weaknesses": [
+        "CWE-590",
+        "CWE-824",
+        "CWE-763"
+      ],
+      "cvss": {
+        "score": 8.1,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "cvssV3OrV2": {
+        "score": 8.1,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "references": [
+        {
+          "url": "https://bugs.php.net/bug.php?id=81720",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Mailing List",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://bugs.php.net/bug.php?id=81720",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Mailing List",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.debian.org/debian-lts-announce/2022/12/msg00030.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3T4MMEEZYYAEHPQMZDFN44PHORJWJFZQ/",
+          "tags": []
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ZZTZQKRGEYJT5UB4FGG3MOE72SQUHSL4/",
+          "tags": []
+        },
+        {
+          "url": "https://security.gentoo.org/glsa/202209-20",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20220722-0005/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://www.debian.org/security/2022/dsa-5179",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.debian.org/debian-lts-announce/2022/12/msg00030.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3T4MMEEZYYAEHPQMZDFN44PHORJWJFZQ/",
+          "tags": []
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ZZTZQKRGEYJT5UB4FGG3MOE72SQUHSL4/",
+          "tags": []
+        },
+        {
+          "url": "https://security.gentoo.org/glsa/202209-20",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 4,
+              "patch": 0,
+              "raw": "7.4.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 4,
+              "patch": 30,
+              "raw": "7.4.30"
+            },
+            "inclusive": false
+          },
+          "branch": "7.4",
+          "precision": "precise",
+          "label": "PHP 7.4 only, 7.4.0 (including) to 7.4.30 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 0,
+              "patch": 0,
+              "raw": "8.0.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 0,
+              "patch": 20,
+              "raw": "8.0.20"
+            },
+            "inclusive": false
+          },
+          "branch": "8.0",
+          "precision": "precise",
+          "label": "PHP 8.0 only, 8.0.0 (including) to 8.0.20 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 7,
+              "raw": "8.1.7"
+            },
+            "inclusive": false
+          },
+          "branch": "8.1",
+          "precision": "precise",
+          "label": "PHP 8.1 only, 8.1.0 (including) to 8.1.7 (excluding)"
+        }
+      ],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": true,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 4,
+              "patch": 0,
+              "raw": "7.4.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 4,
+              "patch": 30,
+              "raw": "7.4.30"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.4.0 (including) to 7.4.30 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 0,
+              "patch": 0,
+              "raw": "8.0.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 0,
+              "patch": 20,
+              "raw": "8.0.20"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.0.0 (including) to 8.0.20 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 7,
+              "raw": "8.1.7"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.1.0 (including) to 8.1.7 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2022-31626",
+      "description": "In PHP versions 7.4.x below 7.4.30, 8.0.x below 8.0.20, and 8.1.x below 8.1.7, when pdo_mysql extension with mysqlnd driver, if the third party is allowed to supply host to connect to and the password for the connection, password of excessive length can trigger a buffer overflow in PHP, which can lead to a remote code execution vulnerability.",
+      "published": "2022-06-16T06:15:08.807",
+      "weaknesses": [
+        "CWE-120"
+      ],
+      "cvss": {
+        "score": 8.8,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "cvssV3OrV2": {
+        "score": 8.8,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "references": [
+        {
+          "url": "https://bugs.php.net/bug.php?id=81719",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Mailing List",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://bugs.php.net/bug.php?id=81719",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Mailing List",
+            "Patch",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.debian.org/debian-lts-announce/2022/12/msg00030.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3T4MMEEZYYAEHPQMZDFN44PHORJWJFZQ/",
+          "tags": []
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ZZTZQKRGEYJT5UB4FGG3MOE72SQUHSL4/",
+          "tags": []
+        },
+        {
+          "url": "https://security.gentoo.org/glsa/202209-20",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20220722-0005/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://www.debian.org/security/2022/dsa-5179",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.debian.org/debian-lts-announce/2022/12/msg00030.html",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3T4MMEEZYYAEHPQMZDFN44PHORJWJFZQ/",
+          "tags": []
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ZZTZQKRGEYJT5UB4FGG3MOE72SQUHSL4/",
+          "tags": []
+        },
+        {
+          "url": "https://security.gentoo.org/glsa/202209-20",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 4,
+              "patch": 0,
+              "raw": "7.4.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 4,
+              "patch": 30,
+              "raw": "7.4.30"
+            },
+            "inclusive": false
+          },
+          "branch": "7.4",
+          "precision": "precise",
+          "label": "PHP 7.4 only, 7.4.0 (including) to 7.4.30 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 0,
+              "patch": 0,
+              "raw": "8.0.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 0,
+              "patch": 20,
+              "raw": "8.0.20"
+            },
+            "inclusive": false
+          },
+          "branch": "8.0",
+          "precision": "precise",
+          "label": "PHP 8.0 only, 8.0.0 (including) to 8.0.20 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 7,
+              "raw": "8.1.7"
+            },
+            "inclusive": false
+          },
+          "branch": "8.1",
+          "precision": "precise",
+          "label": "PHP 8.1 only, 8.1.0 (including) to 8.1.7 (excluding)"
+        }
+      ],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": true,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 7,
+              "minor": 4,
+              "patch": 0,
+              "raw": "7.4.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 7,
+              "minor": 4,
+              "patch": 30,
+              "raw": "7.4.30"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "7.4.0 (including) to 7.4.30 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 0,
+              "patch": 0,
+              "raw": "8.0.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 0,
+              "patch": 20,
+              "raw": "8.0.20"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.0.0 (including) to 8.0.20 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 7,
+              "raw": "8.1.7"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.1.0 (including) to 8.1.7 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2022-31627",
+      "description": "In PHP versions 8.1.x below 8.1.8, when fileinfo functions, such as finfo_buffer, due to incorrect patch applied to the third party code from libmagic, incorrect function may be used to free allocated memory, which may lead to heap corruption.",
+      "published": "2022-07-28T06:15:07.547",
+      "weaknesses": [
+        "CWE-590",
+        "CWE-787"
+      ],
+      "cvss": {
+        "score": 9.8,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "cvssV3OrV2": {
+        "score": 9.8,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "references": [
+        {
+          "url": "https://bugs.php.net/bug.php?id=81723",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Patch",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://bugs.php.net/bug.php?id=81723",
+          "tags": [
+            "Exploit",
+            "Issue Tracking",
+            "Patch",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://security.gentoo.org/glsa/202209-20",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20220826-0008/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://security.gentoo.org/glsa/202209-20",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20220826-0008/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 8,
+              "raw": "8.1.8"
+            },
+            "inclusive": false
+          },
+          "branch": "8.1",
+          "precision": "precise",
+          "label": "PHP 8.1 only, 8.1.0 (including) to 8.1.8 (excluding)"
+        }
+      ],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": true,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 8,
+              "raw": "8.1.8"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.1.0 (including) to 8.1.8 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2024-3566",
+      "description": "A command inject vulnerability allows an attacker to perform command injection on Windows applications that indirectly depend on the CreateProcess function when the specific conditions are satisfied.",
+      "published": "2024-04-10T16:15:16.083",
+      "weaknesses": [
+        "CWE-77"
+      ],
+      "cvss": {
+        "score": 9.8,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "cvssV3OrV2": {
+        "score": 9.8,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "references": [
+        {
+          "url": "https://flatt.tech/research/posts/batbadbut-you-cant-securely-execute-commands-on-windows/",
+          "tags": [
+            "Exploit",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://kb.cert.org/vuls/id/123335",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/archive/blogs/twistylittlepassagesallalike/everyone-quotes-command-line-arguments-the-wrong-way",
+          "tags": [
+            "Technical Description"
+          ]
+        },
+        {
+          "url": "https://www.cve.org/CVERecord?id=CVE-2024-1874",
+          "tags": [
+            "Not Applicable"
+          ]
+        },
+        {
+          "url": "https://www.cve.org/CVERecord?id=CVE-2024-22423",
+          "tags": [
+            "Not Applicable"
+          ]
+        },
+        {
+          "url": "https://www.cve.org/CVERecord?id=CVE-2024-24576",
+          "tags": [
+            "Not Applicable"
+          ]
+        },
+        {
+          "url": "https://www.kb.cert.org/vuls/id/123335",
+          "tags": [
+            "Not Applicable"
+          ]
+        },
+        {
+          "url": "https://flatt.tech/research/posts/batbadbut-you-cant-securely-execute-commands-on-windows/",
+          "tags": [
+            "Exploit",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://github.com/nu11secur1ty/Windows11Exploits/tree/main/2024/CVE-2024-3566",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://kb.cert.org/vuls/id/123335",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/archive/blogs/twistylittlepassagesallalike/everyone-quotes-command-line-arguments-the-wrong-way",
+          "tags": [
+            "Technical Description"
+          ]
+        },
+        {
+          "url": "https://www.cve.org/CVERecord?id=CVE-2024-1874",
+          "tags": [
+            "Not Applicable"
+          ]
+        }
+      ],
+      "phpNetRanges": [],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": false,
+      "cpeRanges": [
+        {
+          "start": null,
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 28,
+              "raw": "8.1.28"
+            },
+            "inclusive": false
+          },
+          "branch": "8.1",
+          "precision": "broad",
+          "label": "PHP 8.1 only, before 8.1.28"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 18,
+              "raw": "8.2.18"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.2.0 (including) to 8.2.18 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 6,
+              "raw": "8.3.6"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.3.0 (including) to 8.3.6 (excluding)"
+        }
+      ],
+      "prerequisites": [
+        "NVD configuration also requires cpe:2.3:o:microsoft:windows:-:*:*:*:*:*:*:*"
+      ]
+    },
+    {
+      "id": "CVE-2024-1874",
+      "description": "In PHP versions 8.1.* before 8.1.28, 8.2.* before 8.2.18, 8.3.* before 8.3.5, when using proc_open() command with array syntax, due to insufficient escaping, if the arguments of the executed command are controlled by a malicious user, the user can supply arguments that would execute arbitrary commands in Windows shell.",
+      "published": "2024-04-29T04:15:07.580",
+      "weaknesses": [
+        "CWE-116"
+      ],
+      "cvss": {
+        "score": 9.4,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:L"
+      },
+      "cvssV3OrV2": {
+        "score": 9.4,
+        "severity": "CRITICAL",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:L"
+      },
+      "references": [
+        {
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-pc52-254m-w9w7",
+          "tags": [
+            "Exploit",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-pc52-254m-w9w7",
+          "tags": [
+            "Exploit",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2024/04/12/11",
+          "tags": [
+            "Mailing List"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2024/06/07/1",
+          "tags": [
+            "Mailing List"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/PKGTQUOA2NTZ3RXN22CSAUJPIRUYRB4B/",
+          "tags": [
+            "Mailing List"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/W45DBOH56NQDRTOM2DN2LNA2FZIMC3PK/",
+          "tags": [
+            "Mailing List"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20240510-0009/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2024/04/12/11",
+          "tags": [
+            "Mailing List"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2024/06/07/1",
+          "tags": [
+            "Mailing List"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/KJZK3X6B7FBE32FETDSMRLJXTFTHKWSY/",
+          "tags": []
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/PKGTQUOA2NTZ3RXN22CSAUJPIRUYRB4B/",
+          "tags": [
+            "Mailing List"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/W45DBOH56NQDRTOM2DN2LNA2FZIMC3PK/",
+          "tags": [
+            "Mailing List"
+          ]
+        }
+      ],
+      "phpNetRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 28,
+              "raw": "8.1.28"
+            },
+            "inclusive": false
+          },
+          "branch": "8.1",
+          "precision": "precise",
+          "label": "PHP 8.1 only, 8.1.0 (including) to 8.1.28 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 18,
+              "raw": "8.2.18"
+            },
+            "inclusive": false
+          },
+          "branch": "8.2",
+          "precision": "precise",
+          "label": "PHP 8.2 only, 8.2.0 (including) to 8.2.18 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 5,
+              "raw": "8.3.5"
+            },
+            "inclusive": false
+          },
+          "branch": "8.3",
+          "precision": "precise",
+          "label": "PHP 8.3 only, 8.3.0 (including) to 8.3.5 (excluding)"
+        }
+      ],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": true,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 28,
+              "raw": "8.1.28"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.1.0 (including) to 8.1.28 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 18,
+              "raw": "8.2.18"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.2.0 (including) to 8.2.18 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 5,
+              "raw": "8.3.5"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.3.0 (including) to 8.3.5 (excluding)"
+        }
+      ],
+      "prerequisites": [
+        "Platform: Windows"
+      ]
+    },
+    {
+      "id": "CVE-2024-2757",
+      "description": "In PHP 8.3.* before 8.3.5, function mb_encode_mimeheader() runs endlessly for some inputs that contain long strings of non-space characters followed by a space. This could lead to a potential DoS attack if a hostile user sends data to an application that uses this function.",
+      "published": "2024-04-29T04:15:08.113",
+      "weaknesses": [
+        "CWE-400"
+      ],
+      "cvss": {
+        "score": 7.5,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cvssV3OrV2": {
+        "score": 7.5,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "references": [
+        {
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-fjp9-9hwx-59fq",
+          "tags": [
+            "Exploit",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-fjp9-9hwx-59fq",
+          "tags": [
+            "Exploit",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2024/04/12/11",
+          "tags": [
+            "Mailing List"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20240510-0011/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2024/04/12/11",
+          "tags": [
+            "Mailing List"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/KJZK3X6B7FBE32FETDSMRLJXTFTHKWSY/",
+          "tags": []
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20240510-0011/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 5,
+              "raw": "8.3.5"
+            },
+            "inclusive": false
+          },
+          "branch": "8.3",
+          "precision": "precise",
+          "label": "PHP 8.3 only, 8.3.0 (including) to 8.3.5 (excluding)"
+        }
+      ],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": true,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 5,
+              "raw": "8.3.5"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.3.0 (including) to 8.3.5 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2024-3096",
+      "description": "In PHP  version 8.1.* before 8.1.28, 8.2.* before 8.2.18, 8.3.* before 8.3.5, if a password stored with password_hash() starts with a null byte (\\x00), testing a blank string as the password via password_verify() will incorrectly return true.",
+      "published": "2024-04-29T04:15:08.350",
+      "weaknesses": [
+        "CWE-20"
+      ],
+      "cvss": {
+        "score": 6.5,
+        "severity": "MEDIUM",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N"
+      },
+      "cvssV3OrV2": {
+        "score": 6.5,
+        "severity": "MEDIUM",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N"
+      },
+      "references": [
+        {
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-h746-cjrr-wfmr",
+          "tags": [
+            "Exploit",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-h746-cjrr-wfmr",
+          "tags": [
+            "Exploit",
+            "Vendor Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2024/04/12/11",
+          "tags": [
+            "Mailing List"
+          ]
+        },
+        {
+          "url": "https://lists.debian.org/debian-lts-announce/2024/05/msg00005.html",
+          "tags": [
+            "Mailing List"
+          ]
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20240510-0010/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2024/04/12/11",
+          "tags": [
+            "Mailing List"
+          ]
+        },
+        {
+          "url": "https://lists.debian.org/debian-lts-announce/2024/05/msg00005.html",
+          "tags": [
+            "Mailing List"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/KJZK3X6B7FBE32FETDSMRLJXTFTHKWSY/",
+          "tags": []
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ZGWIK3HMBACERGB4TSBB2JUOMPYY2VKY/",
+          "tags": []
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20240510-0010/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        }
+      ],
+      "phpNetRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 28,
+              "raw": "8.1.28"
+            },
+            "inclusive": false
+          },
+          "branch": "8.1",
+          "precision": "precise",
+          "label": "PHP 8.1 only, 8.1.0 (including) to 8.1.28 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 18,
+              "raw": "8.2.18"
+            },
+            "inclusive": false
+          },
+          "branch": "8.2",
+          "precision": "precise",
+          "label": "PHP 8.2 only, 8.2.0 (including) to 8.2.18 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 5,
+              "raw": "8.3.5"
+            },
+            "inclusive": false
+          },
+          "branch": "8.3",
+          "precision": "precise",
+          "label": "PHP 8.3 only, 8.3.0 (including) to 8.3.5 (excluding)"
+        }
+      ],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": true,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 28,
+              "raw": "8.1.28"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.1.0 (including) to 8.1.28 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 18,
+              "raw": "8.2.18"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.2.0 (including) to 8.2.18 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 5,
+              "raw": "8.3.5"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.3.0 (including) to 8.3.5 (excluding)"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "CVE-2024-5585",
+      "description": "In PHP versions 8.1.* before 8.1.29, 8.2.* before 8.2.20, 8.3.* before 8.3.8, the fix for CVE-2024-1874 does not work if the command name includes trailing spaces. Original issue: when using proc_open() command with array syntax, due to insufficient escaping, if the arguments of the executed command are controlled by a malicious user, the user can supply arguments that would execute arbitrary commands in Windows shell.",
+      "published": "2024-06-09T19:15:52.597",
+      "weaknesses": [
+        "CWE-78",
+        "CWE-116"
+      ],
+      "cvss": {
+        "score": 8.8,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "cvssV3OrV2": {
+        "score": 8.8,
+        "severity": "HIGH",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "references": [
+        {
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-9fcc-425m-g385",
+          "tags": [
+            "Exploit",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://github.com/php/php-src/security/advisories/GHSA-9fcc-425m-g385",
+          "tags": [
+            "Exploit",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2024/06/07/1",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/PKGTQUOA2NTZ3RXN22CSAUJPIRUYRB4B/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/W45DBOH56NQDRTOM2DN2LNA2FZIMC3PK/",
+          "tags": []
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20240726-0002/",
+          "tags": []
+        },
+        {
+          "url": "http://www.openwall.com/lists/oss-security/2024/06/07/1",
+          "tags": [
+            "Mailing List",
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/PKGTQUOA2NTZ3RXN22CSAUJPIRUYRB4B/",
+          "tags": [
+            "Third Party Advisory"
+          ]
+        },
+        {
+          "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/W45DBOH56NQDRTOM2DN2LNA2FZIMC3PK/",
+          "tags": []
+        },
+        {
+          "url": "https://security.netapp.com/advisory/ntap-20240726-0002/",
+          "tags": []
+        },
+        {
+          "url": "https://www.vicarius.io/vsociety/posts/command-injection-vulnerability-in-php-on-windows-systems-cve-2024-1874-and-cve-2024-5585",
+          "tags": []
+        }
+      ],
+      "phpNetRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 29,
+              "raw": "8.1.29"
+            },
+            "inclusive": false
+          },
+          "branch": "8.1",
+          "precision": "precise",
+          "label": "PHP 8.1 only, 8.1.0 (including) to 8.1.29 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 20,
+              "raw": "8.2.20"
+            },
+            "inclusive": false
+          },
+          "branch": "8.2",
+          "precision": "precise",
+          "label": "PHP 8.2 only, 8.2.0 (including) to 8.2.20 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 8,
+              "raw": "8.3.8"
+            },
+            "inclusive": false
+          },
+          "branch": "8.3",
+          "precision": "precise",
+          "label": "PHP 8.3 only, 8.3.0 (including) to 8.3.8 (excluding)"
+        }
+      ],
+      "phpNetUnaffectedRanges": [],
+      "phpNetHasPrecise": true,
+      "cpeRanges": [
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 0,
+              "raw": "8.1.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 1,
+              "patch": 29,
+              "raw": "8.1.29"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.1.0 (including) to 8.1.29 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 0,
+              "raw": "8.2.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 2,
+              "patch": 20,
+              "raw": "8.2.20"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.2.0 (including) to 8.2.20 (excluding)"
+        },
+        {
+          "start": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 0,
+              "raw": "8.3.0"
+            },
+            "inclusive": true
+          },
+          "end": {
+            "version": {
+              "major": 8,
+              "minor": 3,
+              "patch": 8,
+              "raw": "8.3.8"
+            },
+            "inclusive": false
+          },
+          "branch": null,
+          "precision": "precise",
+          "label": "8.3.0 (including) to 8.3.8 (excluding)"
+        }
+      ],
+      "prerequisites": [
+        "Module: proc_open",
+        "Platform: Windows"
+      ]
+    }
+  ]
+}
