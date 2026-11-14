@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { AppThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -26,6 +27,9 @@ export const metadata: Metadata = {
   },
   description:
     "Check an installed PHP version against known runtime vulnerabilities and the official support timeline.",
+  openGraph: {
+    siteName: "PHP Security Checker",
+  },
   verification: { google: "rE5wA0YQEuBOKMiP8jOhXePlFCnfh85Fya2Sy-1Gn3E" },
 };
 
@@ -48,6 +52,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <SiteFooter />
           </TooltipProvider>
         </AppThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

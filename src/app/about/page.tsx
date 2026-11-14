@@ -47,7 +47,8 @@ export default function AboutPage() {
           </CardHeader>
           <CardContent className="text-sm leading-6 text-muted-foreground">
             Recent versions you check are stored in this browser only. The server caches upstream API responses so it
-            can respect NVD rate limits. API keys stay in environment variables.
+            can respect NVD rate limits. API keys stay in environment variables. The site uses privacy-friendly Vercel
+            Web Analytics (no cookies).
           </CardContent>
         </Card>
         <Card>

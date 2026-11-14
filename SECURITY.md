@@ -24,4 +24,4 @@ Please test only against your own local copy or with light manual requests to pr
 - `NVD_API_KEY` and `GITHUB_TOKEN` are used server-side only, sent as headers, and never returned to the browser or written to logs (log fields with secret-looking names are redacted).
 - Responses carry a strict Content-Security-Policy (`frame-ancestors 'none'`), HSTS, nosniff, Referrer-Policy, Permissions-Policy and Cross-Origin-Opener-Policy.
 - API routes are rate limited per client IP with a bounded in-memory limiter, and error responses never include stack traces or internal details.
-- No user accounts, cookies for tracking, or stored user data. Recent searches stay in the browser's localStorage.
+- No user accounts, cookies for tracking, or stored user data. The site uses privacy-friendly Vercel Web Analytics (no cookies). Recent searches stay in the browser's localStorage.
