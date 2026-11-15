@@ -9,9 +9,9 @@ export function AuditOffers() {
   return (
     <Card className="no-print" data-testid="audit-offers">
       <CardHeader>
-        <CardTitle>Need a closer look?</CardTitle>
+        <CardTitle>Want a human review of your code?</CardTitle>
         <CardDescription>
-          This summary is free and version-based; it is not a full security audit. Paid reviews from the
+          This free summary is version-based; it is not a full security audit. Paid reviews from the
           person who built this tool:
         </CardDescription>
       </CardHeader>

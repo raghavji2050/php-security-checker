@@ -4,7 +4,8 @@
  */
 export const TOPMATE_CODE_REVIEW_URL = "https://topmate.io/raghavji/2387784";
 export const TOPMATE_CODE_REVIEW_PRICE = "₹299";
-export const FREELANCE_AUDIT_CONTACT_URL = "https://topmate.io/raghavji";
+export const TOPMATE_LARAVEL_AUDIT_URL = "https://topmate.io/raghavji/2405744";
+export const TOPMATE_LARAVEL_AUDIT_PRICE = "₹2,999";
 
 export type AuditOffer = {
   id: "code-review" | "freelance-audit";
@@ -16,7 +17,7 @@ export type AuditOffer = {
 
 export function auditOffers(urls?: { codeReview?: string; freelanceAudit?: string }): AuditOffer[] {
   const codeReview = urls?.codeReview ?? TOPMATE_CODE_REVIEW_URL;
-  const freelanceAudit = urls?.freelanceAudit ?? FREELANCE_AUDIT_CONTACT_URL;
+  const freelanceAudit = urls?.freelanceAudit ?? TOPMATE_LARAVEL_AUDIT_URL;
   const offers: AuditOffer[] = [];
 
   if (codeReview) {
@@ -24,8 +25,9 @@ export function auditOffers(urls?: { codeReview?: string; freelanceAudit?: strin
       id: "code-review",
       href: codeReview,
       title: `Code review (${TOPMATE_CODE_REVIEW_PRICE})`,
-      detail: "A 45-minute live review of a Laravel or PHP repository or pull request, booked on Topmate.",
-      cta: "Book on Topmate",
+      detail:
+        "Get a second pair of eyes on a Laravel or PHP repository or pull request, live for 45 minutes. Booked on Topmate.",
+      cta: "Book a 45-minute review",
     });
   }
 
@@ -33,9 +35,10 @@ export function auditOffers(urls?: { codeReview?: string; freelanceAudit?: strin
     offers.push({
       id: "freelance-audit",
       href: freelanceAudit,
-      title: "Freelance PHP/Laravel security audit",
-      detail: "If you need a fuller review of an application or server than this free summary, get in touch on Topmate.",
-      cta: "Message on Topmate",
+      title: `Laravel security audit (${TOPMATE_LARAVEL_AUDIT_PRICE})`,
+      detail:
+        "A written security report of a Laravel app, plus a 45-minute call to walk through the findings. Booked on Topmate.",
+      cta: "Book a Laravel audit",
     });
   }
 
