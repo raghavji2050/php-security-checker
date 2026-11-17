@@ -19,6 +19,14 @@ const plex = IBM_Plex_Mono({
   weight: ["400", "500"],
 });
 
+/** Default social preview. The relative path is resolved against metadataBase. */
+const OG_IMAGE = {
+  url: "/og.png",
+  width: 1200,
+  height: 630,
+  alt: "PHP Security Checker · Secure your PHP applications",
+} as const;
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -29,6 +37,15 @@ export const metadata: Metadata = {
     "Check an installed PHP version against known runtime vulnerabilities and the official support timeline.",
   openGraph: {
     siteName: "PHP Security Checker",
+    type: "website",
+    // Relative "./" resolves to the current page against metadataBase,
+    // so child routes keep their own og:url instead of inheriting the homepage.
+    url: "./",
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [OG_IMAGE],
   },
   verification: { google: "rE5wA0YQEuBOKMiP8jOhXePlFCnfh85Fya2Sy-1Gn3E" },
 };
