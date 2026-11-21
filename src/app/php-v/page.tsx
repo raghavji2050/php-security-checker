@@ -3,7 +3,7 @@ import { PhpVParser } from "@/components/php-v-parser";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Is my PHP patched? php -v output parser",
+  title: "Is my PHP patched? Parse php -v",
   description:
     "Paste php -v output to get the exact PHP version, distro package suffix, SAPI and thread safety, then check it for known CVEs. Runs in your browser.",
   alternates: { canonical: new URL("/php-v", SITE_URL).toString() },
