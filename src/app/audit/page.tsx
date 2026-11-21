@@ -3,7 +3,7 @@ import { ServerAudit } from "@/components/server-audit";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "PHP server audit summary (print-friendly)",
+  title: "PHP server audit summary (printable)",
   description:
     "Combine a PHP version check, php.ini audit and loaded-extension check into one print-friendly summary you can hand to a client or attach to a ticket.",
   alternates: { canonical: new URL("/audit", SITE_URL).toString() },
