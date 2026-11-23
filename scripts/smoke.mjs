@@ -56,6 +56,8 @@ const checks = [
   { path: "/", status: 200, contains: 'property="og:type"' },
   { path: "/", status: 200, contains: "summary_large_image" },
   { path: "/og.png", status: 200 },
+  { path: "/api/og/cve/CVE-2024-4577", status: 200 },
+  { path: "/api/og/cve/not-a-cve", status: 400 },
   { path: "/api/check", status: 400, json: (b) => b.code === "missing_version" },
   { path: "/api/check?v=8.1", status: 400, json: (b) => b.code === "invalid_version" },
   { path: "/api/health", status: 200, json: (b) => (b.status === "ok" || b.status === "degraded") && Array.isArray(b.sources) },

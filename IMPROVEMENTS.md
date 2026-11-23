@@ -140,6 +140,12 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 - Tightened a few titles and meta descriptions that were over the usual 65 / 160 character limits (including `/check/{version}` and `/cve/{id}` title templates). Visible headings were left unchanged.
 - Tests: `parseNvdCve` still returns null when a PHP-looking NVD record has no ranges; featured list must not include `CVE-2024-2756`. Smoke checks robots.txt, `/audit` in the sitemap, that `CVE-2024-2756` is absent, and that `/` and `/audit` emit a canonical link.
 
+## 2026-11-23 — Per-CVE share images for `/cve/{id}` (queued idea)
+- New `GET /api/og/cve/{id}` returns a 1200×630 PNG (`next/og`) with the CVE id, NVD severity and score, a CISA KEV "Exploited in the wild" tag when listed, and fixed PHP versions (max 4, then "+N more"). Values come from the same dataset the CVE page uses; nothing is invented (unrated CVEs show "Unrated", no fix range shows "see official references").
+- `/cve/{id}` metadata now points `og:image` and `twitter:image` at that card, so links shared on X/Slack/LinkedIn show the real risk at a glance. Other pages keep `/og.png`.
+- Invalid ids return 400; unknown ids a neutral card with 404; data outages a neutral card (short cache) so previews never break. Rate limited like the badge API.
+- `src/lib/cve-og.ts` with unit tests; smoke checks added for a valid and an invalid id.
+
 ## Ideas queue (not done yet)
 
 - ~~CI linting: GitHub Actions for lint, typecheck, test, build~~ Done 2026-10-25 (Raghav added `ci.yml`).
