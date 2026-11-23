@@ -39,6 +39,7 @@ export function buildLlmsTxt(): string {
     `- [Security headers](${url("/headers")}): one public URL, response headers only, SSRF protections.`,
     `- [Docker / PHP](${url("/docker")}): official image tags via docker-library/php versions.json, plus a local Dockerfile text review. Images are not pulled.`,
     `- [Password hashing](${url("/password-hashing")}): compare a hash string with PHP's password API recommendations.`,
+    `- [Status widget](${url("/widget")}): embeddable SVG card of PHP branch support status (active, security-only, EOL) from php.net, at /api/widget/php-status, with copy-paste HTML and Markdown snippets.`,
     `- [How it works](${url("/how-it-works")}): matching rules, trusted sources and outage behaviour.`,
     `- [About](${url("/about")}): scope and disclaimer.`,
     "",

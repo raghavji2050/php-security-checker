@@ -54,6 +54,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Docs",
     links: [
       { href: "/how-it-works", label: "How it works" },
+      { href: "/widget", label: "Status widget" },
       { href: "/about", label: "About" },
     ],
   },
