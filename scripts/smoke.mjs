@@ -28,6 +28,8 @@ const checks = [
   { path: "/symfony/check/7.4.0", status: 200, contains: "Symfony 7.4.0 security check" },
   { path: "/wordpress", status: 200, contains: "WordPress core check" },
   { path: "/headers", status: 200, contains: "Security headers checker" },
+  { path: "/widget", status: 200, contains: "PHP support status widget" },
+  { path: "/api/widget/php-status", status: 200, contains: "PHP support status" },
   { path: "/docker", status: 200, contains: "Docker / PHP image check" },
   { path: "/.well-known/security.txt", status: 200, contains: "Contact:" },
   { path: "/8.1.12", status: 308, location: "/check/8.1.12" },
