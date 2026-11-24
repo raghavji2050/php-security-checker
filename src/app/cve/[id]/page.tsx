@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toExplorerRow, type ExplorerRow } from "@/lib/cve-explorer";
+import { cveOgPath } from "@/lib/cve-og";
 import { cveFaq, fixRows, isAffected, normalizeCveId, pickRanges, type FixRow, type RangeSource } from "@/lib/cve-page";
 import { DataUnavailableError, loadDataset } from "@/lib/dataset";
 import { EPSS_PAGE, formatPercentile, formatProbability, lookupEpss, type EpssLookup } from "@/lib/epss";
@@ -74,6 +75,15 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       ? `Check if your PHP version is affected by ${id}. Fixed in PHP ${fixed.slice(0, 4).join(", ")}, per official data.`
       : `Check if your PHP version is affected by ${id}, with affected ranges from official NVD and php.net data.`,
     alternates: { canonical },
+    // Per-CVE share card (severity, KEV, fixed versions). Repeats the layout's
+    // openGraph fields because a child openGraph object replaces the parent's.
+    openGraph: {
+      siteName: "PHP Security Checker",
+      type: "article",
+      url: canonical,
+      images: [{ url: cveOgPath(id), width: 1200, height: 630, alt: `${id} severity and fixed PHP versions` }],
+    },
+    twitter: { card: "summary_large_image", images: [cveOgPath(id)] },
   };
 }
 
