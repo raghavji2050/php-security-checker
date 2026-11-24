@@ -148,3 +148,7 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 ## 2026-10-25 — Fix CI lint (react-hooks/set-state-in-effect)
 - Recent-history list in `checker.tsx` now reads localStorage via `useSyncExternalStore` (server snapshot = empty list, so no hydration mismatch; syncs across tabs via `storage` events) instead of `setState` inside `useEffect`.
 - `npm ci`, lint, tests and build pass locally; GitHub Actions CI green on the PR.
+
+## 2026-11-24 — Dev dependency security: minimatch GHSA-g3hv-75wg-m249
+- Bumped transitive `typescript-eslint` / `@typescript-eslint/typescript-estree` 8.72.2 → 8.74.0 (lockfile only), which pulls `minimatch` 11.0.9 instead of the vulnerable 10.2.6 (advisory range >= 7.0.0, < 11.0.1, medium, ReDoS-style DoS via globparts amplification). Dev/lint-only dependency; no runtime change.
+- `npm audit`: 0 vulnerabilities. Lint, tsc, unit tests, build and local smoke (53/53) pass.
