@@ -38,6 +38,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/audit", label: "Server audit summary" },
       { href: "/laravel", label: "Laravel" },
       { href: "/symfony", label: "Symfony" },
+      { href: "/framework-cves", label: "Framework CVE feed" },
       { href: "/wordpress", label: "WordPress core" },
       { href: "/headers", label: "Security headers" },
       { href: "/docker", label: "Docker / PHP" },

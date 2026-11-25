@@ -22,6 +22,7 @@ const PAGES = [
   "/audit",
   "/laravel",
   "/symfony",
+  "/framework-cves",
   "/wordpress",
   "/headers",
   "/docker",
@@ -47,7 +48,7 @@ async function versionPages(): Promise<string[]> {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const pages = PAGES.map((path) => ({
     url: new URL(path, SITE_URL).toString(),
-    changeFrequency: (path === "/" || path === "/vulnerabilities" || path === "/news" ? "daily" : "weekly") as "daily" | "weekly",
+    changeFrequency: (path === "/" || path === "/vulnerabilities" || path === "/news" || path === "/framework-cves" ? "daily" : "weekly") as "daily" | "weekly",
     priority: path === "/" ? 1 : 0.7,
   }));
   const checks = (await versionPages()).map((path) => ({

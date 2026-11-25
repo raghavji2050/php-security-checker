@@ -121,3 +121,70 @@ Sources checked 8 Nov 2026 (IST). No code changed. Compared with the 1 Nov 2026 
 - **Embeddable "PHP support status" widget (small iframe/SVG for blogs and hosting docs)** — every embed is a backlink and a returning-visitor source, using php.net data only.
 - **Dynamic OG share images per /cve/{id} (severity, KEV/EPSS, fixed versions via next/og)** — CVE links look better on X/LinkedIn/Slack, so click-through goes up.
 - **Open data JSON at /data/php-cves.json (NVD-attributed, cached, with update time)** — devs and bloggers can use it and cite the site, which earns links.
+
+### 2026-11-14 — Evening update ideas
+- **Weekly Search Console review: top queries/pages from GSC, then tune titles and FAQs for those queries** — free, uses his real data, shows which pages deserve work while features are paused.
+- **/changelog page generated from IMPROVEMENTS.md (shipped features with dates)** — fresh crawlable content and a trust signal for visitors.
+- **Draft (unposted) listings for free PHP/security directories and awesome-php-style lists** — backlinks; text goes to Raghav for approval, nothing is submitted by me.
+
+## 2026-11-15 — Weekly competitor check (IST, no code changed)
+- New: phpscientist/php-security-check (GitHub created 9 Nov, v0.2.1 on Packagist 10 Nov 2026): CLI/Action for php.ini, PHP version/EOL, Composer and Laravel/Symfony/WordPress config checks, MIT, 0 stars so far: https://packagist.org/packages/phpscientist/php-security-check
+- voku/php-runtime-audit (created 25 Oct): local /proc runtime evidence for PHP2Shell CVEs: https://github.com/voku/php-runtime-audit
+- Enlightn/signify checkers: no change. 
+- Trends: Laravel signed-URL expiry bypass GHSA-v5ch-g375-82r6 (11 Nov, moderate 4.8, fixed 12.72.0 / 13.41.0); Symfony 5.4.56/6.4.50/7.4.23/8.1.11 security release (4-6 Nov, many CVEs e.g. CVE-2026-118516): https://symfony.com/blog/cve-2026-118516-host-placeholders-can-match-the-start-of-the-path-in-compiled-url-matchers-bypassing-path-rules ; Laskyr tracks PHP package CVEs: https://laskyr.com/php-packages/vulnerabilities
+- Ideas: (1) "Framework CVE feed" page for Laravel/Symfony from Packagist advisories (extends /symfony, Laravel checker); (2) 8.6.0 GA page on 19 Nov (already queued).
+
+### 2026-11-15 — Evening update ideas
+## Queued (auto-approved)
+- **/security.txt + /.well-known/security.txt for the checker itself** — free trust signal, shows the site follows the practices it preaches.
+- **Per-branch "upgrade urgency" score on /php-versions (days to EOL + open CVE count, official data)** — gives a one-glance answer on which branch to move first.
+- ~~**Laravel/Symfony framework CVE feed page (Packagist advisories)**~~ Done 2026-11-25 (`/framework-cves`). — fresh crawlable content for his main stack, earns returning visitors.
+
+### 2026-11-16 — Evening update ideas
+## Queued (auto-approved)
+- **"Copy as .env-safe checklist": downloadable hardening checklist (Markdown) from /audit results** — gives freelancers a client handoff file, no secrets involved.
+- **/glossary page (CVSS, KEV, EPSS, backport, EOL) in plain words** — long-tail SEO and AEO answers, written from official definitions.
+- **Status badge for "latest PHP release per branch" (SVG)** — READMEs embed it, each one a backlink using php.net data.
+
+### 2026-11-17 — Evening update ideas
+## Queued (auto-approved)
+- **"Hosting PHP version" lookup page: major hosts' default PHP versions from their official docs, flagged vs EOL** — helps freelancers see whether a host is behind, useful long-tail SEO.
+- **Email-free "copy shareable result link" on /check (version in URL, with OG preview)** — easy sharing in team chats, more returning traffic.
+- **Self-check page showing site's own security headers (CSP, HSTS) live** — trust signal; only scans its own site.
+
+### 2026-11-20 — Evening update ideas
+## Queued (auto-approved)
+- **"Is my PHP patch current?" one-box check on homepage (paste version → latest patch in branch, official php.net data)** — fastest answer for visitors, better engagement.
+- **Per-CVE "how to check logs" tips on /cve pages (generic, no scanning)** — practical value, helps AEO snippets.
+- **RSS/Atom feed of new PHP releases and security fixes (php.net data)** — returning readers, feed-directory backlinks.
+
+### 2026-11-21 — Evening update ideas
+## Queued (auto-approved)
+- **Composer "platform php" mismatch checker: paste composer.json require.php, shows which supported/EOL branches it allows** — catches silent EOL constraints, client-audit useful.
+- **Changelog page "What changed this week" from php.net release data** — fresh weekly content, SEO and returning visitors.
+- **Print/PDF-friendly /audit report layout** — freelancers hand it to clients, free shareable proof.
+
+## 2026-11-22 — Weekly competitor check (IST, no code changed)
+- New: Insignary insignary-chk (free Linux x86_64 CLI scanner for PHP2Shell CVE-2026-109618/109619 + Node2Shell, announced 4-6 Nov 2026): https://www.globenewswire.com/news-release/2026/11/06/3397466/0/en/insignary-releases-free-insignary-chk-tool-to-detect-php2shell-and-node2shell-exposure.html
+- New: SmartScanner 3.1 added PHP2Shell detection (4 Nov): https://www.thesmartscanner.com/blog/introducing-version-3-1-mcp-security-testing-and-php2shell-detection
+- Trend: PHP 19 Nov security release (8.5.13/8.4.28/8.3.37/8.2.36, 18 CVEs, FPM smuggling CVE-2026-129289 CVSS 9.2): https://www.bleepingcomputer.com/news/security/php-security-updates-fix-18-flaws-including-critical-rce-bugs/
+- Other competitors: not re-checked this week (no change found).
+- Ideas: (1) "Am I patched for 19 Nov release?" landing page (patch-level check + mitigations list from php.net/AWS bulletin https://aws.amazon.com/security/security-bulletins/2026-190-aws/); (2) PHP-FPM connection-reuse self-check guide page (nginx/Apache config snippets).
+
+### 2026-11-22 — Evening update ideas
+## Queued (auto-approved)
+- **"Am I patched for the 19 Nov PHP release?" page (patch-level check + official mitigations)** — timely search intent after 18-CVE release.
+- **PHP-FPM hardening guide page (nginx/Apache snippets, php.net data)** — practical, long-tail SEO for the FPM smuggling issue.
+- **"Known exploited" (CISA KEV) badge on /cve pages** — helps prioritise what to patch first, official data.
+
+### 2026-11-23 — Evening update ideas
+## Queued (auto-approved)
+- **"Copy badge/embed" button on every /check/{version} page (reuses new widget)** — spreads backlinks from users' READMEs and blogs.
+- **PHP framework-vs-PHP compatibility matrix (Laravel/Symfony supported PHP versions, official docs)** — answers a common upgrade question, long-tail SEO.
+- **Weekly "PHP security digest" public page auto-built from php.net + NVD** — fresh content each week, returning visitors.
+
+### 2026-11-24 — Evening update ideas
+## Queued (auto-approved)
+- **PHP upgrade path page (e.g. /upgrade/7.4-to-8.3): step-by-step branch hops linking each official php.net migration guide** — answers "how do I upgrade" searches, natural next step after an EOL result.
+- **Deprecated/removed function lookup (type a function, see which PHP version deprecated or removed it, linking php.net manual)** — quick fix help during upgrades, long-tail SEO.
+- **Drupal core support/security status checker (official drupal.org release history data)** — same hub pattern as WordPress/Symfony, new PHP audience.

@@ -21,6 +21,7 @@ export function buildLlmsTxt(): string {
     `- [Vulnerabilities](${url("/vulnerabilities")}): searchable list of PHP runtime CVEs.`,
     `- [CVE explorer](${url("/cves")}): every PHP interpreter CVE from NVD with search, filters by year, severity and affected branch (URL params q, year, severity, branch), plus per-year and severity charts.`,
     `- [Security news](${url("/news")}): headlines and links from official PHP, Laravel, WordPress and LAMP-stack feeds and APIs (filter with ?source=). We do not republish articles.`,
+    `- [Framework CVE feed](${url("/framework-cves")}): newest Packagist security advisories for laravel/framework, livewire/livewire and symfony/symfony with severity, affected ranges, CVE links and composer update commands (filter with ?framework=laravel or symfony).`,
     `- [Am I affected? CVE pages](${url("/cve/CVE-2024-4577")}): /cve/{CVE-ID} for any PHP CVE in NVD, with a branch-wise fixed version table from NVD/php.net ranges and a version check (?v=X.Y.Z).`,
     `- [Versions](${url("/versions")}): PHP branches and their support status.`,
     `- [php -v parser](${url("/php-v")}): paste php -v output (parsed in the browser) to get the exact version, distro package suffix, SAPI and thread safety, then the CVE check for that version.`,

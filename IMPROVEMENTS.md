@@ -158,3 +158,9 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 ## 2026-11-24 — Dev dependency security: minimatch GHSA-g3hv-75wg-m249
 - Bumped transitive `typescript-eslint` / `@typescript-eslint/typescript-estree` 8.72.2 → 8.74.0 (lockfile only), which pulls `minimatch` 11.0.9 instead of the vulnerable 10.2.6 (advisory range >= 7.0.0, < 11.0.1, medium, ReDoS-style DoS via globparts amplification). Dev/lint-only dependency; no runtime change.
 - `npm audit`: 0 vulnerabilities. Lint, tsc, unit tests, build and local smoke (53/53) pass.
+
+## 2026-11-25 — Laravel/Symfony framework CVE feed (`/framework-cves`, queued idea)
+- New `/framework-cves` page: newest-first Packagist security advisories for `laravel/framework`, `livewire/livewire` and `symfony/symfony`, with severity (only when the source gives one), affected ranges, CVE link to NVD, advisory id, IST date and the `composer update` command. Filter with `?framework=laravel` or `?framework=symfony`.
+- Reuses the cached `loadAdvisoriesForPackages` loader (1 h TTL, stale fallback with a warning); outage shows a friendly message, never an empty "no advisories" claim. Non-https links and malformed CVE ids are dropped; duplicates removed.
+- `src/lib/framework-feed.ts` with unit tests; nav (Tools), sitemap (daily), llms.txt and a smoke check added.
+- The "upgrade urgency" queued idea is already covered by the branch risk scorecard on `/php-versions` (2026-11-11). Next: `/glossary`.
