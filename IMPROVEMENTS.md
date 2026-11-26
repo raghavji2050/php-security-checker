@@ -158,3 +158,9 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 ## 2026-11-24 — Dev dependency security: minimatch GHSA-g3hv-75wg-m249
 - Bumped transitive `typescript-eslint` / `@typescript-eslint/typescript-estree` 8.72.2 → 8.74.0 (lockfile only), which pulls `minimatch` 11.0.9 instead of the vulnerable 10.2.6 (advisory range >= 7.0.0, < 11.0.1, medium, ReDoS-style DoS via globparts amplification). Dev/lint-only dependency; no runtime change.
 - `npm audit`: 0 vulnerabilities. Lint, tsc, unit tests, build and local smoke (53/53) pass.
+
+## 2026-11-26 — `/glossary` plain-language security terms (queued idea)
+- New `/glossary` page: 14 terms (CVE, NVD, CVSS, severity rating, KEV, EPSS, GHSA, EOL, active support, security-only support, backport, patch release, CPE, supply-chain attack). Each has a plain definition, an "In practice" line for PHP developers, a link to the official source (cve.org, NIST NVD, FIRST, CISA, GitHub, php.net, Debian, Composer) and a link to the related page on this site. Written in our own words; no copied text.
+- `DefinedTermSet` JSON-LD with per-term anchors (`/glossary#kev`) for search and answer engines. Added to the Docs nav, sitemap, llms.txt and smoke checks.
+- `src/lib/glossary.ts` with unit tests (unique ids, https sources, internal links must exist in nav, JSON-LD shape).
+- Built independently of the open `/framework-cves` PR (#51). Next: the oldest remaining queued idea in SUGGESTIONS.md.

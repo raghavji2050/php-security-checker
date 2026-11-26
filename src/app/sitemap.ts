@@ -27,6 +27,7 @@ const PAGES = [
   "/docker",
   "/password-hashing",
   "/widget",
+  "/glossary",
   "/about",
 ];
 
