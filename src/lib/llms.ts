@@ -40,6 +40,7 @@ export function buildLlmsTxt(): string {
     `- [Docker / PHP](${url("/docker")}): official image tags via docker-library/php versions.json, plus a local Dockerfile text review. Images are not pulled.`,
     `- [Password hashing](${url("/password-hashing")}): compare a hash string with PHP's password API recommendations.`,
     `- [Status widget](${url("/widget")}): embeddable SVG card of PHP branch support status (active, security-only, EOL) from php.net, at /api/widget/php-status, with copy-paste HTML and Markdown snippets.`,
+    `- [Glossary](${url("/glossary")}): plain-language meanings of CVE, NVD, CVSS, KEV, EPSS, GHSA, EOL, backport and related terms, each linked to its official source.`,
     `- [How it works](${url("/how-it-works")}): matching rules, trusted sources and outage behaviour.`,
     `- [About](${url("/about")}): scope and disclaimer.`,
     "",
