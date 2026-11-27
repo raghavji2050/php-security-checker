@@ -31,7 +31,7 @@ Sources checked 1 Nov 2026 (IST). No code changed.
 
 **New ideas:**
 - **"Check by URL" mode (non-intrusive header read of X-Powered-By, clearly labelled "advertised version only, backports not detectable")**: every new competitor offers it, and it feeds straight into our existing per-version report.
-- **"PHP 8.2 EOL on 31 Dec 2026" countdown banner + upgrade guide page**: it's a timely search spike over the next 2 months, and it fits the planned EOL timeline feature.
+- ~~**"PHP 8.2 EOL on 31 Dec 2026" countdown banner + upgrade guide page**: it's a timely search spike over the next 2 months, and it fits the planned EOL timeline feature.~~ Done 2026-11-27 (`/php-eol`, evergreen countdown from php.net data)
 
 ## 2026-11-01 — Evening update ideas
 - **Public status page (`/status`) built on `/api/health`, showing per-source freshness (NVD, php.net, GitHub advisories)** — builds trust, since users can see the data is current, and it reuses today's work.
