@@ -3,11 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cacheLife } from "next/cache";
 import { Suspense } from "react";
+import { CopyMarkdownButton } from "@/components/copy-markdown-button";
 import { FaqSection } from "@/components/faq-section";
 import { ResultsDashboard } from "@/components/results-dashboard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { checkVersion } from "@/lib/check";
 import { DataUnavailableError } from "@/lib/dataset";
+import { badgeSnippets } from "@/lib/github-action";
 import { versionFaq } from "@/lib/page-faq";
 import { SITE_URL } from "@/lib/site";
 import type { CheckResult } from "@/lib/types";
@@ -109,6 +111,7 @@ async function Report({ params }: Params) {
           <div className="mt-8">
             <ResultsDashboard result={loaded.result} />
           </div>
+          <ReadmeBadge version={loaded.result.version} />
           <div className="mt-10">
             <FaqSection items={versionFaq(loaded.result)} />
           </div>
@@ -122,5 +125,21 @@ async function Report({ params }: Params) {
         Check another version on the <Link className="underline" href="/">homepage</Link>.
       </p>
     </main>
+  );
+}
+
+function ReadmeBadge({ version }: { version: string }) {
+  const snippets = badgeSnippets(version, SITE_URL);
+  if (!snippets) return null;
+  return (
+    <section className="mt-8 flex flex-wrap items-center gap-3 rounded-lg border bg-muted/30 p-4 text-sm" aria-label="README badge">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={`/api/badge?v=${version}`} alt={`PHP ${version} security status`} height={20} />
+      <span className="text-muted-foreground">Show this status in your README, or block it in CI with the</span>
+      <Link className="underline" href="/github-action">free GitHub Action</Link>
+      <span className="ml-auto">
+        <CopyMarkdownButton markdown={snippets.markdown} label="Copy README badge" testId="copy-readme-badge" />
+      </span>
+    </section>
   );
 }

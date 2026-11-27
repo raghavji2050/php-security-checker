@@ -5,7 +5,15 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 /** Copies a ready-made Markdown report (GitHub issue / PR / Jira friendly). */
-export function CopyMarkdownButton({ markdown, label = "Copy as Markdown" }: { markdown: string; label?: string }) {
+export function CopyMarkdownButton({
+  markdown,
+  label = "Copy as Markdown",
+  testId = "copy-markdown",
+}: {
+  markdown: string;
+  label?: string;
+  testId?: string;
+}) {
   const [copied, setCopied] = useState(false);
   async function copy() {
     try {
@@ -17,7 +25,7 @@ export function CopyMarkdownButton({ markdown, label = "Copy as Markdown" }: { m
     }
   }
   return (
-    <Button type="button" variant="outline" onClick={() => void copy()} data-testid="copy-markdown">
+    <Button type="button" variant="outline" onClick={() => void copy()} data-testid={testId}>
       {copied ? <Check /> : <Copy />}
       {copied ? "Copied" : label}
     </Button>
