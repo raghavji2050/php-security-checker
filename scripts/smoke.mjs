@@ -29,6 +29,8 @@ const checks = [
   { path: "/wordpress", status: 200, contains: "WordPress core check" },
   { path: "/headers", status: 200, contains: "Security headers checker" },
   { path: "/widget", status: 200, contains: "PHP support status widget" },
+  { path: "/github-action", status: 200, contains: "php-security-check.yml" },
+  { path: "/github-action/check.mjs", status: 200, contains: "php-security-checker-action" },
   { path: "/api/widget/php-status", status: 200, contains: "PHP support status" },
   { path: "/docker", status: 200, contains: "Docker / PHP image check" },
   { path: "/.well-known/security.txt", status: 200, contains: "Contact:" },

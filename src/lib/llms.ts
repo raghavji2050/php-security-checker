@@ -40,6 +40,7 @@ export function buildLlmsTxt(): string {
     `- [Docker / PHP](${url("/docker")}): official image tags via docker-library/php versions.json, plus a local Dockerfile text review. Images are not pulled.`,
     `- [Password hashing](${url("/password-hashing")}): compare a hash string with PHP's password API recommendations.`,
     `- [Status widget](${url("/widget")}): embeddable SVG card of PHP branch support status (active, security-only, EOL) from php.net, at /api/widget/php-status, with copy-paste HTML and Markdown snippets.`,
+    `- [GitHub Action + README badge](${url("/github-action")}): copy-paste GitHub Actions workflow that fails CI on a vulnerable or end-of-life PHP version or vulnerable composer.lock packages and posts exact fix commands as a PR comment, plus a README security badge (/api/badge?v=X.Y.Z).`,
     `- [How it works](${url("/how-it-works")}): matching rules, trusted sources and outage behaviour.`,
     `- [About](${url("/about")}): scope and disclaimer.`,
     "",

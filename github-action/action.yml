@@ -1,0 +1,51 @@
+name: PHP Security Checker
+description: Fail CI on a vulnerable or end-of-life PHP version or vulnerable composer.lock packages, with exact fix commands in a PR comment.
+author: raghavji2050
+branding:
+  icon: shield
+  color: purple
+inputs:
+  php-version:
+    description: Exact PHP version (X.Y.Z). Falls back to .php-version, composer.json config.platform.php / require.php, then the runner's php.
+    required: false
+    default: ""
+  composer-lock:
+    description: Path to composer.lock. Only name@version pairs are sent, never the file.
+    required: false
+    default: composer.lock
+  fail-on:
+    description: "When to fail: any (default), critical, kev (CISA actively exploited), or eol."
+    required: false
+    default: any
+  comment-on-pr:
+    description: Post or update one PR comment with the report and fix commands.
+    required: false
+    default: "true"
+  api-base:
+    description: PHP Security Checker base URL.
+    required: false
+    default: https://php-security-checker.vercel.app
+  github-token:
+    description: Token used to write the PR comment (needs pull-requests write).
+    required: false
+    default: ${{ github.token }}
+outputs:
+  status:
+    description: passed or failed
+    value: ${{ steps.check.outputs.status }}
+  report-path:
+    description: Path of the Markdown report
+    value: ${{ steps.check.outputs.report-path }}
+runs:
+  using: composite
+  steps:
+    - id: check
+      shell: bash
+      run: node "${{ github.action_path }}/check.mjs"
+      env:
+        PSC_PHP_VERSION: ${{ inputs.php-version }}
+        PSC_COMPOSER_LOCK: ${{ inputs.composer-lock }}
+        PSC_FAIL_ON: ${{ inputs.fail-on }}
+        PSC_COMMENT_ON_PR: ${{ inputs.comment-on-pr }}
+        PSC_API_BASE: ${{ inputs.api-base }}
+        PSC_GITHUB_TOKEN: ${{ inputs.github-token }}
