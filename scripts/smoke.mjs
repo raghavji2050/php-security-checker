@@ -16,6 +16,7 @@ const checks = [
   { path: "/changes", status: 200, contains: "What changed between two PHP versions" },
   { path: "/php-versions", status: 200, contains: "PHP versions support timeline" },
   { path: "/php-versions", status: 200, contains: "Branch risk scorecard" },
+  { path: "/php-eol", status: 200, contains: "PHP end-of-life countdown" },
   { path: "/cves", status: 200, contains: "PHP CVE explorer" },
   { path: "/news", status: 200, contains: "PHP security news" },
   { path: "/composer", status: 200, contains: "composer.lock scanner" },

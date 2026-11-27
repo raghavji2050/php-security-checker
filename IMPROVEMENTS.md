@@ -158,3 +158,9 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 ## 2026-11-24 — Dev dependency security: minimatch GHSA-g3hv-75wg-m249
 - Bumped transitive `typescript-eslint` / `@typescript-eslint/typescript-estree` 8.72.2 → 8.74.0 (lockfile only), which pulls `minimatch` 11.0.9 instead of the vulnerable 10.2.6 (advisory range >= 7.0.0, < 11.0.1, medium, ReDoS-style DoS via globparts amplification). Dev/lint-only dependency; no runtime change.
 - `npm audit`: 0 vulnerabilities. Lint, tsc, unit tests, build and local smoke (53/53) pass.
+
+## 2026-11-27 — `/php-eol` PHP end-of-life countdown
+- New page `/php-eol`: one card per PHP branch whose php.net security support ends within ~400 days (or ended in the last 60), with days left, end date, last patch (links to `/check/{version}`), the php.net migration guide for the next branch, and a link to the `require.php` constraint checker. Shows the newest supported branch as the move-to target and a short "before you upgrade" checklist.
+- Data only from the existing php.net branch catalog (no hard-coded dates, no new upstream). Branches without a published end date are left out rather than guessed. Distro backport caveat shown.
+- Logic in `src/lib/eol-countdown.ts` with tests (`src/lib/eol-countdown.test.ts`, synthetic fixtures). Nav (Version → EOL countdown), sitemap, llms.txt and smoke test updated.
+- Idea from SUGGESTIONS.md ("PHP 8.2 EOL countdown + upgrade guide"), built evergreen so it rolls on to the next branch after 31 Dec.

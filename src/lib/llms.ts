@@ -28,6 +28,7 @@ export function buildLlmsTxt(): string {
     `- [Support calendar](${url("/php-versions/calendar.ics")}): iCalendar (.ics) of upcoming PHP active/security support end dates from php.net.`,
     `- [What changed](${url("/changes?from=8.3.10&to=8.3.14")}): security IDs (CVE/GHSA) the php.net ChangeLog lists for each release between two patch versions on one branch.`,
     `- [PHP versions timeline](${url("/php-versions")}): visual support timeline per PHP branch (release, active support, security-only, end of life) from php.net data.`,
+    `- [PHP end-of-life countdown](${url("/php-eol")}): days left until each PHP branch loses php.net security support, with the branch to move to and php.net migration guides.`,
     `- [require.php constraint checker](${url("/composer/php-constraint")}): paste the composer.json "php" constraint (e.g. ^8.1) to see which php.net branches it allows and whether any are end of life.`,
     `- [composer.lock scanner](${url("/composer")}): paste or upload a composer.lock (parsed in the browser); checks locked name@version against the Packagist security advisories API. POST /api/composer-advisories accepts only the package map, never the raw lock.`,
     `- [php.ini audit](${url("/php-ini")}): paste or upload php.ini. Parsed in the browser. Findings explain current vs recommended, with cases where a stricter setting would break an app.`,

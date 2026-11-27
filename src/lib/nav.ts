@@ -15,6 +15,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/", label: "Check a version" },
       { href: "/php-v", label: "Paste php -v" },
       { href: "/php-versions", label: "Support timeline" },
+      { href: "/php-eol", label: "EOL countdown" },
       { href: "/versions", label: "Branch table" },
       { href: "/changes", label: "What changed" },
     ],
