@@ -158,3 +158,8 @@ Next new feature: Playwright (9/13). Do not rebuild the badge, homepage, Docker 
 ## 2026-11-24 — Dev dependency security: minimatch GHSA-g3hv-75wg-m249
 - Bumped transitive `typescript-eslint` / `@typescript-eslint/typescript-estree` 8.72.2 → 8.74.0 (lockfile only), which pulls `minimatch` 11.0.9 instead of the vulnerable 10.2.6 (advisory range >= 7.0.0, < 11.0.1, medium, ReDoS-style DoS via globparts amplification). Dev/lint-only dependency; no runtime change.
 - `npm audit`: 0 vulnerabilities. Lint, tsc, unit tests, build and local smoke (53/53) pass.
+
+## 2026-11-28 — Open data JSON at `/data/php-cves.json`
+- New cached route (`use cache`, hours) returning every PHP interpreter CVE from the existing NVD dataset as stable, documented JSON: `schemaVersion`, `lastDataUpdate`, `stale`, per-field docs, NVD attribution notice and source URL, and per-CVE `url` (our `/cve/{id}` page) plus `nvdUrl`. CORS open, 503 with Retry-After when data is unavailable. No new upstream calls and no new data source.
+- Linked from `/cves`; smoke check added. Logic in `src/lib/open-data.ts` with unit tests (`src/lib/open-data.test.ts`).
+- Picked from SUGGESTIONS.md queue (2026-11-12 idea). Built independently of open PRs #51, #52, #54, #55 (no nav/sitemap/llms changes) to avoid conflicts.

@@ -94,7 +94,8 @@ export default function CvesPage({ searchParams }: { searchParams: SearchParams 
       </p>
       <p className="mt-3 text-sm">
         Follow new CVEs: <a className="underline" href="/feeds/all.xml">Atom feed</a> (all branches) or per branch, e.g.{" "}
-        <a className="font-mono underline" href="/feeds/8.3.xml">/feeds/8.3.xml</a>.
+        <a className="font-mono underline" href="/feeds/8.3.xml">/feeds/8.3.xml</a>. Reuse the data:{" "}
+        <a className="font-mono underline" href="/data/php-cves.json">/data/php-cves.json</a> (open JSON, NVD-attributed).
       </p>
       <p className="mt-3 text-sm" data-testid="featured-cves">
         <span className="font-medium">Featured:</span>{" "}

@@ -120,4 +120,4 @@ Sources checked 8 Nov 2026 (IST). No code changed. Compared with the 1 Nov 2026 
 ### 2026-11-12 — Evening update ideas
 - **Embeddable "PHP support status" widget (small iframe/SVG for blogs and hosting docs)** — every embed is a backlink and a returning-visitor source, using php.net data only.
 - **Dynamic OG share images per /cve/{id} (severity, KEV/EPSS, fixed versions via next/og)** — CVE links look better on X/LinkedIn/Slack, so click-through goes up.
-- **Open data JSON at /data/php-cves.json (NVD-attributed, cached, with update time)** — devs and bloggers can use it and cite the site, which earns links.
+- ~~**Open data JSON at /data/php-cves.json (NVD-attributed, cached, with update time)** — devs and bloggers can use it and cite the site, which earns links.~~ Done 2026-11-28
