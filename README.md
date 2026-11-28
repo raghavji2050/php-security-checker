@@ -10,7 +10,7 @@ Next.js (App Router, TypeScript, Tailwind) with server-rendered pages and route 
 
 | Layer | Where | Notes |
 | --- | --- | --- |
-| Pages | `src/app` | Home checker, `/check/[version]` (server-rendered, shareable, in the sitemap), `/vulnerabilities`, `/cves`, `/news`, `/versions`, `/php-versions`, `/composer`, `/php-ini`, `/extensions`, `/laravel`, `/wordpress`, `/headers`, `/docker`, `/password-hashing`, `/how-it-works`, `/about`, branded 404 and error pages. |
+| Pages | `src/app` | Home checker, `/check/[version]` (server-rendered, shareable, in the sitemap), `/vulnerabilities`, `/cves`, `/news`, `/versions`, `/php-versions`, `/composer`, `/php-ini`, `/extensions`, `/laravel`, `/wordpress`, `/headers`, `/docker`, `/password-hashing`, `/code-scan`, `/how-it-works`, `/about`, branded 404 and error pages. |
 | API | `src/app/api` | Route handlers listed below, with CORS and JSON errors (`src/lib/api.ts`). |
 | Data loading | `src/lib/dataset.ts`, `nvd.ts`, `php-releases.ts`, `changelog.ts`, `advisories.ts` | Fetches NVD CVE 2.0, php.net releases/branches/ChangeLog and GitHub php/php-src advisories, with retries and a total time budget (`src/lib/http.ts`). |
 | Matching | `src/lib/version.ts`, `ranges.ts`, `evaluate.ts`, `check.ts`, `rce.ts`, `upgrade.ts`, `lifecycle.ts` | Numeric version parsing, range evaluation, source agreement, RCE classification and upgrade path. |
