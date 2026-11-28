@@ -16,6 +16,7 @@ describe("llms.txt and FAQ structured data", () => {
     expect(text).toContain("/api/badge?v=8.3.12");
     expect(text).toContain("/api/widget/php-status");
     expect(text).toContain("/github-action");
+    expect(text).toContain("/code-scan");
   });
 
   it("builds a FAQPage with question and answer text", () => {

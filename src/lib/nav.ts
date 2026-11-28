@@ -42,6 +42,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/headers", label: "Security headers" },
       { href: "/docker", label: "Docker / PHP" },
       { href: "/password-hashing", label: "Password hashing" },
+      { href: "/code-scan", label: "Code scan" },
     ],
   },
   {

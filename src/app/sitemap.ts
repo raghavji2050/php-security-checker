@@ -26,6 +26,7 @@ const PAGES = [
   "/headers",
   "/docker",
   "/password-hashing",
+  "/code-scan",
   "/widget",
   "/github-action",
   "/about",
