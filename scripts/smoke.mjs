@@ -33,6 +33,7 @@ const checks = [
   { path: "/github-action/check.mjs", status: 200, contains: "php-security-checker-action" },
   { path: "/api/widget/php-status", status: 200, contains: "PHP support status" },
   { path: "/docker", status: 200, contains: "Docker / PHP image check" },
+  { path: "/data/php-cves.json", status: 200, json: (b) => b.schemaVersion === 1 && Array.isArray(b.cves) && b.cves.length > 0 },
   { path: "/.well-known/security.txt", status: 200, contains: "Contact:" },
   { path: "/8.1.12", status: 308, location: "/check/8.1.12" },
   { path: "/api/badge?v=nope", status: 400, contains: "invalid version" },
